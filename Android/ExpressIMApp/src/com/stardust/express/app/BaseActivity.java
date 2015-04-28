@@ -45,4 +45,5 @@ public abstract class BaseActivity extends ActionBarActivity {
                 || keyCode == KeyEvent.KEYCODE_HOME
                 || super.onKeyDown(keyCode, event);
     }
+    
 }

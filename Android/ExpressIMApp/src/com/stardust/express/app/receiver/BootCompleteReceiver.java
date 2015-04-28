@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.stardust.express.activity.LoginActivity;
+import com.stardust.express.app.activity.LoginActivity;
 
 /**
  * Created by Gyb on 2015/4/27.

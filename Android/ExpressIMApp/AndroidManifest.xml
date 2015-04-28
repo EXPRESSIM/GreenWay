@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.stardust.express.app">
 
-    <uses-sdk android:maxSdkVersion="22"
-              android:minSdkVersion="22"
-              android:targetSdkVersion="22"/>
+    <uses-sdk android:maxSdkVersion="19"
+              android:minSdkVersion="19"
+              android:targetSdkVersion="19"/>
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
@@ -30,6 +30,8 @@
         <activity android:name=".activity.UserListActivity"
                   android:label="用户列表"/>
 
+        <activity android:name=".activity.SendInformationActivity"
+                  android:label="发布信息"/>
 
         <receiver android:name=".receiver.BootCompleteReceiver"
                   android:enabled="true"
