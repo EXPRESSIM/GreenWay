@@ -37,6 +37,7 @@ public class UserListActivity extends BaseActivity {
                 Intent intent = new Intent(UserListActivity.this, SendInformationActivity.class);
                 intent.putExtra("Operator", userEntity);
                 startActivity(intent);
+                finish();
             }
         });
     }

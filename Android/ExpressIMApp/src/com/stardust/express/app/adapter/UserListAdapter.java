@@ -29,15 +29,18 @@ public class UserListAdapter extends BaseAbstractAdapter<UserEntity> {
     private class ViewHolder implements IViewHolder<UserEntity> {
 
         private TextView userNameTextView;
+        private TextView stationNameTextView;
 
         @Override
         public void initViews(View view, int position) {
             userNameTextView = (TextView) view.findViewById(R.id.user_name);
+            stationNameTextView = (TextView) view.findViewById(R.id.station_name);
         }
 
         @Override
         public void fillData(UserEntity userEntity, int position) {
             userNameTextView.setText(userEntity.userName);
+            stationNameTextView.setText(userEntity.stationName);
         }
     }
 }

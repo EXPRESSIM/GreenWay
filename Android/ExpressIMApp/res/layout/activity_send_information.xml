@@ -3,15 +3,17 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:background="#dbdbdb"
             android:scrollbars="none"
             android:overScrollMode="never"
-            android:fadingEdge="none"
-            android:padding="10dp">
+            android:fadingEdge="none">
+
     <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
                   android:orientation="vertical">
         <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:orientation="horizontal"
+                      android:padding="10dp"
+                      android:background="#ffffff"
                       android:weightSum="4">
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -19,9 +21,11 @@
                           android:layout_marginRight="2dp"
                           android:layout_marginLeft="2dp"
                           android:orientation="vertical">
-                <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                <ImageView android:layout_width="70dp" android:layout_height="70dp"
                            android:id="@+id/car_front_image"
-                           android:background="@drawable/add_image"/>
+                           android:background="@drawable/add_image"
+                           android:layout_gravity="center"
+                           android:scaleType="fitXY"/>
                 <TextView android:layout_width="fill_parent" android:layout_height="fill_parent"
                           android:gravity="center"
                           android:layout_marginTop="10dp"
@@ -33,8 +37,10 @@
                           android:layout_marginRight="2dp"
                           android:layout_marginLeft="2dp"
                           android:orientation="vertical">
-                <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                <ImageView android:layout_width="70dp" android:layout_height="70dp"
                            android:id="@+id/car_body_image"
+                           android:layout_gravity="center"
+                           android:scaleType="fitXY"
                            android:background="@drawable/add_image"
                         />
                 <TextView android:layout_width="fill_parent" android:layout_height="fill_parent"
@@ -48,8 +54,10 @@
                           android:layout_marginRight="2dp"
                           android:layout_marginLeft="2dp"
                           android:orientation="vertical">
-                <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
+                <ImageView android:layout_width="70dp" android:layout_height="70dp"
                            android:id="@+id/car_back_image"
+                           android:scaleType="fitXY"
+                           android:layout_gravity="center"
                            android:background="@drawable/add_image"/>
                 <TextView android:layout_width="fill_parent" android:layout_height="fill_parent"
                           android:gravity="center"
@@ -62,8 +70,9 @@
                           android:layout_marginRight="2dp"
                           android:layout_marginLeft="2dp"
                           android:orientation="vertical">
-                <ImageView android:layout_width="fill_parent" android:layout_height="fill_parent"
-                           android:id="@+id/goods_image"
+                <ImageView android:layout_width="70dp" android:layout_height="70dp"
+                           android:id="@+id/goods_image" android:scaleType="fitXY"
+                           android:layout_gravity="center"
                            android:background="@drawable/add_image"/>
                 <TextView android:layout_width="fill_parent" android:layout_height="fill_parent"
                           android:gravity="center"
@@ -74,86 +83,151 @@
 
         <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:orientation="vertical"
-                      android:layout_marginTop="20dp">
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                      android:layout_marginTop="1dp">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:text="入口站名:"
-                          android:layout_weight="4"/>
-                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
+                          android:drawableLeft="@drawable/station_icon"
+                          android:layout_weight="2"/>
+                <TextView android:layout_width="fill_parent" android:layout_height="fill_parent"
                           android:id="@+id/station_name"
+                          android:gravity="center_vertical"
                           android:layout_weight="1"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:text="操作人:"
-                          android:layout_weight="4"/>
+                          android:gravity="center_vertical"
+                          android:drawableLeft="@drawable/operator_icon"
+                          android:drawablePadding="4dp"
+                          android:layout_weight="2"/>
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/operator"
+                          android:gravity="center_vertical"
                           android:layout_weight="1"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="10dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:layout_weight="4"
+                          android:layout_weight="2"
+                          android:gravity="center_vertical"
+                          android:drawableLeft="@drawable/date_time_icon"
+                          android:drawablePadding="4dp"
                           android:text="入站时间:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/date_time"
+                          android:background="@null"
+                          android:gravity="center_vertical"
                           android:layout_weight="1"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:layout_weight="4"
+                          android:layout_weight="2"
+                          android:drawableLeft="@drawable/car_number_icon"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
                           android:text="车牌号:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/car_number"
+                          android:background="@null"
                           android:layout_weight="1"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:layout_weight="4"
+                          android:layout_weight="2"
+                          android:drawableLeft="@drawable/car_type_icon"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
                           android:text="车型:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/car_type"
+                          android:background="@null"
                           android:layout_weight="1"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:layout_weight="4"
+                          android:layout_weight="2"
+                          android:drawableLeft="@drawable/station_icon"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
                           android:text="车道:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/station_channel"
+                          android:background="@null"
                           android:layout_weight="1"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="10dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:layout_weight="4"
+                          android:layout_weight="2"
+                          android:drawableLeft="@drawable/total_amount_icon"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
                           android:text="免(缴)金额:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/total_amount"
+                          android:background="@null"
                           android:layout_weight="1"/>
             </LinearLayout>
 
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:layout_weight="4"
+                          android:layout_weight="2"
+                          android:drawableLeft="@drawable/car_number_icon"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
                           android:text="货物名称:"/>
-                <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
-                         android:layout_weight="1"
-                         android:id="@+id/goods_name"/>
+                <!--<Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:id="@+id/goods_name"/>-->
+                <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:id="@+id/goods_name"
+                          android:background="@null"
+                          android:layout_weight="1"/>
             </LinearLayout>
 
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:layout_weight="4"
+                          android:layout_weight="2"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
                           android:text="备注:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:lines="3"
+                          android:background="@null"
                           android:id="@+id/comment"
                           android:gravity="top|left"
                           android:layout_weight="1"/>
@@ -162,11 +236,20 @@
             <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:id="@+id/submit_button"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#ffffff"
+                    android:background="@drawable/submit_button_bg"
                     android:text="提交"/>
 
             <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:id="@+id/reset_button"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#ffffff"
+                    android:background="@drawable/submit_button_bg"
+                    android:layout_marginBottom="20dp"
                     android:text="清空"/>
         </LinearLayout>
     </LinearLayout>

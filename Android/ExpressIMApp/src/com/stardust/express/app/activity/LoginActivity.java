@@ -1,13 +1,8 @@
 package com.stardust.express.app.activity;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import com.stardust.express.app.BaseActivity;
 import com.stardust.express.app.R;
 import com.stardust.express.app.utils.StringUtils;
@@ -43,6 +38,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 if (validateInput()) {
                     //TODO 登陆接口调用
                     startActivity(new Intent(this, UserListActivity.class));
+                    finish();
                 }
                 break;
             default:
