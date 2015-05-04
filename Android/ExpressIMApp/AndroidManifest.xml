@@ -33,10 +33,9 @@
         </activity>
 
         <activity android:name=".activity.UserListActivity"
-                  android:label="用户列表"/>
+                  android:label="工作人员列表"/>
 
-        <activity android:name=".activity.SendInformationActivity"
-                  android:label="发布信息"/>
+        <activity android:name=".activity.SendInformationActivity"/>
 
         <receiver android:name=".receiver.BootCompleteReceiver"
                   android:enabled="true"
