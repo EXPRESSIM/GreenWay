@@ -127,8 +127,8 @@
                           android:text="入站时间:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/date_time"
-                          android:background="@null"
                           android:gravity="center_vertical"
+                          android:background="@null"
                           android:layout_weight="1"/>
             </LinearLayout>
 
@@ -140,12 +140,27 @@
                           android:layout_weight="2"
                           android:drawableLeft="@drawable/car_number_icon"
                           android:gravity="center_vertical"
+                          android:layout_gravity="center_vertical"
                           android:drawablePadding="4dp"
                           android:text="车牌号:"/>
-                <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:id="@+id/car_number"
-                          android:background="@null"
-                          android:layout_weight="1"/>
+
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:layout_weight="1" android:orientation="horizontal"
+                              android:layout_gravity="center_vertical">
+                    <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:id="@+id/province_spinner"
+                             android:layout_gravity="bottom"/>
+                    <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                             android:id="@+id/letter_spinner"
+                             android:layout_gravity="bottom"/>
+                    <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:id="@+id/car_number"
+                              android:maxLength="5"
+                              android:layout_gravity="bottom"
+                              android:background="@null"
+                              android:layout_weight="1"/>
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -158,10 +173,9 @@
                           android:gravity="center_vertical"
                           android:drawablePadding="4dp"
                           android:text="车型:"/>
-                <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:id="@+id/car_type"
-                          android:background="@null"
-                          android:layout_weight="1"/>
+                <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
+                         android:id="@+id/car_type"
+                         android:layout_weight="1"/>
             </LinearLayout>
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -174,10 +188,9 @@
                           android:gravity="center_vertical"
                           android:drawablePadding="4dp"
                           android:text="车道:"/>
-                <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:id="@+id/station_channel"
-                          android:background="@null"
-                          android:layout_weight="1"/>
+                <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
+                         android:id="@+id/station_channel"
+                         android:layout_weight="1"/>
             </LinearLayout>
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -210,10 +223,13 @@
                 <!--<Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"-->
                 <!--android:layout_weight="1"-->
                 <!--android:id="@+id/goods_name"/>-->
-                <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:id="@+id/goods_name"
-                          android:background="@null"
-                          android:layout_weight="1"/>
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:layout_weight="1" android:orientation="vertical">
+                    <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
+                             android:id="@+id/goods_category"/>
+                    <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
+                             android:id="@+id/goods_name"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -226,11 +242,27 @@
                           android:drawablePadding="4dp"
                           android:text="备注:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:lines="3"
-                          android:background="@null"
                           android:id="@+id/comment"
+                          android:background="@null"
                           android:gravity="top|left"
                           android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
+                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_weight="2"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
+                          android:text="视频:"/>
+                <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+                        android:text="添加视频"
+                        android:id="@+id/video"
+                        android:textColor="#ffffff"
+                        android:background="@drawable/submit_button_bg"
+                        android:layout_weight="1"/>
             </LinearLayout>
 
             <Button android:layout_width="fill_parent" android:layout_height="wrap_content"

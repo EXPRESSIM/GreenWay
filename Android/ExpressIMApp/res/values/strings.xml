@@ -3,4 +3,40 @@
     <string name="login_name_label">用户名</string>
     <string name="login_password_label">密码</string>
     <string name="login_button_label">登陆</string>
+
+    <string-array name="province">
+        <item>陕</item>
+        <item>川</item>
+    </string-array>
+
+    <string-array name="letter">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+    </string-array>
+
+    <string-array name="car_type">
+        <item>第一类</item>
+        <item>第二类</item>
+        <item>第三类</item>
+        <item>第四类</item>
+        <item>第五类</item>
+    </string-array>
+
+    <string-array name="station_channel">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
 </resources>
