@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>Work with Expressway IM System DB</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="build.css" type="text/css"> 
+</head>
+<body>
+<nav>
+<b>Table of contents:</b>
+<ol>
+<li><a href="#project_spec">Project Spec</a>
+<li><a href="#work_with_db">Initialize & Update DB</a>
+</ol>
+</nav>
+<article>
+<a name="project_spec">
+<h1>Project Spec</h1></a>
+
+1). Per customer's request we choose MS SQL Server as our database. At beginning, use SQL Server 2008 express for free. But we may change to use other database later so please consider potential changes and make sure your code extendable.
+2). All tables should has a integer column named "ID" and set it to auto-increment primary key of table.
+<a name="work_with_db"/>
+<h1>Initialize & Update DB</h1>
+
+<h3>1. Create Database for Expressway IM</h3>
+Install and launch your MS SQL Server Express Management Studio, create an empty database with name "EXPRESSWAY".
+<b>Note:</b> You may want to use another database name, it's ok but the "EXPRESSWAY" is recommended.
+
+<h3>2. Initialize DB</h3>
+We use SQL Server updater and schema xml to design and desrcipt database tables and relationships
+<ol>
+<li>Go to {Project_Directory}\DBSchema\Upsizer\ and run AnUpsizer.exe</li>
+<li>Choose the <b>expressway-dbschema.xml</b> from {Project_Directory}\DBSchema\ for Data Dictionary field</li>
+<li>Click Upsize to initialize your database</li>
+<li>Now check your database in MS SQL Server studio, all tables should be created</li>
+</ol>
+
+<b>Note:</b> You may got an [Non-Fatal Error] error says that "Error reading definitions for views", no need to worry about it for now.
+
+<h3>3. Update DB</h3>
+You can change database structure by modifing schema xml - {Project_Directory}\DBSchema\expressway-dbschema.xml and then re-run the upsizer. The format of dbschema is very easy to understand and use.
+
+<ol>
+<li>Add table section under tables section to create a new table. And you can use attribute - PrimaryKey to specify a column as primary key</li>
+	<b>example:</b>
+	&lt;Table Name="EXPRESSWAY_CUSTOMER" PrimaryKey="ID"&gt;
+	&lt;/Table&gt;
+<li>Use columns and column tag to define the columns you want table has, there are a couple of attribute to specify the column data type and other properties.</li>
+	<b>example:</b></br>
+		&lt;Columns&gt;</br>
+			&nbsp;&lt;Column Name="ID" DataType="INT" AutoIncrement="True"/&gt;</br>
+			&nbsp;&lt;Column Name="USER_NAME" DataType="VARCHAR" ColumnSize="50" Unique="True"/&gt;</br>
+			&nbsp;&lt;Column Name="NAME" DataType="VARCHAR" ColumnSize="50" Unique="True"/&gt;</br>
+			&nbsp;&lt;Column Name="STATUS" DataType="VARCHAR" ColumnSize="1"/&gt;</br>
+			&nbsp;&lt;Column Name="PASSWORD" DataType="VARCHAR" ColumnSize="60"/&gt;</br>
+			&nbsp;&lt;Column Name="USER_ROLE_ID" DataType="INT"/&gt;</br>
+			&nbsp;&lt;Column Name="EMAIL" DataType="VARCHAR" ColumnSize="255" AllowNulls="True"/&gt;</br>
+		&lt;/Columns&gt;
+<li>Use relations and relation tag to create FK</li>
+	<b>example:</b></br>
+	&lt;Relations&gt;</br>
+       			 &nbsp;&lt;Relation ForeignKey="USER_ROLE_ID" ParentTable="EXPRESSWAY_USER_ROLE"/&gt;</br>
+      		&lt;Relations&gt;</br>
+<li>Use indexs and index tag to define indexs of table</li>
+	<b>example:</b></br>
+	&lt;Indexes&gt;</br>
+	&nbsp;&lt;Index Expression="C_UNIQUE" Unique="True"/&gt;</br>
+	&nbsp;&lt;Index Expression="C_VARCHAR"/&gt;</br>
+  &lt;/Indexes&gt;
+</ol>
+
+
+</article>
+</body>
+</html>
