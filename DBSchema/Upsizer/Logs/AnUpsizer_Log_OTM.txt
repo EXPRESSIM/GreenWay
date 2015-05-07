@@ -1,0 +1,23 @@
+Loading Data Dictionaries
+
+Loading DDManager Source
+
+***ERROR in AnUpsizer *** 
+Error reading definitions for views, stored procedures and functions from C:\CookHouse\MyProjects\ExpressWay\DBSchema\expressway-dbschema.extra.xml or file does not exist
+
+Loading DDManager Target
+
+Checking database compatibility mode
+
+Upsizing
+
+Create new DDRelations Table
+
+Upsizing Table EXPRESSWAY_CUSTOMER
+
+Upsizing Table EXPRESSWAY_USER_ROLE
+
+Creating relations for tables.
+
+Marking tables as implemented
+

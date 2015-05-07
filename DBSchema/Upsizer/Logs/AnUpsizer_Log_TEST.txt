@@ -1,0 +1,29 @@
+Loading Data Dictionaries
+
+Loading DDManager Source
+
+***ERROR in AnUpsizer *** 
+Error reading definitions for views, stored procedures and functions from C:\CookHouse\MyProjects\MSSP\trunk\DBSchema\database-going.extra.xml or file does not exist
+
+Loading DDManager Target
+
+Checking database compatibility mode
+
+Upsizing
+
+Dropping obsolete tables
+
+Create new DDRelations Table
+
+Upsizing Table MSSHOP_CUSTOMER
+
+***ERROR in AnUpsizer *** 
+System.Collections.Generic.KeyNotFoundException: The given key was not present in the dictionary.
+   at System.ThrowHelper.ThrowKeyNotFoundException()
+   at System.Collections.Generic.Dictionary`2.get_Item(TKey key)
+   at AnUpsizerLib.DDRelation.get_DDColumn()
+   at AnUpsizerLib.DDRelation.AllowNulls()
+   at AnUpsizerLib.DDTable.Upsize(DDManager pobDDManagerTarget, DDTable pobDDTableTarget, Boolean bImplementDRI, Boolean bDropObsoleteData)
+   at AnUpsizerLib.DDManager.Upsize(DDManager pobDDManagerTarget, Boolean bDropData, Boolean bImplementDRI)
+   at AnUpsizerLib.claUpsizer.Upsize()
+

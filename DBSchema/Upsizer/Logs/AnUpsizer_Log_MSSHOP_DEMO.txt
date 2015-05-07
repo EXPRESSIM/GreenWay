@@ -1,0 +1,81 @@
+Loading Data Dictionaries
+
+Loading DDManager Source
+
+***ERROR in AnUpsizer *** 
+Error reading definitions for views, stored procedures and functions from C:\CookHouse\MyProjects\MSSP\trunk\DBSchema\database-going.extra.xml or file does not exist
+
+Loading DDManager Target
+
+Checking database compatibility mode
+
+Upsizing
+
+Create new DDRelations Table
+
+Upsizing Table MSSHOP_CUSTOMER
+
+Upsizing Table MSSHOP_SECRUITY_QUESTION
+
+Upsizing Table MSSHOP_PRODUCT_CATEGORY
+
+Upsizing Table MSSHOP_EXAMINATION
+
+Upsizing Table MSSHOP_SUPPLIER
+
+Upsizing Table MSSHOP_PRODUCT
+
+Upsizing Table MSSHOP_FEE
+
+Upsizing Table MSSHOP_PRODUCT_FEE
+
+Upsizing Table MSSHOP_PRODUCT_PICTURE
+
+Upsizing Table MSSHOP_CATEGORIES_PRODUCTS
+
+Upsizing Table MSSHOP_STOREVIEW_SETTINGS
+
+Upsizing Table MSSHOP_CUSTOMER_SHIPPING_ADDRESS
+
+Upsizing Table MSSHOP_RECEIPT_HEADER
+
+Upsizing Table MSSHOP_RECEIPT_DETAIL
+
+Upsizing Table MSSHOP_RECEIPT_TRANSACTION
+
+Upsizing Table MSSHOP_EXAMINATION_LIBRARY
+
+Upsizing Table MSSHOP_USER
+
+Upsizing Table MSSHOP_EXAMINATION_REPORT
+
+Upsizing Table MSSHOP_CUSTOMER_REPORT
+
+Upsizing Table MSSHOP_CUSTOMER_PRODUCT_MARK
+
+Upsizing Table MSSHOP_CUSTOMER_QUESTIONS
+
+Upsizing Table MSSHOP_CUSTOMER_QUESTIONS_REPLY
+
+Upsizing Table MSSHOP_USER_ROLE
+
+Upsizing Table MSSHOP_CDC
+
+Upsizing Table MSSHOP_AGENTIA
+
+Upsizing Table MSSHOP_BATCH_NUMBER
+
+Upsizing Table MSSHOP_SHIPPING_SERVICER
+
+Upsizing Table MSSHOP_CUSTOMER_ACTIVATE_KEY
+
+Upsizing Table MSSHOP_ERROR_LOG
+
+Upsizing Table MSSHOP_EXAMINATION_RESULT_REPORT
+
+Upsizing Table MSSHOP_ARTICLE
+
+Creating relations for tables.
+
+Marking tables as implemented
+

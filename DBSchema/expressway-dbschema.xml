@@ -1,0 +1,30 @@
+<DataDictionary>
+	<Tables>
+		<Table Name="EXPRESSWAY_CUSTOMER" PrimaryKey="ID">
+			<Columns>
+				<Column Name="ID" DataType="INT" AutoIncrement="True"/>
+				<Column Name="USER_NAME" DataType="VARCHAR" ColumnSize="50" Unique="True"/>
+				<Column Name="NAME" DataType="VARCHAR" ColumnSize="50" Unique="True"/>
+				<Column Name="STATUS" DataType="VARCHAR" ColumnSize="1"/>
+				<Column Name="PASSWORD" DataType="VARCHAR" ColumnSize="60"/>
+				<Column Name="USER_ROLE_ID" DataType="INT"/>
+				<Column Name="EMAIL" DataType="VARCHAR" ColumnSize="255" AllowNulls="True"/>
+        	</Columns>
+			<Indexes/>
+        	<Relations>	
+       			 <Relation ForeignKey="USER_ROLE_ID" ParentTable="EXPRESSWAY_USER_ROLE"/>
+      		</Relations>
+		</Table>
+		
+		<Table Name="EXPRESSWAY_USER_ROLE" PrimaryKey="ID">
+		  <Columns>
+			<Column Name="ID" DataType="INT" AutoIncrement="TRUE"/>
+			<Column Name="ROLE_NAME" DataType="VARCHAR" ColumnSize="50"/>
+			<Column Name="STATUS" DataType="VARCHAR" ColumnSize="1"/>
+		  </Columns>
+		  <Indexes/>
+		  <Relations>
+		  </Relations>
+		</Table>
+	</Tables>
+</DataDictionary>

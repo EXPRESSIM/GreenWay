@@ -1,0 +1,576 @@
+
+Getting primary key for table MSSHOP_PRODUCT_FEE
+
+  execute sp_pkeys @table_name='MSSHOP_PRODUCT_FEE'
+
+Getting indexes for table MSSHOP_PRODUCT_FEE
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_PRODUCT_FEE' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_PRODUCT_FEE
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_PRODUCT_FEE')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_CUSTOMER
+
+  execute sp_pkeys @table_name='MSSHOP_CUSTOMER'
+
+Getting indexes for table MSSHOP_CUSTOMER
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_CUSTOMER' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_CUSTOMER
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_CUSTOMER')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_EXAMINATION_LIBRARY
+
+  execute sp_pkeys @table_name='MSSHOP_EXAMINATION_LIBRARY'
+
+Getting indexes for table MSSHOP_EXAMINATION_LIBRARY
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_EXAMINATION_LIBRARY' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_EXAMINATION_LIBRARY
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_EXAMINATION_LIBRARY')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_USER
+
+  execute sp_pkeys @table_name='MSSHOP_USER'
+
+Getting indexes for table MSSHOP_USER
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_USER' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_USER
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_USER')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_EXAMINATION_REPORT
+
+  execute sp_pkeys @table_name='MSSHOP_EXAMINATION_REPORT'
+
+Getting indexes for table MSSHOP_EXAMINATION_REPORT
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_EXAMINATION_REPORT' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_EXAMINATION_REPORT
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_EXAMINATION_REPORT')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_SECRUITY_QUESTION
+
+  execute sp_pkeys @table_name='MSSHOP_SECRUITY_QUESTION'
+
+Getting indexes for table MSSHOP_SECRUITY_QUESTION
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_SECRUITY_QUESTION' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_SECRUITY_QUESTION
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_SECRUITY_QUESTION')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_CDC
+
+  execute sp_pkeys @table_name='MSSHOP_CDC'
+
+Getting indexes for table MSSHOP_CDC
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_CDC' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_CDC
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_CDC')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_SUPPLIER
+
+  execute sp_pkeys @table_name='MSSHOP_SUPPLIER'
+
+Getting indexes for table MSSHOP_SUPPLIER
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_SUPPLIER' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_SUPPLIER
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_SUPPLIER')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table DDRELATIONS
+
+  execute sp_pkeys @table_name='DDRELATIONS'
+
+Getting indexes for table DDRELATIONS
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'DDRELATIONS' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table DDRELATIONS
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('DDRELATIONS')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_CUSTOMER_REPORT
+
+  execute sp_pkeys @table_name='MSSHOP_CUSTOMER_REPORT'
+
+Getting indexes for table MSSHOP_CUSTOMER_REPORT
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_CUSTOMER_REPORT' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_CUSTOMER_REPORT
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_CUSTOMER_REPORT')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_EXAMINATION
+
+  execute sp_pkeys @table_name='MSSHOP_EXAMINATION'
+
+Getting indexes for table MSSHOP_EXAMINATION
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_EXAMINATION' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_EXAMINATION
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_EXAMINATION')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_AGENTIA
+
+  execute sp_pkeys @table_name='MSSHOP_AGENTIA'
+
+Getting indexes for table MSSHOP_AGENTIA
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_AGENTIA' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_AGENTIA
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_AGENTIA')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_CUSTOMER_PRODUCT_MARK
+
+  execute sp_pkeys @table_name='MSSHOP_CUSTOMER_PRODUCT_MARK'
+
+Getting indexes for table MSSHOP_CUSTOMER_PRODUCT_MARK
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_CUSTOMER_PRODUCT_MARK' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_CUSTOMER_PRODUCT_MARK
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_CUSTOMER_PRODUCT_MARK')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_PRODUCT
+
+  execute sp_pkeys @table_name='MSSHOP_PRODUCT'
+
+Getting indexes for table MSSHOP_PRODUCT
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_PRODUCT' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_PRODUCT
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_PRODUCT')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_BATCH_NUMBER
+
+  execute sp_pkeys @table_name='MSSHOP_BATCH_NUMBER'
+
+Getting indexes for table MSSHOP_BATCH_NUMBER
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_BATCH_NUMBER' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_BATCH_NUMBER
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_BATCH_NUMBER')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_CUSTOMER_QUESTIONS
+
+  execute sp_pkeys @table_name='MSSHOP_CUSTOMER_QUESTIONS'
+
+Getting indexes for table MSSHOP_CUSTOMER_QUESTIONS
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_CUSTOMER_QUESTIONS' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_CUSTOMER_QUESTIONS
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_CUSTOMER_QUESTIONS')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_PRODUCT_PICTURE
+
+  execute sp_pkeys @table_name='MSSHOP_PRODUCT_PICTURE'
+
+Getting indexes for table MSSHOP_PRODUCT_PICTURE
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_PRODUCT_PICTURE' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_PRODUCT_PICTURE
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_PRODUCT_PICTURE')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_PRODUCT_CATEGORY
+
+  execute sp_pkeys @table_name='MSSHOP_PRODUCT_CATEGORY'
+
+Getting indexes for table MSSHOP_PRODUCT_CATEGORY
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_PRODUCT_CATEGORY' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_PRODUCT_CATEGORY
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_PRODUCT_CATEGORY')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_RECEIPT_HEADER
+
+  execute sp_pkeys @table_name='MSSHOP_RECEIPT_HEADER'
+
+Getting indexes for table MSSHOP_RECEIPT_HEADER
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_RECEIPT_HEADER' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_RECEIPT_HEADER
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_RECEIPT_HEADER')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_STOREVIEW_SETTINGS
+
+  execute sp_pkeys @table_name='MSSHOP_STOREVIEW_SETTINGS'
+
+Getting indexes for table MSSHOP_STOREVIEW_SETTINGS
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_STOREVIEW_SETTINGS' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_STOREVIEW_SETTINGS
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_STOREVIEW_SETTINGS')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_CATEGORIES_PRODUCTS
+
+  execute sp_pkeys @table_name='MSSHOP_CATEGORIES_PRODUCTS'
+
+Getting indexes for table MSSHOP_CATEGORIES_PRODUCTS
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_CATEGORIES_PRODUCTS' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_CATEGORIES_PRODUCTS
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_CATEGORIES_PRODUCTS')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_CUSTOMER_QUESTIONS_REPLY
+
+  execute sp_pkeys @table_name='MSSHOP_CUSTOMER_QUESTIONS_REPLY'
+
+Getting indexes for table MSSHOP_CUSTOMER_QUESTIONS_REPLY
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_CUSTOMER_QUESTIONS_REPLY' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_CUSTOMER_QUESTIONS_REPLY
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_CUSTOMER_QUESTIONS_REPLY')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_EXAMINATION_RESULT_REPORT
+
+  execute sp_pkeys @table_name='MSSHOP_EXAMINATION_RESULT_REPORT'
+
+Getting indexes for table MSSHOP_EXAMINATION_RESULT_REPORT
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_EXAMINATION_RESULT_REPORT' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_EXAMINATION_RESULT_REPORT
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_EXAMINATION_RESULT_REPORT')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_RECEIPT_DETAIL
+
+  execute sp_pkeys @table_name='MSSHOP_RECEIPT_DETAIL'
+
+Getting indexes for table MSSHOP_RECEIPT_DETAIL
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_RECEIPT_DETAIL' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_RECEIPT_DETAIL
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_RECEIPT_DETAIL')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_FEE
+
+  execute sp_pkeys @table_name='MSSHOP_FEE'
+
+Getting indexes for table MSSHOP_FEE
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_FEE' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_FEE
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_FEE')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_RECEIPT_TRANSACTION
+
+  execute sp_pkeys @table_name='MSSHOP_RECEIPT_TRANSACTION'
+
+Getting indexes for table MSSHOP_RECEIPT_TRANSACTION
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_RECEIPT_TRANSACTION' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_RECEIPT_TRANSACTION
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_RECEIPT_TRANSACTION')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_USER_ROLE
+
+  execute sp_pkeys @table_name='MSSHOP_USER_ROLE'
+
+Getting indexes for table MSSHOP_USER_ROLE
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_USER_ROLE' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_USER_ROLE
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_USER_ROLE')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Getting primary key for table MSSHOP_CUSTOMER_SHIPPING_ADDRESS
+
+  execute sp_pkeys @table_name='MSSHOP_CUSTOMER_SHIPPING_ADDRESS'
+
+Getting indexes for table MSSHOP_CUSTOMER_SHIPPING_ADDRESS
+
+  select x.name as INDEX_NAME, convert(int, xk.keyno) as ORDINAL, c.name as COLUMN_NAME, convert(bit,(x.status & 0x800)/0x800) as IS_PRIMARY_KEY, convert(bit,(x.status & 2)/2) as IS_UNIQUE from sysobjects o, sysindexes x, syscolumns c, sysindexkeys xk where o.type in ('U') and o.name = 'MSSHOP_CUSTOMER_SHIPPING_ADDRESS' and x.id = o.id and c.id = o.id and xk.id = o.id and xk.indid = x.indid and xk.colid = c.colid and xk.keyno <= x.keycnt and permissions(o.id, c.name) <> 0 and (x.status&32) = 0 order by index_name, ordinal
+
+Getting relations for table MSSHOP_CUSTOMER_SHIPPING_ADDRESS
+
+  SELECT o1.name AS ParentTable, c1.name AS PKey, o2.name AS ChildTable, c2.name AS FKey, ObjectProperty(o.id, 'CnstIsDeleteCascade') AS CascadeDelete, rkey2, fkey2  FROM sysreferences r, sysobjects o, sysobjects o1, sysobjects o2, syscolumns c1, syscolumns c2  WHERE (r.fkeyid = OBJECT_ID('MSSHOP_CUSTOMER_SHIPPING_ADDRESS')) AND (o.xtype = 'F') AND r.constid = o.id  AND r.rkeyid = o1.id AND c1.id = r.rkeyid AND c1.colid = r.rkey1  AND r.fkeyid = o2.id and c2.id = r.fkeyid AND c2.colid = r.fkey1 
+
+Dropping table DDRelations
+
+  drop table ddrelations
+
+Creating table DDRelations
+
+  Create table DDRELATIONS (child_table varchar(100) not null, fkey varchar(100) not null, parent_table varchar(100) not null, implemented smallint not null default 0, delete_policy smallint not null default 0, null_policy smallint not null default 0)
+
+Creating DDRelation FK_MSSHOP_SECRUITY_QUESTION__CUSTOMER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_SECRUITY_QUESTION','CUSTOMER_ID','MSSHOP_CUSTOMER',0,0)
+
+Creating DDRelation FK_MSSHOP_PRODUCT__SUPPLIER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_PRODUCT','SUPPLIER_ID','MSSHOP_SUPPLIER',0,0)
+
+Creating DDRelation FK_MSSHOP_PRODUCT_FEE__PRODUCT_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_PRODUCT_FEE','PRODUCT_ID','MSSHOP_PRODUCT',1,0)
+
+Creating DDRelation FK_MSSHOP_PRODUCT_FEE__FEE_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_PRODUCT_FEE','FEE_ID','MSSHOP_FEE',1,0)
+
+Creating DDRelation FK_MSSHOP_PRODUCT_PICTURE__PRODUCT_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_PRODUCT_PICTURE','PRODUCT_ID','MSSHOP_PRODUCT',1,0)
+
+Creating DDRelation FK_MSSHOP_CATEGORIES_PRODUCTS__PRODUCT_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CATEGORIES_PRODUCTS','PRODUCT_ID','MSSHOP_PRODUCT',1,0)
+
+Creating DDRelation FK_MSSHOP_CATEGORIES_PRODUCTS__CATEGORY_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CATEGORIES_PRODUCTS','CATEGORY_ID','MSSHOP_PRODUCT_CATEGORY',0,0)
+
+Creating DDRelation FK_MSSHOP_CATEGORIES_PRODUCTS__EXAMINATION_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CATEGORIES_PRODUCTS','EXAMINATION_ID','MSSHOP_EXAMINATION',0,0)
+
+Creating DDRelation FK_MSSHOP_CUSTOMER_SHIPPING_ADDRESS__CUSTOMER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CUSTOMER_SHIPPING_ADDRESS','CUSTOMER_ID','MSSHOP_CUSTOMER',0,0)
+
+Creating DDRelation FK_MSSHOP_RECEIPT_HEADER__CUSTOMER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_RECEIPT_HEADER','CUSTOMER_ID','MSSHOP_CUSTOMER',0,0)
+
+Creating DDRelation FK_MSSHOP_RECEIPT_DETAIL__PRODUCT_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_RECEIPT_DETAIL','PRODUCT_ID','MSSHOP_PRODUCT',0,0)
+
+Creating DDRelation FK_MSSHOP_RECEIPT_DETAIL__RECEIPT_HEADER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_RECEIPT_DETAIL','RECEIPT_HEADER_ID','MSSHOP_RECEIPT_HEADER',0,0)
+
+Creating DDRelation FK_MSSHOP_RECEIPT_TRANSACTION__RECEIPT_DETAIL_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_RECEIPT_TRANSACTION','RECEIPT_DETAIL_ID','MSSHOP_RECEIPT_DETAIL',0,0)
+
+Creating DDRelation FK_MSSHOP_EXAMINATION_REPORT__EXAMINATION_TESTER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_EXAMINATION_REPORT','EXAMINATION_TESTER_ID','MSSHOP_USER',0,0)
+
+Creating DDRelation FK_MSSHOP_EXAMINATION_REPORT__EXAMINATION_REVIEWER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_EXAMINATION_REPORT','EXAMINATION_REVIEWER_ID','MSSHOP_USER',0,0)
+
+Creating DDRelation FK_MSSHOP_EXAMINATION_REPORT__EXAMINATION_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_EXAMINATION_REPORT','EXAMINATION_ID','MSSHOP_EXAMINATION',0,0)
+
+Creating DDRelation FK_MSSHOP_EXAMINATION_REPORT__EXAMINATION_ITEM_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_EXAMINATION_REPORT','EXAMINATION_ITEM_ID','MSSHOP_PRODUCT',0,0)
+
+Creating DDRelation FK_MSSHOP_CUSTOMER_REPORT__CUSTOMER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CUSTOMER_REPORT','CUSTOMER_ID','MSSHOP_CUSTOMER',0,0)
+
+Creating DDRelation FK_MSSHOP_CUSTOMER_REPORT__REPORT_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CUSTOMER_REPORT','REPORT_ID','MSSHOP_EXAMINATION_RESULT_REPORT',0,0)
+
+Creating DDRelation FK_MSSHOP_CUSTOMER_PRODUCT_MARK__CUSTOMER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CUSTOMER_PRODUCT_MARK','CUSTOMER_ID','MSSHOP_CUSTOMER',0,0)
+
+Creating DDRelation FK_MSSHOP_CUSTOMER_PRODUCT_MARK__PRODUCT_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CUSTOMER_PRODUCT_MARK','PRODUCT_ID','MSSHOP_PRODUCT',0,0)
+
+Creating DDRelation FK_MSSHOP_CUSTOMER_QUESTIONS__CUSTOMER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CUSTOMER_QUESTIONS','CUSTOMER_ID','MSSHOP_CUSTOMER',0,0)
+
+Creating DDRelation FK_MSSHOP_CUSTOMER_QUESTIONS_REPLY__PROFESSOR_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CUSTOMER_QUESTIONS_REPLY','PROFESSOR_ID','MSSHOP_USER',0,1)
+
+Creating DDRelation FK_MSSHOP_CUSTOMER_QUESTIONS_REPLY__QUESTION_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_CUSTOMER_QUESTIONS_REPLY','QUESTION_ID','MSSHOP_CUSTOMER_QUESTIONS',0,0)
+
+Creating DDRelation FK_MSSHOP_AGENTIA__EXAMINATION_LIBRARY_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_AGENTIA','EXAMINATION_LIBRARY_ID','MSSHOP_EXAMINATION_LIBRARY',0,0)
+
+Creating DDRelation FK_MSSHOP_BATCH_NUMBER__AGENTIA_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_BATCH_NUMBER','AGENTIA_ID','MSSHOP_AGENTIA',0,0)
+
+Creating DDRelation FK_MSSHOP_EXAMINATION_RESULT_REPORT__EXAMINATION_TESTER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_EXAMINATION_RESULT_REPORT','EXAMINATION_TESTER_ID','MSSHOP_USER',0,0)
+
+Creating DDRelation FK_MSSHOP_EXAMINATION_RESULT_REPORT__EXAMINATION_REVIEWER_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_EXAMINATION_RESULT_REPORT','EXAMINATION_REVIEWER_ID','MSSHOP_USER',0,0)
+
+Creating DDRelation FK_MSSHOP_EXAMINATION_RESULT_REPORT__EXAMINATION_LIBRARY_ID
+
+  insert into ddrelations (child_table, fkey, parent_table, delete_policy, null_policy) values ('MSSHOP_EXAMINATION_RESULT_REPORT','EXAMINATION_LIBRARY_ID','MSSHOP_EXAMINATION_LIBRARY',0,0)
+
+Setting DDRelation FK_MSSHOP_PRODUCT_FEE__PRODUCT_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_PRODUCT_FEE' and fkey='PRODUCT_ID'
+
+Setting DDRelation FK_MSSHOP_PRODUCT_FEE__FEE_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_PRODUCT_FEE' and fkey='FEE_ID'
+
+Setting DDRelation FK_MSSHOP_EXAMINATION_REPORT__EXAMINATION_TESTER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_EXAMINATION_REPORT' and fkey='EXAMINATION_TESTER_ID'
+
+Setting DDRelation FK_MSSHOP_EXAMINATION_REPORT__EXAMINATION_REVIEWER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_EXAMINATION_REPORT' and fkey='EXAMINATION_REVIEWER_ID'
+
+Setting DDRelation FK_MSSHOP_EXAMINATION_REPORT__EXAMINATION_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_EXAMINATION_REPORT' and fkey='EXAMINATION_ID'
+
+Setting DDRelation FK_MSSHOP_EXAMINATION_REPORT__EXAMINATION_ITEM_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_EXAMINATION_REPORT' and fkey='EXAMINATION_ITEM_ID'
+
+Setting DDRelation FK_MSSHOP_SECRUITY_QUESTION__CUSTOMER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_SECRUITY_QUESTION' and fkey='CUSTOMER_ID'
+
+Setting DDRelation FK_MSSHOP_CUSTOMER_REPORT__CUSTOMER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CUSTOMER_REPORT' and fkey='CUSTOMER_ID'
+
+Setting DDRelation FK_MSSHOP_CUSTOMER_REPORT__REPORT_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CUSTOMER_REPORT' and fkey='REPORT_ID'
+
+Setting DDRelation FK_MSSHOP_AGENTIA__EXAMINATION_LIBRARY_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_AGENTIA' and fkey='EXAMINATION_LIBRARY_ID'
+
+Setting DDRelation FK_MSSHOP_CUSTOMER_PRODUCT_MARK__CUSTOMER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CUSTOMER_PRODUCT_MARK' and fkey='CUSTOMER_ID'
+
+Setting DDRelation FK_MSSHOP_CUSTOMER_PRODUCT_MARK__PRODUCT_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CUSTOMER_PRODUCT_MARK' and fkey='PRODUCT_ID'
+
+Setting DDRelation FK_MSSHOP_PRODUCT__SUPPLIER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_PRODUCT' and fkey='SUPPLIER_ID'
+
+Setting DDRelation FK_MSSHOP_BATCH_NUMBER__AGENTIA_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_BATCH_NUMBER' and fkey='AGENTIA_ID'
+
+Setting DDRelation FK_MSSHOP_CUSTOMER_QUESTIONS__CUSTOMER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CUSTOMER_QUESTIONS' and fkey='CUSTOMER_ID'
+
+Setting DDRelation FK_MSSHOP_PRODUCT_PICTURE__PRODUCT_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_PRODUCT_PICTURE' and fkey='PRODUCT_ID'
+
+Setting DDRelation FK_MSSHOP_RECEIPT_HEADER__CUSTOMER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_RECEIPT_HEADER' and fkey='CUSTOMER_ID'
+
+Setting DDRelation FK_MSSHOP_CATEGORIES_PRODUCTS__EXAMINATION_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CATEGORIES_PRODUCTS' and fkey='EXAMINATION_ID'
+
+Setting DDRelation FK_MSSHOP_CATEGORIES_PRODUCTS__PRODUCT_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CATEGORIES_PRODUCTS' and fkey='PRODUCT_ID'
+
+Setting DDRelation FK_MSSHOP_CATEGORIES_PRODUCTS__CATEGORY_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CATEGORIES_PRODUCTS' and fkey='CATEGORY_ID'
+
+Setting DDRelation FK_MSSHOP_CUSTOMER_QUESTIONS_REPLY__PROFESSOR_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CUSTOMER_QUESTIONS_REPLY' and fkey='PROFESSOR_ID'
+
+Setting DDRelation FK_MSSHOP_CUSTOMER_QUESTIONS_REPLY__QUESTION_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CUSTOMER_QUESTIONS_REPLY' and fkey='QUESTION_ID'
+
+Setting DDRelation FK_MSSHOP_EXAMINATION_RESULT_REPORT__EXAMINATION_LIBRARY_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_EXAMINATION_RESULT_REPORT' and fkey='EXAMINATION_LIBRARY_ID'
+
+Setting DDRelation FK_MSSHOP_EXAMINATION_RESULT_REPORT__EXAMINATION_TESTER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_EXAMINATION_RESULT_REPORT' and fkey='EXAMINATION_TESTER_ID'
+
+Setting DDRelation FK_MSSHOP_EXAMINATION_RESULT_REPORT__EXAMINATION_REVIEWER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_EXAMINATION_RESULT_REPORT' and fkey='EXAMINATION_REVIEWER_ID'
+
+Setting DDRelation FK_MSSHOP_RECEIPT_DETAIL__PRODUCT_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_RECEIPT_DETAIL' and fkey='PRODUCT_ID'
+
+Setting DDRelation FK_MSSHOP_RECEIPT_DETAIL__RECEIPT_HEADER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_RECEIPT_DETAIL' and fkey='RECEIPT_HEADER_ID'
+
+Setting DDRelation FK_MSSHOP_RECEIPT_TRANSACTION__RECEIPT_DETAIL_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_RECEIPT_TRANSACTION' and fkey='RECEIPT_DETAIL_ID'
+
+Setting DDRelation FK_MSSHOP_CUSTOMER_SHIPPING_ADDRESS__CUSTOMER_ID as implemented
+
+  update ddrelations set implemented=1 where child_table='MSSHOP_CUSTOMER_SHIPPING_ADDRESS' and fkey='CUSTOMER_ID'

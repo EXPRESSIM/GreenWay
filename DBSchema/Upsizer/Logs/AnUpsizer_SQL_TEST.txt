@@ -1,0 +1,8 @@
+
+Creating table DDRelations
+
+  Create table DDRELATIONS (child_table varchar(100) not null, fkey varchar(100) not null, parent_table varchar(100) not null, implemented smallint not null default 0, delete_policy smallint not null default 0, null_policy smallint not null default 0)
+
+Creating table MSSHOP_CUSTOMER
+
+  create table MSSHOP_CUSTOMER(ID INTEGER IDENTITY(1,1) PRIMARY KEY, NICK_NAME VARCHAR(50) NULL, STATUS VARCHAR(1) NULL, EMAIL VARCHAR(255) NULL, PASSWORD VARCHAR(60) NULL)

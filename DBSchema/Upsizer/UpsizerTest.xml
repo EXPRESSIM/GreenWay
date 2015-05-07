@@ -1,0 +1,66 @@
+<DataDictionary>
+  <Tables>
+    <Table Name="CASCADEREQUIRED" PrimaryKey="PKEY">
+      <Columns>
+        <Column Name="PKEY" DataType="INT"/>
+        <Column Name="PARENT_ID" DataType="INT"/>
+      </Columns>
+      <Indexes/>
+      <Relations>
+        <Relation ForeignKey="PARENT_ID" ParentTable="PARENT" DeletePolicy="Cascade"/>
+      </Relations>
+    </Table>
+    <Table Name="CYCLIC" PrimaryKey="PKEY">
+      <Columns>
+        <Column Name="PKEY" DataType="INT"/>
+        <Column Name="LOWERPARENT_ID" DataType="INT"/>
+        <Column Name="HIGHERPARENT_ID" DataType="INT"/>
+      </Columns>
+      <Indexes/>
+      <Relations>
+        <Relation ForeignKey="LOWERPARENT_ID" ParentTable="PARENT" DeletePolicy="Cascade"/>
+        <Relation ForeignKey="HIGHERPARENT_ID" ParentTable="PARENT" DeletePolicy="Cascade"/>
+      </Relations>
+    </Table>
+    <Table Name="PARENT" PrimaryKey="PARENT_ID">
+      <Columns>
+        <Column Name="PARENT_ID" DataType="INT"/>
+        <Column Name="C_BIT" DataType="BIT"/>
+        <Column Name="C_DATETIME" DataType="DATETIME"/>
+        <Column Name="C_INT" DataType="INT"/>
+        <Column Name="C_MONEY" DataType="MONEY"/>
+        <Column Name="C_SMALLINT" DataType="SMALLINT"/>
+        <Column Name="C_TEXT" DataType="TEXT"/>
+        <Column Name="C_VARCHAR" DataType="VARCHAR" ColumnSize="10"/>
+        <Column Name="C_VARCHAR2" DataType="VARCHAR" ColumnSize="10"/>
+        <Column Name="C_UNIQUE" DataType="VARCHAR" ColumnSize="10"/>
+        <Column Name="C_IMAGE" DataType="IMAGE" ColumnSize="10"/>
+      </Columns>
+      <Indexes>
+        <Index Expression="C_UNIQUE" Unique="True"/>
+        <Index Expression="C_VARCHAR"/>
+      </Indexes>
+      <Relations/>
+    </Table>
+    <Table Name="PREVENTOPTIONAL" PrimaryKey="PKEY">
+      <Columns>
+        <Column Name="PKEY" DataType="INT"/>
+        <Column Name="PARENT_ID" DataType="INT" AllowNulls="True"/>
+      </Columns>
+      <Indexes/>
+      <Relations>
+        <Relation ForeignKey="PARENT_ID" ParentTable="PARENT"/>
+      </Relations>
+    </Table>
+    <Table Name="SETNULL" PrimaryKey="PKEY">
+      <Columns>
+        <Column Name="PKEY" DataType="INT"/>
+        <Column Name="PARENT_ID" DataType="INT" AllowNulls="True"/>
+      </Columns>
+      <Indexes/>
+      <Relations>
+        <Relation ForeignKey="PARENT_ID" ParentTable="PARENT" DeletePolicy="Set Null"/>
+      </Relations>
+    </Table>
+  </Tables>
+</DataDictionary>

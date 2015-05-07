@@ -1,0 +1,35 @@
+Loading Data Dictionaries
+
+Loading DDManager Source
+
+***ERROR in AnUpsizer *** 
+Error reading definitions for views, stored procedures and functions from C:\CookHouse\MyProjects\Upsizer\UpsizerTest.extra.xml or file does not exist
+
+Loading DDManager Target
+
+Checking database compatibility mode
+
+Upsizing
+
+Create new DDRelations Table
+
+Upsizing Table CASCADEREQUIRED
+
+Upsizing Table CYCLIC
+
+Upsizing Table PARENT
+
+Upsizing Table PREVENTOPTIONAL
+
+Upsizing Table SETNULL
+
+Creating relations for tables.
+
+***ERROR in AnUpsizer *** 
+Error Creating FK constraint with cascadeFK_CASCADEREQUIRED__PARENT_ID because of orphans in DB
+
+***ERROR in AnUpsizer *** 
+Error Creating FK constraint without cascade FK_PREVENTOPTIONAL__PARENT_ID because of orphans in DB
+
+Marking tables as implemented
+
