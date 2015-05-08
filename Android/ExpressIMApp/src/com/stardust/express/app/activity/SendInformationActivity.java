@@ -12,7 +12,7 @@ import android.view.*;
 import android.widget.*;
 import com.stardust.express.app.BaseActivity;
 import com.stardust.express.app.R;
-import com.stardust.express.app.activity.wedget.DateTimePickerDialog;
+import com.stardust.express.app.activity.widget.DateTimePickerDialog;
 import com.stardust.express.app.entity.GoodsNameEntity;
 import com.stardust.express.app.entity.StationEntity;
 import com.stardust.express.app.entity.UserEntity;
@@ -232,7 +232,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                 }
                 break;
             case R.id.reset_button:
-                resetComponents();
+                new AlertDialog.Builder(this).setTitle("提示").setMessage("是否确认清空数据?").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        resetComponents();
+                    }
+                }).setNegativeButton("取消", null).create().show();
                 break;
             case R.id.car_front_image:
                 readyToTakePicture(ImageIndex.car_front);
@@ -367,6 +372,8 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         carFrontImage.setBackgroundResource(R.drawable.add_image);
         goodsImage.setBackgroundResource(R.drawable.add_image);
 
+        videoPath.setText(null);
+        stationName.setText(null);
         dateTime.setText(null);
         carNumber.setText(null);
         carType.setSelection(0);
@@ -374,6 +381,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         stationChannel.setSelection(0);
         provinceSpinner.setSelection(0);
         letterSpinner.setSelection(0);
+        goodsCategory.setSelection(0);
         goodsName.setSelection(0);
         comment.setText(null);
     }
@@ -397,7 +405,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 0, 0, "查看历史数据");
+//        menu.add(0, 0, 0, "查看历史数据");
         menu.add(0, 1, 1, "注销用户");
         return true;
     }

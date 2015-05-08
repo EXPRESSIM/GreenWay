@@ -3,9 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ActionBarWithoutIconStyle</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="ActionBarWithoutIconStyle" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+    <style name="ActionBarWithoutIconStyle" parent="android:Widget.ActionBar">
         <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+    </style>
+
+    <style name="FullScreenNoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

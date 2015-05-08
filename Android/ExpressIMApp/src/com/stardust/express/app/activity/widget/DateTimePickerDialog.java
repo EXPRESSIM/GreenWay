@@ -1,4 +1,4 @@
-package com.stardust.express.app.activity.wedget;
+package com.stardust.express.app.activity.widget;
 
 import android.app.Activity;
 import android.app.AlertDialog;
