@@ -28,15 +28,15 @@
     </string-array>
 
     <string-array name="station_channel">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
+        <item>出口01道</item>
+        <item>出口02道</item>
+        <item>出口03道</item>
+        <item>出口04道</item>
+        <item>出口05道</item>
+        <item>出口06道</item>
+        <item>出口07道</item>
+        <item>出口08道</item>
+        <item>出口09道</item>
+        <item>出口10道</item>
     </string-array>
 </resources>

@@ -40,10 +40,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.e("TAG", keyCode + "");
         return keyCode == KeyEvent.KEYCODE_BACK
-                || keyCode == KeyEvent.KEYCODE_HOME
                 || super.onKeyDown(keyCode, event);
     }
-    
 }

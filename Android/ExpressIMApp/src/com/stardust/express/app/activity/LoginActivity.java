@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import com.stardust.express.app.BaseActivity;
 import com.stardust.express.app.R;
+import com.stardust.express.app.entity.UserEntity;
 import com.stardust.express.app.utils.StringUtils;
 import com.stardust.express.app.utils.ToastUtils;
 
@@ -37,7 +38,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.login_button:
                 if (validateInput()) {
                     //TODO 登陆接口调用
-                    startActivity(new Intent(this, UserListActivity.class));
+                    Intent intent = new Intent(this, SendInformationActivity.class);
+                    UserEntity userEntity = new UserEntity();
+                    userEntity.userName = userNameEditText.getText().toString();
+                    userEntity.stationName = "高速路收费站";
+                    intent.putExtra("Operator", userEntity);
+                    startActivity(intent);
                     finish();
                 }
                 break;
@@ -48,12 +54,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private boolean validateInput() {
         if (!StringUtils.isNotNull(userNameEditText.getText().toString())) {
-            ToastUtils.showToast(this, "用户名不能为空！");
+            ToastUtils.showToastAtCenter(this, "用户名不能为空！");
             return false;
         }
 
         if (!StringUtils.isNotNull(passwordEditText.getText().toString())) {
-            ToastUtils.showToast(this, "密码不能为空！");
+            ToastUtils.showToastAtCenter(this, "密码不能为空！");
             return false;
         }
         return true;

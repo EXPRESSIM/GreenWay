@@ -36,6 +36,7 @@
                   android:label="工作人员列表"/>
 
         <activity android:name=".activity.SendInformationActivity"/>
+        <activity android:name=".activity.StationListActivity" android:label="收费站列表"/>
 
         <receiver android:name=".receiver.BootCompleteReceiver"
                   android:enabled="true"

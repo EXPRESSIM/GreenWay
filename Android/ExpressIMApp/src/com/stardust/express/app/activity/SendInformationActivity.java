@@ -1,20 +1,20 @@
 package com.stardust.express.app.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.*;
 import android.widget.*;
 import com.stardust.express.app.BaseActivity;
 import com.stardust.express.app.R;
 import com.stardust.express.app.activity.wedget.DateTimePickerDialog;
 import com.stardust.express.app.entity.GoodsNameEntity;
+import com.stardust.express.app.entity.StationEntity;
 import com.stardust.express.app.entity.UserEntity;
 import com.stardust.express.app.utils.StringUtils;
 import com.stardust.express.app.utils.ToastUtils;
@@ -34,7 +34,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private ImageView carBackImage;
     private ImageView goodsImage;
 
-    private TextView stationName;
+    private EditText stationName;
     private EditText dateTime;
     private Spinner provinceSpinner;
     private Spinner letterSpinner;
@@ -46,8 +46,11 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private Spinner goodsName;
     private EditText comment;
     private TextView operator;
+    private TextView videoPath;
 
     private static final int TAKE_PICTURE = 400;
+    private static final int RECORD_VIDEO = 500;
+    private static final int SELECT_STATION = 600;
     private String storeFileDirPath;
     private String captureFileName;
     private String videoFileName;
@@ -79,7 +82,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         carBodyImage = (ImageView) findViewById(R.id.car_body_image);
         carBackImage = (ImageView) findViewById(R.id.car_back_image);
         goodsImage = (ImageView) findViewById(R.id.goods_image);
-        stationName = (TextView) findViewById(R.id.station_name);
+        stationName = (EditText) findViewById(R.id.station_name);
         dateTime = (EditText) findViewById(R.id.date_time);
         carNumber = (EditText) findViewById(R.id.car_number);
         carType = (Spinner) findViewById(R.id.car_type);
@@ -91,6 +94,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         operator = (TextView) findViewById(R.id.operator);
         provinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         letterSpinner = (Spinner) findViewById(R.id.letter_spinner);
+        videoPath = (TextView) findViewById(R.id.video_path);
 
         findViewById(R.id.submit_button).setOnClickListener(this);
         findViewById(R.id.reset_button).setOnClickListener(this);
@@ -117,6 +121,13 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
             }
         });
 
+        stationName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(SendInformationActivity.this, StationListActivity.class), SELECT_STATION);
+            }
+        });
+
         findViewById(R.id.video).setOnClickListener(this);
     }
 
@@ -124,8 +135,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     protected void fillData() {
         UserEntity userEntity = (UserEntity) getIntent().getSerializableExtra("Operator");
         operator.setText(userEntity.userName);
-        stationName.setText(userEntity.stationName);
-        setTitle("绿通稽查－收费站－2");
+        setTitle("勉县收费站－01号机");
 
         File dir = getExternalFilesDir("/");
         if (dir != null) {
@@ -186,13 +196,39 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         });
     }
 
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.submit_button:
                 if (validateInput()) {
-                    ToastUtils.showToast(this, "提交成功");
-                    resetComponents();
+                    View dialogView = LayoutInflater.from(SendInformationActivity.this).inflate(R.layout.dialog_validate, null);
+                    final EditText userName = (EditText) dialogView.findViewById(R.id.username);
+                    final EditText password = (EditText) dialogView.findViewById(R.id.password);
+                    final AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("提交验证")
+                            .setPositiveButton("验证", null).setNegativeButton("取消", null)
+                            .create();
+                    alertDialog.setView(dialogView);
+                    alertDialog.show();
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String strUserName = userName.getText().toString();
+                            String strPassword = password.getText().toString();
+                            if (!StringUtils.isNotNull(strUserName)) {
+                                ToastUtils.showToastAtCenter(SendInformationActivity.this, "用户名不能为空!");
+                                return;
+                            }
+
+                            if (!StringUtils.isNotNull(strPassword)) {
+                                ToastUtils.showToastAtCenter(SendInformationActivity.this, "密码不能为空!");
+                                return;
+                            }
+                            ToastUtils.showToast(SendInformationActivity.this, "提交成功");
+                            resetComponents();
+                            alertDialog.dismiss();
+                        }
+                    });
                 }
                 break;
             case R.id.reset_button:
@@ -218,42 +254,42 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     private boolean validateInput() {
         if (carFrontImage.getTag() == null) {
-            ToastUtils.showToast(this, "请添加车牌照片");
+            ToastUtils.showToastAtCenter(this, "请添加车牌照片");
             return false;
         }
 
         if (carBodyImage.getTag() == null) {
-            ToastUtils.showToast(this, "请添加车身照片");
+            ToastUtils.showToastAtCenter(this, "请添加车身照片");
             return false;
         }
 
         if (carBackImage.getTag() == null) {
-            ToastUtils.showToast(this, "请添加车尾照片");
+            ToastUtils.showToastAtCenter(this, "请添加车尾照片");
             return false;
         }
 
         if (goodsImage.getTag() == null) {
-            ToastUtils.showToast(this, "请添加货物照片");
+            ToastUtils.showToastAtCenter(this, "请添加货物照片");
             return false;
         }
 
         if (!StringUtils.isNotNull(dateTime.getText().toString())) {
-            ToastUtils.showToast(this, "请输入入站时间");
+            ToastUtils.showToastAtCenter(this, "请输入入站时间");
             return false;
         }
 
         if (!StringUtils.isNotNull(carNumber.getText().toString())) {
-            ToastUtils.showToast(this, "请输入车牌号码");
+            ToastUtils.showToastAtCenter(this, "请输入车牌号码");
             return false;
         } else {
             if (carNumber.getText().toString().length() < 5) {
-                ToastUtils.showToast(this, "车牌号码输入长度错误");
+                ToastUtils.showToastAtCenter(this, "车牌号码输入长度错误");
                 return false;
             }
         }
 
         if (!StringUtils.isNotNull(totalAmount.getText().toString())) {
-            ToastUtils.showToast(this, "请输入免(缴)金额");
+            ToastUtils.showToastAtCenter(this, "请输入免(缴)金额");
             return false;
         }
         return true;
@@ -265,7 +301,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         Uri uri = Uri.fromFile(new File(videoFileName));
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, RECORD_VIDEO);
     }
 
     private void readyToTakePicture(int index) {
@@ -278,24 +314,37 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == TAKE_PICTURE) {
-            Bitmap captureImage = zoomImg(captureFileName, 100, 100);
-            switch (takePictureIdx) {
-                case ImageIndex.car_back:
-                    carBackImage.setTag(captureFileName);
-                    carBackImage.setImageBitmap(captureImage);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case TAKE_PICTURE:
+                    Bitmap captureImage = zoomImg(captureFileName, 100, 100);
+                    switch (takePictureIdx) {
+                        case ImageIndex.car_back:
+                            carBackImage.setTag(captureFileName);
+                            carBackImage.setImageBitmap(captureImage);
+                            break;
+                        case ImageIndex.car_front:
+                            carFrontImage.setTag(captureFileName);
+                            carFrontImage.setImageBitmap(captureImage);
+                            break;
+                        case ImageIndex.car_body:
+                            carBodyImage.setTag(captureFileName);
+                            carBodyImage.setImageBitmap(captureImage);
+                            break;
+                        case ImageIndex.goods:
+                            goodsImage.setTag(captureFileName);
+                            goodsImage.setImageBitmap(captureImage);
+                            break;
+                    }
                     break;
-                case ImageIndex.car_front:
-                    carFrontImage.setTag(captureFileName);
-                    carFrontImage.setImageBitmap(captureImage);
+                case RECORD_VIDEO:
+                    videoPath.setText(videoFileName);
                     break;
-                case ImageIndex.car_body:
-                    carBodyImage.setTag(captureFileName);
-                    carBodyImage.setImageBitmap(captureImage);
-                    break;
-                case ImageIndex.goods:
-                    goodsImage.setTag(captureFileName);
-                    goodsImage.setImageBitmap(captureImage);
+                case SELECT_STATION:
+                    StationEntity stationEntity = (StationEntity) data.getSerializableExtra("Station");
+                    if (stationEntity != null) {
+                        stationName.setText(stationEntity.name);
+                    }
                     break;
             }
         }
@@ -348,15 +397,20 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 0, 0, "退出");
+        menu.add(0, 0, 0, "查看历史数据");
+        menu.add(0, 1, 1, "注销用户");
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == 0) {
-            finish();
-            startActivity(new Intent(this, LoginActivity.class));
+        switch (item.getItemId()) {
+            case 0:
+                break;
+            case 1:
+                finish();
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

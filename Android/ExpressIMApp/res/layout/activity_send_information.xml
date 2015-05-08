@@ -84,20 +84,6 @@
         <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                       android:orientation="vertical"
                       android:layout_marginTop="1dp">
-            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:background="#ffffff"
-                          android:padding="10dp">
-                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:text="入口站名:"
-                          android:gravity="center_vertical"
-                          android:drawablePadding="4dp"
-                          android:drawableLeft="@drawable/station_icon"
-                          android:layout_weight="2"/>
-                <TextView android:layout_width="fill_parent" android:layout_height="fill_parent"
-                          android:id="@+id/station_name"
-                          android:gravity="center_vertical"
-                          android:layout_weight="1"/>
-            </LinearLayout>
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:layout_marginTop="1dp"
@@ -116,6 +102,21 @@
             </LinearLayout>
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:background="#ffffff"
+                          android:padding="10dp">
+                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:text="入口站名:"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
+                          android:drawableLeft="@drawable/station_icon"
+                          android:layout_weight="2"/>
+                <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:id="@+id/station_name"
+                          android:editable="false"
+                          android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:layout_marginTop="10dp"
                           android:background="#ffffff"
                           android:padding="10dp">
@@ -128,7 +129,6 @@
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/date_time"
                           android:gravity="center_vertical"
-                          android:background="@null"
                           android:layout_weight="1"/>
             </LinearLayout>
 
@@ -157,7 +157,6 @@
                               android:id="@+id/car_number"
                               android:maxLength="5"
                               android:layout_gravity="bottom"
-                              android:background="@null"
                               android:layout_weight="1"/>
                 </LinearLayout>
 
@@ -205,8 +204,11 @@
                           android:text="免(缴)金额:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/total_amount"
-                          android:background="@null"
+                          android:inputType="number"
                           android:layout_weight="1"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="元"
+                          android:textColor="#ff0000"/>
             </LinearLayout>
 
 
@@ -243,7 +245,6 @@
                           android:text="备注:"/>
                 <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:id="@+id/comment"
-                          android:background="@null"
                           android:gravity="top|left"
                           android:layout_weight="1"/>
             </LinearLayout>
@@ -257,12 +258,18 @@
                           android:gravity="center_vertical"
                           android:drawablePadding="4dp"
                           android:text="视频:"/>
-                <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
-                        android:text="添加视频"
-                        android:id="@+id/video"
-                        android:textColor="#ffffff"
-                        android:background="@drawable/submit_button_bg"
-                        android:layout_weight="1"/>
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:orientation="vertical">
+                    <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
+                            android:text="添加视频"
+                            android:id="@+id/video"
+                            android:textColor="#ffffff"
+                            android:background="@drawable/submit_button_bg"/>
+                    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:id="@+id/video_path"/>
+                </LinearLayout>
+
             </LinearLayout>
 
             <Button android:layout_width="fill_parent" android:layout_height="wrap_content"
