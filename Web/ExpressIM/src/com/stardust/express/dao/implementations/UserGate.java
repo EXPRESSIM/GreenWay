@@ -18,4 +18,9 @@ public class UserGate extends DataGate implements IUserGate{
 		return User.class;
 	}
 
+	@Override
+	protected String getModelName() {
+		return "User";
+	}
+
 }

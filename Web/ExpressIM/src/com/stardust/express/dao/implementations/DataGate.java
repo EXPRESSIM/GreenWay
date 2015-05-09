@@ -1,6 +1,8 @@
 package com.stardust.express.dao.implementations;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,6 +26,8 @@ public abstract class DataGate implements IDataGate{
 	protected static SessionFactory sessionFactory;  
 	protected String datasource = "";
 	protected static HashMap<String, SessionFactory> connections = new HashMap<String, SessionFactory>();
+	
+	
 	
     static{  
         try{  
@@ -77,6 +81,42 @@ public abstract class DataGate implements IDataGate{
         }  
 	}
     
+	protected void setQueryParameters(HashMap<String, Object> selections, Query query) {
+		if (selections == null) return;
+		for (String property : selections.keySet()) {
+			Object value = selections.get(property);
+			if (value instanceof String) {
+				query.setString(property, (String) value);
+			}
+			if (value instanceof Integer) {
+				query.setInteger(property, (Integer) value);
+			}
+			if (value instanceof BigDecimal) {
+				query.setBigDecimal(property, (BigDecimal) value);
+			}
+			if (value instanceof Date) {
+				query.setDate(property, (Date) value);
+			}
+		}
+	}
+	
+	protected String buildWhereClause(HashMap<String, Object> selections) {
+		String where = "";
+		if (selections == null) return "";
+		for (String property : selections.keySet()) {
+			if (!where.isEmpty()) {
+				where += " and ";
+			}
+			where += " " + property + "=:" + property;
+		}
+		if (!where.isEmpty()) {
+			where = " where " + where;
+ 		}
+		
+		
+		return where;
+	}
+	
     protected Session getSession() {
     	if (datasource == null || datasource.isEmpty()) {
     		return sessionFactory.openSession();
@@ -107,22 +147,33 @@ public abstract class DataGate implements IDataGate{
     }
     
     public List<DataModel> fetchAll(){
-    	Session session = getSession(); 
-    	
-    	try{  
-    		Criteria c = session.createCriteria(User.class);
-            
-            @SuppressWarnings("unchecked")
-			List<DataModel> list = c.list();
-            if (list.size() > 0) {
-            	return list;
-            }
-        } catch (Exception e) {  
-        	e.printStackTrace();  
-        } finally {  
-            session.close();  
-        }  
-        return new ArrayList<DataModel>();
+    	return fetchAll(-1, -1);
+    }
+    
+    public List<DataModel> fetchAll(int start, int size, HashMap<String, Object> selections) {
+    	Session session = getSession();
+    	try{
+		   String hql = "from " + this.getModelName() + buildWhereClause(selections);
+		   Query query = session.createQuery(hql);
+		   setQueryParameters(selections, query);
+		   
+		   @SuppressWarnings("unchecked")
+		   List<DataModel> list=query.list();
+		   if (list != null && list.size() > 0) {
+           		return list;
+           } else {
+        	    return new ArrayList<DataModel>();
+           }
+		}catch (Exception e) {  
+	        e.printStackTrace();  
+	    } finally{
+		    session.close();  
+		}
+	    return new ArrayList<DataModel>();
+    }
+    
+    public List<DataModel> fetchAll(int start, int size) {
+    	return fetchAll(start, size , null);
     }
     
     public DataModel find(long id) {
@@ -199,5 +250,26 @@ public abstract class DataGate implements IDataGate{
         }  
     }
     
+    public int count(HashMap<String, Object> selections){
+    	Session session = getSession();
+    	try{
+    		 String hql = "select count(id) from " + this.getModelName() + buildWhereClause(selections);
+  		   	 Query query = session.createQuery(hql);
+  		     setQueryParameters(selections, query); 
+    		 int num=((Number)query.iterate().next()).intValue();  
+    		 return num;
+		}catch (Exception e) {  
+	        e.printStackTrace();  
+	    } finally{
+		    session.close();  
+		}
+	    return 0;
+    }
+    
+    public int count(){
+	    return count(null);
+    }
+    
     abstract protected Class<?> getModelClass();
+    abstract protected String getModelName();
 }

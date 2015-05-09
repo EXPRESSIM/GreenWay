@@ -1,15 +1,18 @@
 package com.stardust.express.actions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.struts2.json.annotations.JSON;
-
-import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ActionContext;
 import com.stardust.express.dao.implementations.UserGate;
 import com.stardust.express.models.User;
 
-public class UserAction extends  ActionSupport{
+public class UserAction extends ActionExecutor{
+	
+	ActionContext actionContext = ActionContext.getContext();
+	
 	private static final long serialVersionUID = 1359090410097337654L;
 	private List<User> users = new ArrayList<User>();
 	
@@ -43,6 +46,7 @@ public class UserAction extends  ActionSupport{
 	}
 	
 	public String loadUser() {
+		String ds = ((String[])(actionContext.getParameters().get("datasource")))[0];
         User user = new User();
         user.setUsername("rivneg");
         user.setPassword("8forxiao");
@@ -55,6 +59,9 @@ public class UserAction extends  ActionSupport{
         gate.add(user);
         User u = (User)gate.find(4);
         users.add(u);
+        HashMap<String,Object> selections = new HashMap<String,Object>();
+        selections.put("id", 20);
+        int a = gate.count(selections);
         return SUCCESS;
     }
 }
