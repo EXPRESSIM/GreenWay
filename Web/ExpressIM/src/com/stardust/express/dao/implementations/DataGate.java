@@ -147,10 +147,10 @@ public abstract class DataGate implements IDataGate{
     }
     
     public List<DataModel> fetchAll(){
-    	return fetchAll(-1, -1);
+    	return find(-1, -1);
     }
     
-    public List<DataModel> fetchAll(int start, int size, List<Selection> selections) {
+    public List<DataModel> find(int start, int size, List<Selection> selections) {
     	Session session = getSession();
     	try{
 		   String hql = "from " + this.getModelName() + buildWhereClause(selections);
@@ -172,8 +172,12 @@ public abstract class DataGate implements IDataGate{
 	    return new ArrayList<DataModel>();
     }
     
-    public List<DataModel> fetchAll(int start, int size) {
-    	return fetchAll(start, size , null);
+    public List<DataModel> find(int start, int size) {
+    	return find(start, size , null);
+    }
+    
+    public List<DataModel> find(List<Selection> selections) {
+    	return find(-1, -1, selections);
     }
     
     public DataModel find(long id) {

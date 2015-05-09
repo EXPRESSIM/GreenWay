@@ -13,8 +13,9 @@ public interface IDataGate {
 	void setDatasource(String datasource);
 	String getDatasource();
 	List<DataModel> fetchAll();
-	List<DataModel> fetchAll(int start, int size);
-	List<DataModel> fetchAll(int start, int size, List<Selection> selections);
+	List<DataModel> find(int start, int size);
+	List<DataModel> find(int start, int size, List<Selection> selections);
+	List<DataModel> find(List<Selection> selections);
 	int count();
 	int count(List<Selection> selections);
 }
