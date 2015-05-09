@@ -12,5 +12,7 @@
         <property name="hibernate.connection.username">sa</property>  
         <property name="hibernate.connection.password">8forxiao</property>  
         <mapping resource="com/stardust/express/models/User.hbm.xml"/>  
+        <mapping resource="com/stardust/express/models/Datasource.hbm.xml"/>  
+       
     </session-factory>  
 </hibernate-configuration>  

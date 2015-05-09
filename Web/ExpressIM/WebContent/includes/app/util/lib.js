@@ -1540,7 +1540,7 @@ ExpressIM.TaskManger = {
             $("#" + task.taskIdx).remove();
         }
     }
-}
+};
 
 /**
 * Primary menu object for ExpressIM, the menu core is based on apycom menus see http://apycom.com/

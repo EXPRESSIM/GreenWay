@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.stardust.express.dao.implementations.DataGate;
+import com.stardust.express.dao.implementations.UserGate;
 import com.stardust.express.models.User;
 
 public class UserAction extends  ActionSupport{
@@ -14,6 +14,16 @@ public class UserAction extends  ActionSupport{
 	private List<User> users = new ArrayList<User>();
 	
 	private long userid = 0;
+	private String datasource = "";
+	
+	public void setDatasource(String source) {
+		datasource = source;
+	}
+	
+	@JSON(serialize=false)
+	public String getDatasource(){
+		return datasource;
+	}
 	
 	public void setUserId(long id) {
 		userid = id;
@@ -41,7 +51,7 @@ public class UserAction extends  ActionSupport{
         user.setName("Alex Li");
         users.add(user);
         
-        DataGate gate = new DataGate();
+        UserGate gate = new UserGate(getDatasource());
         gate.add(user);
         User u = (User)gate.find(4);
         users.add(u);
