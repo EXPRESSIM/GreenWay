@@ -81,33 +81,33 @@ public abstract class DataGate implements IDataGate{
         }  
 	}
     
-	protected void setQueryParameters(HashMap<String, Object> selections, Query query) {
-		if (selections == null) return;
-		for (String property : selections.keySet()) {
-			Object value = selections.get(property);
+	protected void setQueryParameters(List<Selection> selections, Query query) {
+		if (selections == null || selections.isEmpty()) return ;
+		for (Selection selection : selections) {
+			Object value = selection.getValue();
 			if (value instanceof String) {
-				query.setString(property, (String) value);
+				query.setString(selection.getProperty(), (String) value);
 			}
 			if (value instanceof Integer) {
-				query.setInteger(property, (Integer) value);
+				query.setInteger(selection.getProperty(), (Integer) value);
 			}
 			if (value instanceof BigDecimal) {
-				query.setBigDecimal(property, (BigDecimal) value);
+				query.setBigDecimal(selection.getProperty(), (BigDecimal) value);
 			}
 			if (value instanceof Date) {
-				query.setDate(property, (Date) value);
+				query.setDate(selection.getProperty(), (Date) value);
 			}
 		}
 	}
 	
-	protected String buildWhereClause(HashMap<String, Object> selections) {
+	protected String buildWhereClause(List<Selection> selections) {
 		String where = "";
-		if (selections == null) return "";
-		for (String property : selections.keySet()) {
+		if (selections == null || selections.isEmpty()) return "";
+		for (Selection selection : selections) {
 			if (!where.isEmpty()) {
-				where += " and ";
+				where += " " + selection.getOperand().getOperand();
 			}
-			where += " " + property + "=:" + property;
+			where += " " + selection.getProperty() + "" + selection.getOperator().getOperator() +":" + selection.getProperty();
 		}
 		if (!where.isEmpty()) {
 			where = " where " + where;
@@ -150,7 +150,7 @@ public abstract class DataGate implements IDataGate{
     	return fetchAll(-1, -1);
     }
     
-    public List<DataModel> fetchAll(int start, int size, HashMap<String, Object> selections) {
+    public List<DataModel> fetchAll(int start, int size, List<Selection> selections) {
     	Session session = getSession();
     	try{
 		   String hql = "from " + this.getModelName() + buildWhereClause(selections);
@@ -250,7 +250,7 @@ public abstract class DataGate implements IDataGate{
         }  
     }
     
-    public int count(HashMap<String, Object> selections){
+    public int count(List<Selection> selections){
     	Session session = getSession();
     	try{
     		 String hql = "select count(id) from " + this.getModelName() + buildWhereClause(selections);

@@ -3,6 +3,7 @@ package com.stardust.express.dao.abstracts;
 import java.util.HashMap;
 import java.util.List;
 
+import com.stardust.express.dao.implementations.Selection;
 import com.stardust.express.models.DataModel;
 
 public interface IDataGate {
@@ -14,7 +15,7 @@ public interface IDataGate {
 	String getDatasource();
 	List<DataModel> fetchAll();
 	List<DataModel> fetchAll(int start, int size);
-	List<DataModel> fetchAll(int start, int size, HashMap<String, Object> selections);
+	List<DataModel> fetchAll(int start, int size, List<Selection> selections);
 	int count();
-	int count(HashMap<String, Object> selections);
+	int count(List<Selection> selections);
 }

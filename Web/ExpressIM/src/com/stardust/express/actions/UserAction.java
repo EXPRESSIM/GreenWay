@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.struts2.json.annotations.JSON;
 import com.opensymphony.xwork2.ActionContext;
+import com.stardust.express.dao.implementations.Selection;
 import com.stardust.express.dao.implementations.UserGate;
 import com.stardust.express.models.User;
 
@@ -59,8 +60,8 @@ public class UserAction extends ActionExecutor{
         gate.add(user);
         User u = (User)gate.find(4);
         users.add(u);
-        HashMap<String,Object> selections = new HashMap<String,Object>();
-        selections.put("id", 20);
+        List<Selection> selections = new ArrayList<Selection>();
+        selections.add(new Selection("id", Selection.Operator.GREATER, 20));
         int a = gate.count(selections);
         return SUCCESS;
     }

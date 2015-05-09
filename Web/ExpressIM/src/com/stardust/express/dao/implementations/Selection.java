@@ -3,7 +3,7 @@ package com.stardust.express.dao.implementations;
 public class Selection {
 	
 	public enum Operand {
-		AND(" and "), OR(" or ");
+		AND(" and "), OR(" or "), EMPTY("");
 		
 	    private String op = "";
 		
@@ -37,6 +37,10 @@ public class Selection {
 	final private String property;
 	final private Object value;
 	
+	public Selection(final String p, final Operator opt, final Object v) {
+		this(p, opt, v, Operand.EMPTY);
+	}
+
 	public Selection(final String p, final Operator opt, final Object v, final Operand op) {
 		property = p;
 		operator = opt;
