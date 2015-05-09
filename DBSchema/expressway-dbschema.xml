@@ -1,6 +1,6 @@
 <DataDictionary>
 	<Tables>
-		<Table Name="EXPRESSWAY_CUSTOMER" PrimaryKey="ID">
+		<Table Name="EXPRESSWAY_USER" PrimaryKey="ID">
 			<Columns>
 				<Column Name="ID" DataType="INT" AutoIncrement="True"/>
 				<Column Name="USER_NAME" DataType="VARCHAR" ColumnSize="50" Unique="True"/>
@@ -12,7 +12,6 @@
         	</Columns>
 			<Indexes/>
         	<Relations>	
-       			 <Relation ForeignKey="USER_ROLE_ID" ParentTable="EXPRESSWAY_USER_ROLE"/>
       		</Relations>
 		</Table>
 		
@@ -21,6 +20,17 @@
 			<Column Name="ID" DataType="INT" AutoIncrement="TRUE"/>
 			<Column Name="ROLE_NAME" DataType="VARCHAR" ColumnSize="50"/>
 			<Column Name="STATUS" DataType="VARCHAR" ColumnSize="1"/>
+		  </Columns>
+		  <Indexes/>
+		  <Relations>
+		  </Relations>
+		</Table>
+		
+		<Table Name="EXPRESSWAY_DATASOURCE" PrimaryKey="ID">
+		  <Columns>
+			<Column Name="ID" DataType="INT" AutoIncrement="TRUE"/>
+			<Column Name="SOURCE_NAME" DataType="VARCHAR" ColumnSize="50"/>
+			<Column Name="DATABASE_NAME" DataType="VARCHAR" ColumnSize="50"/>
 		  </Columns>
 		  <Indexes/>
 		  <Relations>

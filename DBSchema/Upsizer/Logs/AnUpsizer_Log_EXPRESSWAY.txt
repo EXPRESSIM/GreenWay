@@ -13,9 +13,11 @@ Upsizing
 
 Create new DDRelations Table
 
-Upsizing Table EXPRESSWAY_CUSTOMER
+Upsizing Table EXPRESSWAY_USER
 
 Upsizing Table EXPRESSWAY_USER_ROLE
+
+Upsizing Table EXPRESSWAY_DATASOUCE
 
 Creating relations for tables.
 
