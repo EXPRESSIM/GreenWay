@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.struts2.json.annotations.JSON;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.stardust.express.dao.implementations.DataGate;
 import com.stardust.express.models.User;
 
 public class UserAction extends  ActionSupport{
@@ -35,10 +36,15 @@ public class UserAction extends  ActionSupport{
         User user = new User();
         user.setUsername("rivneg");
         user.setPassword("8forxiao");
-        user.setId(getUserId());
+        //user.setId(getUserId());
         user.setRoleId(1);
         user.setName("Alex Li");
         users.add(user);
+        
+        DataGate gate = new DataGate();
+        gate.add(user);
+        User u = (User)gate.find(4);
+        users.add(u);
         return SUCCESS;
     }
 }

@@ -1,28 +1,28 @@
 package com.stardust.express.models;
 
-public class User {
-	protected long id;
-	protected String username;
-	protected String name;
-	protected String status;
-	protected String password;
-	protected String email;
+public class User extends DataModel {
+
+	protected String username = "";
+	protected String name = "";
+	protected String status = "A";
+	protected String password = "";
+	protected String email = "";
 	protected long roleId;
 	
-	public long getId() {
-		return id;
-	}
-	
-	public void setId(long id) {
-		this.id = id;
-	}
-    
 	public String getName() {
 		return this.name;
 	}
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getStatus() {
+		return this.status;
 	}
 	
 	public String getUsername() {
