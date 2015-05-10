@@ -56,7 +56,7 @@
             height:129px;
         }
     </style>
-<link href="includes/easyui/themes/default/easyui.css" rel="stylesheet"   type="text/css"/>
+	<link href="includes/easyui/themes/default/easyui.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/icon.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/color.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/app/util/richeditor/jquery.cleditor.css" rel ="stylesheet"  type="text/css"/>
@@ -99,7 +99,7 @@
                     <div class="app-statusbar-back" style="width:30px;"><div class="app-statusbar-icon"  style="position:relative;top:5px;"></div></div>
                 </td>
                  <td>
-                    <div class="app-statusbar-back" style="width:400px;"><span style="padding-top:10px;">高速公路绿色通道稽查系统</span></div>
+                    <div class="app-statusbar-back" style="width:400px;"><span style="position:relative;top:4px;">高速公路绿色通道稽查系统</span></div>
                 </td>
             </tr>
         </table>
