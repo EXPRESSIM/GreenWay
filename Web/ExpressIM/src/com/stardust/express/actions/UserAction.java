@@ -9,6 +9,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.stardust.express.dao.implementations.Selection;
 import com.stardust.express.dao.implementations.UserGate;
 import com.stardust.express.models.User;
+import com.stardust.express.patterns.IViewContext;
+import com.stardust.express.patterns.ViewContext;
 
 public class UserAction extends ActionExecutor{
 	
@@ -47,7 +49,10 @@ public class UserAction extends ActionExecutor{
 	}
 	
 	public String loadUser() {
-		String ds = ((String[])(actionContext.getParameters().get("datasource")))[0];
+		IViewContext context = new ViewContext(actionContext);
+		String ds = context.getString("datasource");
+		int userid = context.getInt("userid");
+		
         User user = new User();
         user.setUsername("rivneg");
         user.setPassword("8forxiao");
@@ -56,7 +61,7 @@ public class UserAction extends ActionExecutor{
         user.setName("Alex Li");
         users.add(user);
         
-        UserGate gate = new UserGate(getDatasource());
+        UserGate gate = new UserGate(ds);
         gate.add(user);
         User u = (User)gate.find(4);
         users.add(u);

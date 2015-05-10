@@ -97,6 +97,12 @@ public abstract class DataGate implements IDataGate{
 			if (value instanceof Date) {
 				query.setDate(selection.getProperty(), (Date) value);
 			}
+			if (value instanceof Double) {
+				query.setDouble(selection.getProperty(), (Double) value);
+			}
+			if (value instanceof Boolean) {
+				query.setBoolean(selection.getProperty(), (Boolean) value);
+			}
 		}
 	}
 	
