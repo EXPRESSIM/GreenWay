@@ -3,7 +3,7 @@
 		{
 		    text: "信息管理",
 		    items: [
-                { text: "用户管理", view: "ShippingServicer" },
+                { text: "用户管理", view: "User" },
                 { text: "用户组管理", view: "Article" }
 			],
 		    isRoot: true
