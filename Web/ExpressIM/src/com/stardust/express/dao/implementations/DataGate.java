@@ -88,7 +88,7 @@ public abstract class DataGate implements IDataGate{
 			Object value = selection.getValue();
 			if (value instanceof String) {
 				if (selection.getOperator().equals(Selection.Operator.LIKE)) {
-					query.setString(selection.getProperty(), ((String) value) + "%");
+					query.setString(selection.getProperty(), ((String) value) + "%%");
 				} else {
 					query.setString(selection.getProperty(), (String) value);
 				}

@@ -3,6 +3,8 @@ package com.stardust.express.actions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import com.stardust.express.bo.AdminBOFactory;
 import com.stardust.express.bo.IAdminBO;
 import com.stardust.express.models.DataModel;
@@ -31,7 +33,7 @@ public class LookupAction extends ActionExecutor {
 		int pageSize = context.getInt("rows");
 		int start = (context.getInt("page")-1) * pageSize;
 		String searchBy = context.getString("searchBy");
-		String searchValue = context.getString("searchValue");
+		String searchValue = StringEscapeUtils.unescapeHtml4(context.getString("searchValue"));
 		String sortBy = context.getString("sortBy");
 		rows = bo.filter(searchBy, searchValue, sortBy, pageSize, start);
 		total = bo.count(searchBy, searchValue);

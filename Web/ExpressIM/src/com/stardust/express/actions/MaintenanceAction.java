@@ -1,6 +1,7 @@
 package com.stardust.express.actions;
 
-import java.util.ArrayList;
+
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import com.stardust.express.bo.AdminBOFactory;
 import com.stardust.express.bo.IAdminBO;
@@ -17,7 +18,7 @@ public class MaintenanceAction extends  ActionExecutor {
 	
 	public String read() {
 		IAdminBO bo = AdminBOFactory.create(context);
-		String key = context.getString("key");
+		String key = StringEscapeUtils.unescapeHtml4(context.getString("key"));
 		model = bo.get(key); 
 		return SUCCESS;
 	}

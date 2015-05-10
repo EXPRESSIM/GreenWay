@@ -796,7 +796,7 @@ ExpressIM.UIComponent.Lookup.prototype = Class.extend({
                             $.parser.parse($('#' + this._id + '_search_window'), (function () {
                                 this._searchGrid = $('#' + this._id + "_search_grid");
                                 this._searchGrid.datagrid({
-                                	method:"get",
+                                	method:"post",
                                     url: this._getActionUrl(),
                                     onBeforeLoad:(function(params){
                                              params.trust = 'Y';
@@ -1243,7 +1243,8 @@ ExpressIM.MaintenanceController.prototype = Class.extend({
         this._msg.render();
         $.ajax({
             type: "post",
-            url: this._readModule + "?MODEL_TYPE=" + this._modelType + "&key=" + escape(key) + (this._getReadParameters ? this._getReadParameters() : ""),
+            url: this._readModule + "?MODEL_TYPE=" + this._modelType + (this._getReadParameters ? this._getReadParameters() : ""),
+            data: {key: key},
             success: (function (data, textStatus) {
                  var json = data.model;
                  if (json.remoteMessage) {
