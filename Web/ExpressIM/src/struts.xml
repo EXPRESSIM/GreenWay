@@ -15,6 +15,10 @@
 	    	<interceptor-ref name="authenticationInterceptor" />
 	    	<result name="invalid_session" type="redirect">index.html</result>
 	        <result name="success" type="json"></result>
+	        <result name="permission_denied" type="stream">
+                 <param name="contentType">text/html</param>
+                 <param name="inputName">stringResponse</param>
+            </result>
 	    </action>
 	</package>
 	

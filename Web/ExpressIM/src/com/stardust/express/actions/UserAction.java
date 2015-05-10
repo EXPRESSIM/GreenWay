@@ -1,5 +1,7 @@
 package com.stardust.express.actions;
 
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,12 @@ public class UserAction extends ActionExecutor{
 	
 	private long userid = 0;
 	private String datasource = "";
+	
+	private InputStream stringResponse;
+	
+	public InputStream getStringResponse() { 
+		return stringResponse; 
+	} 
 	
 	public void setDatasource(String source) {
 		datasource = source;
@@ -68,6 +76,8 @@ public class UserAction extends ActionExecutor{
         List<Selection> selections = new ArrayList<Selection>();
         selections.add(new Selection("id", Selection.Operator.GREATER, 20));
         int a = gate.count(selections);
-        return SUCCESS;
+        stringResponse = new StringBufferInputStream("Permission Denied");
+        return "permission_denied";
+        //return SUCCESS;
     }
 }
