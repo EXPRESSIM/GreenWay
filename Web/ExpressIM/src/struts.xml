@@ -4,13 +4,22 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+	<package name="expressway-parent" extends="json-default">
+		<interceptors>
+	         <interceptor name="authenticationInterceptor" class="com.stardust.express.interceptors.AuthenticationInterceptor"/>
+	    </interceptors>
+	</package>
 
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
-    
- 	<!-- Add packages here -->
-    <package name="ExpressIM" extends="json-default">
+    <package name="expressway-debug" extends="expressway-parent">
 	    <action name="loadUser" class="com.stardust.express.actions.UserAction" method="loadUser">
+	    	<interceptor-ref name="authenticationInterceptor" />
+	    	<result name="invalid_session" type="redirect">index.html</result>
+	        <result name="success" type="json"></result>
+	    </action>
+	</package>
+	
+	<package name="expressway-maintenance" extends="expressway-parent">
+	    <action name="maintenance" class="com.stardust.express.actions.MaintenanceAction" method="maint">
 	        <result name="success" type="json"></result>
 	    </action>
 	</package>
