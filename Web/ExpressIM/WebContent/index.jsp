@@ -105,7 +105,7 @@
         </table>
     </div>
     <div style="position:absolute;left:10px;bottom:5px;">
-            <img src="resource/images/stardust.png" width="600" height="80" />
+            <img src="resource/images/stardust.png" width="450" height="60" />
     </div>
 
     <div id="taskContainer"></div>
