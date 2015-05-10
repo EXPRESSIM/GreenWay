@@ -1,4 +1,4 @@
-package com.stardust.express.patterns;
+package com.stardust.express.tools;
 
 import java.math.BigDecimal;
 import java.util.Date;

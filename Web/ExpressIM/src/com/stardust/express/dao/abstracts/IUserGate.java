@@ -1,5 +1,5 @@
 package com.stardust.express.dao.abstracts;
 
-public interface IUserGate {
+public interface IUserGate extends IDataGate{
 
 }

@@ -11,8 +11,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.stardust.express.dao.implementations.Selection;
 import com.stardust.express.dao.implementations.UserGate;
 import com.stardust.express.models.User;
-import com.stardust.express.patterns.IViewContext;
-import com.stardust.express.patterns.ViewContext;
+import com.stardust.express.tools.IViewContext;
+import com.stardust.express.tools.ViewContext;
 
 public class UserAction extends ActionExecutor{
 	

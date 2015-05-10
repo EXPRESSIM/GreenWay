@@ -16,10 +16,11 @@
     </filter-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
     <!-- Restricts access to pure JSP files - access available only via Struts action -->
+    <!-- 
     <security-constraint>
         <display-name>No direct JSP access</display-name>
         <web-resource-collection>
@@ -30,7 +31,7 @@
             <role-name>no-users</role-name>
         </auth-constraint>
     </security-constraint>
-
+	 -->
     <security-role>
         <description>Don't assign users to this role</description>
         <role-name>no-users</role-name>
