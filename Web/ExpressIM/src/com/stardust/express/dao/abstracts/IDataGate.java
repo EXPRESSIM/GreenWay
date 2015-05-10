@@ -7,6 +7,7 @@ import com.stardust.express.models.DataModel;
 
 public interface IDataGate {
 	DataModel find(long id);
+	DataModel find(String key);
 	void remove(DataModel model);
 	void add(DataModel model);
 	void update(DataModel model);

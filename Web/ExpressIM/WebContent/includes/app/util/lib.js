@@ -17,8 +17,8 @@ var ExpressIM = {
     viewDir: "/ExpressIM/modules/view/",
     formDir:"/ExpressIM/modules/form/",
     modelDir: "",
-    frontcontroller: "frontcontroller.aspx",
-    reportserver: "reportserver.aspx",
+    frontcontroller: "frontcontroller",
+    reportserver: "reportserver",
     menuType: "menu"
 };
 

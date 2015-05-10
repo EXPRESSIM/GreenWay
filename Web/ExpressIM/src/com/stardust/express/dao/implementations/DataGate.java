@@ -26,7 +26,7 @@ public abstract class DataGate implements IDataGate{
 	protected static SessionFactory sessionFactory;  
 	protected String datasource = "";
 	protected static HashMap<String, SessionFactory> connections = new HashMap<String, SessionFactory>();
-	
+	protected String keyProperty = "";
 	
 	
     static{  
@@ -184,6 +184,28 @@ public abstract class DataGate implements IDataGate{
     
     public List<DataModel> find(List<Selection> selections) {
     	return find(-1, -1, selections);
+    }
+    
+    public DataModel find(String key) {
+    	if (!this.keyProperty.isEmpty()) {
+    		Session session = getSession(); 
+        	
+        	try{  
+        		Criteria c = session.createCriteria(User.class);
+        		c.add(Restrictions.eq(this.keyProperty,key));
+                
+                @SuppressWarnings("unchecked")
+    			List<DataModel> list = c.list();
+                if (list.size() > 0) {
+                	return list.get(0);
+                }
+            } catch (Exception e) {  
+            	e.printStackTrace();  
+            } finally {  
+                session.close();  
+            }  
+    	}
+    	return null;
     }
     
     public DataModel find(long id) {
