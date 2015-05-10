@@ -71,7 +71,7 @@
     <script language="javascript" src="includes/app/util/richeditor/jquery.cleditor.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/uploadify/jquery.uploadify.js" type="text/javascript"></script>
     <script language="javascript" src="includes/app/util/lib.js" type="text/javascript" ></script>
-    <script language="javascript" src="includes/app/data/data-grid-config.js" type="text/javascript" ></script>
+    <script language="javascript" src="modules/model/SimpleModel.js" type="text/javascript" ></script>
 </head>
 <body class="app-background">
 	<%

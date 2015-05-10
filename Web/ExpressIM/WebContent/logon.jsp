@@ -20,7 +20,6 @@
     <script language="javascript" src="includes/app/util/richeditor/jquery.cleditor.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/uploadify/jquery.uploadify.js" type="text/javascript"></script>
     <script language="javascript" src="includes/app/util/lib.js" type="text/javascript" ></script>
-    <script language="javascript" src="includes/app/data/data-grid-config.js" type="text/javascript" ></script>
 </head>
 <body  style="background-color:rgb(228,239,255)">
 	<%

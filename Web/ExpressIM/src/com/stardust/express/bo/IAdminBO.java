@@ -11,7 +11,7 @@ public interface IAdminBO {
     DataModel get(String key);
     long remove(DataModel model);
     long remove();
-    long update(DataModel model);
-    long update();
+    DataModel update(DataModel model);
+    DataModel update();
     int count(String searchBy, String searchValue);
 }

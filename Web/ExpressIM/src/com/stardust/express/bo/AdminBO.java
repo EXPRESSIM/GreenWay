@@ -80,15 +80,15 @@ abstract public class AdminBO extends BusinessObject implements IAdminBO{
         }
     }
 
-    public long update(DataModel model)
+    public DataModel update(DataModel model)
     {
         if (_preUpdate(model))
         {
-            long result =  _update(model);
+            _update(model);
             _postUpdate(model);
-            return result;
+            return model;
         }
-        return -1;
+        return _createModel(context);
     }
 
     protected void _postUpdate(DataModel model)
@@ -96,11 +96,11 @@ abstract public class AdminBO extends BusinessObject implements IAdminBO{
 
     }
 
-    public long update()
+    public DataModel update()
     {
         DataModel model = _createModel(context);
-        long result = update(model);
-        return result;
+        update(model);
+        return model;
     }
 
     public long remove()
@@ -142,7 +142,7 @@ abstract public class AdminBO extends BusinessObject implements IAdminBO{
                 return retVal;
             }
         }
-        return null;
+        return _createModel(context);
     }
 
     public List<DataModel> filter(String searchBy, String searchValue, String sortBy, int pageSize, int page)

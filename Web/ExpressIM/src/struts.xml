@@ -45,7 +45,13 @@
 		<action name="lookup" class="com.stardust.express.actions.LookupAction" method="fetch">
 	        <result name="success" type="json"></result>
 	    </action>
-	    <action name="maintenance" class="com.stardust.express.actions.MaintenanceAction" method="maint">
+	    <action name="readrecord" class="com.stardust.express.actions.MaintenanceAction" method="read">
+	        <result name="success" type="json"></result>
+	    </action>
+	   	<action name="updaterecord" class="com.stardust.express.actions.MaintenanceAction" method="update">
+	        <result name="success" type="json"></result>
+	    </action>
+	    <action name="deleterecord" class="com.stardust.express.actions.MaintenanceAction" method="delete">
 	        <result name="success" type="json"></result>
 	    </action>
 	</package>

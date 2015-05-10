@@ -33,16 +33,16 @@ ExpressIM.AdminUserController.prototype = Class.extend({
 
     _bindEvents: function () {
         this.on("OnCreateNew", this, (function (ctx) {
-            this.find("STATUS").combobox("setValue", "A");
+            this.find("status").combobox("setValue", "A");
             this._restrictPassword();
         }));
 
         this.on("OnReset", this, (function (ctx) {
-            this.find("STATUS").combobox("setValue", "A");
+            this.find("status").combobox("setValue", "A");
         }));
 
         this.on("OnReadComplete", this, (function (ctx) {
-            var password = this.find("PASSWORD");
+            var password = this.find("password");
             var value = password.textbox("getValue");
             this._restrictPassword();
         }));
@@ -50,7 +50,9 @@ ExpressIM.AdminUserController.prototype = Class.extend({
     },
 
     _restrictPassword: function () {
-        this.find("PASSWORD").textbox('textbox').attr("maxlength", 16);
+        this.find("password").textbox('textbox').attr("maxlength", 16);
+        this._setFieldValue(this.find("username"), this._getFieldValue(this.find("SEARCH_KEY")));
+        this._disableField(this.find("username"));
     }
 }, ExpressIM.MaintenanceController.prototype);
 

@@ -819,7 +819,7 @@ ExpressIM.UIComponent.Lookup.prototype = Class.extend({
                                             this._searchbox.textbox("setValue", this._searchGrid.datagrid("getSelected")[this._keyField]);
                                         } 
                                         if (this._searchIDField) {
-                                            this._searchIDField.textbox("setValue",  this._searchGrid.datagrid("getSelected")["Id"]);
+                                            this._searchIDField.textbox("setValue",  this._searchGrid.datagrid("getSelected")["id"]);
                                         }
                                         if (!this._searchbox && !this.searchIDField) {
                                             this.trigger("OnLookup", {record:this._selectedRecord});
@@ -1186,7 +1186,7 @@ ExpressIM.MaintenanceController.prototype = Class.extend({
 
     _getModelDefinition: function () {
         var fields = this.findWithExp("*[data-field]");
-        var definition = { Id: "ID" };
+        var definition = { id: "id" };
         for (var i = 0; i < fields.length; i++) {
             var dbField = $(fields[i]).attr("data-field");
             var modelProperty = $(fields[i]).attr("data-property");
@@ -1199,7 +1199,7 @@ ExpressIM.MaintenanceController.prototype = Class.extend({
         this._model = new ExpressIM.SimpleModel({
             fields: this._getModelDefinition()
         });
-        this._model.set("Id", -1);
+        this._model.set("id", -1);
         return this._model;
     },
 
@@ -1243,13 +1243,13 @@ ExpressIM.MaintenanceController.prototype = Class.extend({
         this._msg.render();
         $.ajax({
             type: "post",
-            url: ExpressIM.frontcontroller + "?action=" + this._actionModule + "&sub=" + this._readModule + "&MODEL_TYPE=" + this._modelType + "&key=" + escape(key) + (this._getReadParameters ? this._getReadParameters() : ""),
+            url: this._readModule + "?MODEL_TYPE=" + this._modelType + "&key=" + escape(key) + (this._getReadParameters ? this._getReadParameters() : ""),
             success: (function (data, textStatus) {
-                var json = eval("(" + data + ")");
+                 var json = data.model;
                  if (json.remoteMessage) {
-                        this._reset();
-                        this._showRemoteMessage(json);
-                 } else if (json.Id && json.Id > 0) {
+                     this._reset();
+                     this._showRemoteMessage(json);
+                 } else if (json.id && json.id > 0) {
                     this._fillRecord(json);
                 } else {
                     this._notFoundRecord();
@@ -1295,16 +1295,16 @@ ExpressIM.MaintenanceController.prototype = Class.extend({
         this._msg.render();
         $.ajax({
             type: "post",
-            url: ExpressIM.frontcontroller + "?action=" + this._actionModule + "&sub=" + this._updateModule + "&MODEL_TYPE=" + this._modelType, //+ "&" + this._model.toUrlParameter(),
+            url: this._updateModule + "?MODEL_TYPE=" + this._modelType, //+ "&" + this._model.toUrlParameter(),
             data:this._model.toJSONParameter(),
             success: (function (data, textStatus) {
                 this._msg.destroy();
                 this._msg = null;
-                if (data && data.length > 0) {
-                    var json = eval("(" + data + ")");
+                if (data) {
+                    var json = data.model;
                      if (json.remoteMessage) {
                         this._showRemoteMessage(json);
-                    } else if (json.Id && json.Id > 0) {
+                    } else if (json.id && json.id > 0) {
                         this.trigger("OnPostUpdateRecord", {json:json});
                     }
                 }
@@ -1323,12 +1323,12 @@ ExpressIM.MaintenanceController.prototype = Class.extend({
         this._msg.render();
         $.ajax({
             type: "post",
-            url: ExpressIM.frontcontroller + "?action=" + this._actionModule + "&sub=" + this._deleteModule + "&MODEL_TYPE=" + this._modelType + "&id=" + this._model.getId(),
+            url: this._deleteModule + "?MODEL_TYPE=" + this._modelType + "&id=" + this._model.getId(),
             success: (function (data, textStatus) {
                 this._msg.destroy();
                 this._msg = null;
                 this._reset();
-                if (data && data.length > 0) {
+                if (data) {
                     var json = eval("(" + data + ")");
                     if (json.remoteMessage) {
                         this._showRemoteMessage(json);

@@ -52,6 +52,6 @@ ExpressIM.SimpleModel.prototype = Class.extend({
     },
 
     getId: function () {
-        return this._data.Id;
+        return this._data.id;
     }
 }, ExpressIM.EventDelegate.prototype);
