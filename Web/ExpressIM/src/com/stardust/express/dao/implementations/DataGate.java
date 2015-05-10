@@ -84,9 +84,14 @@ public abstract class DataGate implements IDataGate{
 	protected void setQueryParameters(List<Selection> selections, Query query) {
 		if (selections == null || selections.isEmpty()) return ;
 		for (Selection selection : selections) {
+			if (selection.getProperty().isEmpty() || selection.getProperty() == null) continue;
 			Object value = selection.getValue();
 			if (value instanceof String) {
-				query.setString(selection.getProperty(), (String) value);
+				if (selection.getOperator().equals(Selection.Operator.LIKE)) {
+					query.setString(selection.getProperty(), ((String) value) + "%");
+				} else {
+					query.setString(selection.getProperty(), (String) value);
+				}
 			}
 			if (value instanceof Integer) {
 				query.setInteger(selection.getProperty(), (Integer) value);
@@ -110,6 +115,7 @@ public abstract class DataGate implements IDataGate{
 		String where = "";
 		if (selections == null || selections.isEmpty()) return "";
 		for (Selection selection : selections) {
+			if (selection.getProperty().isEmpty() || selection.getProperty() == null) continue;
 			if (!where.isEmpty()) {
 				where += " " + selection.getOperand().getOperand();
 			}
@@ -153,14 +159,18 @@ public abstract class DataGate implements IDataGate{
     }
     
     public List<DataModel> fetchAll(){
-    	return find(-1, -1);
+    	return find(-1, -1, "id");
     }
     
-    public List<DataModel> find(int start, int size, List<Selection> selections) {
+    public List<DataModel> find(int start, int size, List<Selection> selections, String sortBy) {
     	Session session = getSession();
     	try{
 		   String hql = "from " + this.getModelName() + buildWhereClause(selections);
 		   Query query = session.createQuery(hql);
+		   if (start >= 0 && size > 0) { 
+			   query.setFirstResult(start);
+			   query.setMaxResults(size);
+		   }
 		   setQueryParameters(selections, query);
 		   
 		   @SuppressWarnings("unchecked")
@@ -178,12 +188,12 @@ public abstract class DataGate implements IDataGate{
 	    return new ArrayList<DataModel>();
     }
     
-    public List<DataModel> find(int start, int size) {
+    public List<DataModel> find(int start, int size, String sortBy) {
     	return find(start, size , null);
     }
     
-    public List<DataModel> find(List<Selection> selections) {
-    	return find(-1, -1, selections);
+    public List<DataModel> find(List<Selection> selections, String sortBy) {
+    	return find(-1, -1, selections, sortBy);
     }
     
     public DataModel find(String key) {
@@ -228,7 +238,7 @@ public abstract class DataGate implements IDataGate{
         return null;
     }
     
-    public void remove(DataModel model) {
+    public long remove(DataModel model) {
     	Session session = getSession();
     	Transaction transaction = null;  
     	
@@ -236,6 +246,7 @@ public abstract class DataGate implements IDataGate{
     		transaction = session.beginTransaction();   
             session.delete(model);  
             transaction.commit();  
+            return model.getId();
         } catch (Exception e) {  
             if(null != transaction){  
             	transaction.rollback();  
@@ -244,6 +255,16 @@ public abstract class DataGate implements IDataGate{
         } finally {  
             session.close();  
         }  
+        return 0;
+    }
+    
+    public long update(DataModel model) {
+    	if (model.getId() > 0) {
+    		this.edit(model);
+    	} else {
+    		this.add(model);
+    	}
+    	return model.getId();
     }
     
     public void add(DataModel model) {
@@ -264,7 +285,7 @@ public abstract class DataGate implements IDataGate{
         }  
     }
     
-    public void update(DataModel model) {
+    public void edit(DataModel model) {
     	Session session = getSession();
     	Transaction transaction = null;  
     	

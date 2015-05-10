@@ -1,5 +1,7 @@
 package com.stardust.express.models;
 
+import com.stardust.express.tools.IViewContext;
+
 public class User extends DataModel {
 
 	protected String username = "";
@@ -8,6 +10,20 @@ public class User extends DataModel {
 	protected String password = "";
 	protected String email = "";
 	protected long roleId;
+	
+	public User(){
+		
+	}
+	
+	public User(IViewContext ctx) {
+		id = ctx.getLong("id");
+		username = ctx.getString("username");
+		name = ctx.getString("name");
+		status = ctx.getString("status");
+		password = ctx.getString("password");
+		email = ctx.getString("email");
+		roleId = ctx.getLong("roleId");
+	}
 	
 	public String getName() {
 		return this.name;

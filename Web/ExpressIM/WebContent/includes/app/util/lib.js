@@ -710,7 +710,7 @@ ExpressIM.UIComponent.Lookup.prototype = Class.extend({
     },
 
     _getActionUrl: function() {
-        return  ExpressIM.frontcontroller + "?action=lookup&MODEL_TYPE=" + this._modelType + this.getParams();
+        return   "lookup?MODEL_TYPE=" + this._modelType + this.getParams();
     },
 
     disable: function() {
@@ -768,7 +768,7 @@ ExpressIM.UIComponent.Lookup.prototype = Class.extend({
                         if (this._fields[i].gridOptions) {
                             html += "<th data-options=\"" + this._fields[i].gridOptions + "\">" + this._fields[i].label + "</th>";
                             if (this._fields[i].isSearchField) {
-                                searchFields += "<option value='" + this._fields[i].dbField + "'>" + this._fields[i].label + "</option>";
+                                searchFields += "<option value='" + this._fields[i].property + "'>" + this._fields[i].label + "</option>";
                             }
                             if (this._fields[i].isKeyField) {
                                 this._keyField = this._fields[i].property;
@@ -796,6 +796,7 @@ ExpressIM.UIComponent.Lookup.prototype = Class.extend({
                             $.parser.parse($('#' + this._id + '_search_window'), (function () {
                                 this._searchGrid = $('#' + this._id + "_search_grid");
                                 this._searchGrid.datagrid({
+                                	method:"get",
                                     url: this._getActionUrl(),
                                     onBeforeLoad:(function(params){
                                              params.trust = 'Y';

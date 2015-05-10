@@ -23,7 +23,7 @@ public class SecurityBO extends BusinessObject{
 	public User verifyUser(String username, String password) {
 		List<Selection> selections = new ArrayList<Selection>();
 		selections.add(new Selection("username", Selection.Operator.EQUAL, username, Selection.Operand.EMPTY));
-		List<DataModel> users = userGate.find(selections);
+		List<DataModel> users = userGate.find(selections,"id");
 		// See if there is available user exits
 		if (users !=null && users.size() > 0) {
 			User user = (User)users.get(0);

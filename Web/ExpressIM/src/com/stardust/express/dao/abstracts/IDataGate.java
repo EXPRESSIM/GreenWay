@@ -8,15 +8,16 @@ import com.stardust.express.models.DataModel;
 public interface IDataGate {
 	DataModel find(long id);
 	DataModel find(String key);
-	void remove(DataModel model);
+	long remove(DataModel model);
 	void add(DataModel model);
-	void update(DataModel model);
+	void edit(DataModel model);
+	long update(DataModel model);
 	void setDatasource(String datasource);
 	String getDatasource();
 	List<DataModel> fetchAll();
-	List<DataModel> find(int start, int size);
-	List<DataModel> find(int start, int size, List<Selection> selections);
-	List<DataModel> find(List<Selection> selections);
+	List<DataModel> find(int start, int size, String sortBy);
+	List<DataModel> find(int start, int size, List<Selection> selections, String sortBy);
+	List<DataModel> find(List<Selection> selections, String sortBy);
 	int count();
 	int count(List<Selection> selections);
 }

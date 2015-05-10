@@ -18,7 +18,7 @@ public class Selection {
 	}
 	
 	public enum Operator {
-		EQUAL("="),NOT_EQUAL("!="),GREATER(">"),GEATER_EQUAL(">="),LESS("<"),LESS_EQUAL("<="),LIKE("%");
+		EQUAL("="),NOT_EQUAL("!="),GREATER(">"),GEATER_EQUAL(">="),LESS("<"),LESS_EQUAL("<="),LIKE(" like ");
 		
 	    private String opt = "";
 		

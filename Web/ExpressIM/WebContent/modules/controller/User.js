@@ -6,29 +6,25 @@ ExpressIM.AdminUserController.prototype = Class.extend({
         this._lockKeyField = true;
         this._fields = [
             { label: "ID",
-                dbField: "ID",
-                property: "Id",
-                gridOptions: "width:100,field:'Id'",
+                property: "id",
+                gridOptions: "width:100,field:'id'",
                 isSearchField: false
             },
             { label: "用户名",
-                dbField: "USER_NAME",
-                property: "Username",
-                gridOptions: "width:200,field:'Username'",
+                property: "username",
+                gridOptions: "width:200,field:'username'",
                 isSearchField: true,
                 isKeyField: true
             },
             { label: "姓名",
-                dbField: "NAME",
-                property: "Name",
-                gridOptions: "width:200,field:'Name'",
+                property: "name",
+                gridOptions: "width:200,field:'name'",
                 isSearchField: true,
                 isKeyField: false
             },
             { label: "状态",
-                dbField: "STATUS",
-                property: "Status",
-                gridOptions: "width:200,field:'Status'",
+                property: "status",
+                gridOptions: "width:200,field:'status'",
                 isSearchField: true,
                 isKeyField: false
             }
