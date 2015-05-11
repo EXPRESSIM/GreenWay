@@ -27,8 +27,10 @@
 			response.sendRedirect("logon.jsp");
 		}
 	%>
+	
 	<div class="window-shadow" style="z-index: 90; position: absolute; top: 20%; left:30%; height: 405px; width: 657px;">
         <div style="position:relative;width:656px;height:401px;z-index:99;" class="logon-window-background "> 
+        	<img style="position:absolute;left:500px;top:30px;width:100px;height:100px;" src="resource/images/login_logo_black.png"/>
             <img style="position:relative;left:400px;top:170px;width:160px;height:160px;" src="resource/images/login_icon.png"/>
              <span style="position:relative;left:20px;top:220px;width:80px;height:80px;font-size:8pt;color:#777777;">
                 Copyright © 2010-2015 Stardust Technology. Version: Beta indoor 1.0.1

@@ -86,9 +86,9 @@
     });
   </script>
   <div style="position:absolute;left:80px;top:20px;">
-      <!-- <img  src="resource/images/" width="127" height="69" />  -->
+     <img  src="resource/images/login_logo.png" width="130" height="130" /> 
   </div>
-  <div id="menuContainer" style="position:relative;left:80px;top:100px;"></div>
+  <div id="menuContainer" style="position:relative;left:70px;top:160px;"></div>
       <div id="statusBar" style="position:absolute;right:0px;bottom:0px;">
         <table cellpadding="0" cellspacing="0" border="0">
             <tr>
