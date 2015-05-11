@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>高速公路绿色通道稽查系统</title>
+<title>高速公路绿色通道稽查综合管理系统</title>
 <link href="includes/easyui/themes/default/easyui.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/icon.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/color.css" rel="stylesheet"   type="text/css"/>
@@ -41,7 +41,7 @@
                             <td style="font-size:22pt;font-weight:bold;color:#777777;">Expressway IM Administration</td>
                         </tr>
                         <tr>
-                            <td style="font-size:16px;font-weight:bold;font-family:微软雅黑;color:#999999;">高速公路绿色通道稽查系统</td>
+                            <td style="font-size:16px;font-weight:bold;font-family:微软雅黑;color:#999999;">高速公路绿色通道稽查综合管理系统</td>
                         </tr>
                         <tr style="height:30px;">
                             <td>

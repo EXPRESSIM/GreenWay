@@ -27,7 +27,7 @@ public abstract class DataGate implements IDataGate{
 	protected String datasource = "";
 	protected static HashMap<String, SessionFactory> connections = new HashMap<String, SessionFactory>();
 	protected String keyProperty = "";
-	
+	public static String connectionString;
 	
     static{  
         try{  
@@ -38,7 +38,7 @@ public abstract class DataGate implements IDataGate{
                                     .buildServiceRegistry();  
             
             sessionFactory = conf.buildSessionFactory(sr);  
-            
+            connectionString = conf.getProperty("hibernate.connection.url");
             initializeConnections(conf);
         } catch (Exception e) {  
             e.printStackTrace();  

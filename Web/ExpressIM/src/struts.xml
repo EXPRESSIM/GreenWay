@@ -54,5 +54,8 @@
 	    <action name="deleterecord" class="com.stardust.express.actions.MaintenanceAction" method="delete">
 	        <result name="success" type="json"></result>
 	    </action>
+	    <action name="archive" class="com.stardust.express.actions.DBArchiveAction" method="archive">
+	        <result name="success" type="json"></result>
+	    </action>
 	</package>
 </struts>

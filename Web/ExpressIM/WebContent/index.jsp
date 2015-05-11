@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>高速公路绿色通道稽查系统</title>
+<title>高速公路绿色通道稽查综合管理系统</title>
 <style type="text/css">
         .app-background 
         {
@@ -99,7 +99,7 @@
                     <div class="app-statusbar-back" style="width:30px;"><div class="app-statusbar-icon"  style="position:relative;top:5px;"></div></div>
                 </td>
                  <td>
-                    <div class="app-statusbar-back" style="width:400px;"><span style="position:relative;top:4px;">高速公路绿色通道稽查系统</span></div>
+                    <div class="app-statusbar-back" style="width:400px;"><span style="position:relative;top:4px;">高速公路绿色通道稽查综合管理系统</span></div>
                 </td>
             </tr>
         </table>
