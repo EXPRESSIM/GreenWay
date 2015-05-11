@@ -24,9 +24,7 @@
 		{
 		    text: "系统",
 		    items: [
-				{ text: "系统备份", view: "Examination" },
-				{ text: "系统还原", view: "FormBrowser" },
-				{ text: "修改密码", view: "ChangePassword" },
+				{ text: "系统存档", view: "Examination" },
 				{ text: "退出", view: "Exit" }
 			],
 		    isRoot: true
