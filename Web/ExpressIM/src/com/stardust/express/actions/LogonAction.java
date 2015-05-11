@@ -26,4 +26,9 @@ public class LogonAction extends  ActionExecutor {
 		}
 	}
 	
+	public String logoff(){
+		context.getSession().remove("logon_user");
+		return SUCCESS;
+	}
+	
 }

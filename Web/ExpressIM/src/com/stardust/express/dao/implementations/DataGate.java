@@ -97,27 +97,7 @@ public abstract class DataGate implements IDataGate{
             @SuppressWarnings("unchecked")
 			List<Datasource> datasources = query.list();
             for (Datasource datasource : datasources)  { 
-                
             	if (connections.containsKey(datasource.getDatasourceName())) continue;
-            	/*
-            	// Modify configuration
-            	String url = conf.getProperty("hibernate.connection.url");
-            	String newUrl = url.replace(url.substring(url.indexOf(";databaseName=")),";databaseName=" + datasource.getDatabaseName());
-            	conf.setProperty("hibernate.connection.url", newUrl);
-            	
-            	ServiceRegistry sr = new ServiceRegistryBuilder()  
-                .applySettings(conf.getProperties())  
-                .buildServiceRegistry();
-            	
-            	// Create session factory
-            	SessionFactory factory = conf.buildSessionFactory(sr);
-            	
-            	// Push factory to map
-            	connections.put(datasource.getDatasourceName(), factory);
-            	
-            	// Restore configuration
-            	conf.setProperty("hibernate.connection.url", url);
-            	*/
             	addDatasource(datasource, conf);
             }
         } catch (Exception e) {  
