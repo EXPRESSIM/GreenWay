@@ -16,6 +16,55 @@
       		</Relations>
 		</Table>
 		
+		<Table Name="EXPRESSWAY_GATEWAY_HISTORY" PrimaryKey="ID">
+			<Columns>
+				<!--自增ID-->
+				<Column Name="ID" DataType="INT" AutoIncrement="True"/>
+				<!--车辆类型-->
+				<Column Name="VEHICLE_NUMBER" DataType="VARCHAR" ColumnSize="50" Unique="True"/>
+				<!--入站名称-->
+				<Column Name="ENTRANCE_GATEWAY_NAME" DataType="VARCHAR" ColumnSize="50" Unique="True"/>
+				<!--出站名称-->
+				<Column Name="EXIT_GATEWAY_NAME" DataType="VARCHAR" ColumnSize="50"/>
+				<!--记录时间-->
+				<Column Name="REOCRD_DATE" DataType="DATETIME"/>
+				<!-- 价格 -->
+				<Column Name="AMOUNT" DataType="MONEY"/>
+				<!-- 备注 -->
+				<Column Name="COMMENT" DataType="VARCHAR" ColumnSize="255" AllowNulls="True"/>
+				<!-- 货物类别 -->
+				<Column Name="MERCHANDISE_TYPE" DataType="VARCHAR" ColumnSize="50"/>
+				<!-- 车型 -->
+				<Column Name="VEHICLE_TYPE" DataType="VARCHAR" ColumnSize="24"/>
+				<!-- 车道 -->
+				<Column Name="CHANNEL_NUMBER" DataType="VARCHAR" ColumnSize="24"/>
+				<!-- 快照1 -->
+				<Column Name="SNAPSHOOT_1" DataType="VARCHAR" ColumnSize="100"/>
+				<!-- 快照2 -->
+				<Column Name="SNAPSHOOT_2" DataType="VARCHAR" ColumnSize="100"/>
+				<!-- 快照3 -->
+				<Column Name="SNAPSHOOT_3" DataType="VARCHAR" ColumnSize="100"/>
+				<!-- 快照4 -->
+				<Column Name="SNAPSHOOT_4" DataType="VARCHAR" ColumnSize="100"/>
+				<!-- 录像 -->
+				<Column Name="VIDEO" DataType="VARCHAR" ColumnSize="100"/>
+				<!-- 操作员 -->
+				<Column Name="OPERATOR_USER_ID" DataType="INT"/>
+				<!-- 审核员 -->
+				<Column Name="REVIEWER_USER_ID" DataType="INT"/>
+        	</Columns>
+			<Indexes>
+				<Index Expression="VEHICLE_NUMBER"/>
+				<Index Expression="REOCRD_DATE"/>
+				<Index Expression="OPERATOR_USER_ID"/>
+				<Index Expression="REVIEWER_USER_ID"/>
+			</Indexes>
+        	<Relations>	
+				<Relation ForeignKey="OPERATOR_USER_ID" ParentTable="EXPRESSWAY_USER"/>
+				<Relation ForeignKey="REVIEWER_USER_ID" ParentTable="EXPRESSWAY_USER"/>
+      		</Relations>
+		</Table>
+		
 		<Table Name="EXPRESSWAY_USER_ROLE" PrimaryKey="ID">
 		  <Columns>
 			<Column Name="ID" DataType="INT" AutoIncrement="TRUE"/>
