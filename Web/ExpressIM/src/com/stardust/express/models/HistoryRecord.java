@@ -42,8 +42,12 @@ public class HistoryRecord  extends DataModel {
 		snapshoot4 = ctx.getString("snapshoot4");
 		video = ctx.getString("video");
 		if (ctx.getLong("operatorId") > 0) {
-			User user = new User();
-			user.setId(ctx.getLong("operatorId"));
+			User opt = new User();
+			opt.setId(ctx.getLong("operatorId"));
+			User reviewer = new User();
+			reviewer.setId(ctx.getLong("leaderId"));
+			this.operator = opt;
+			this.leader = reviewer;
 		}
 	}
 	
