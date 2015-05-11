@@ -38,6 +38,7 @@
 			<result name="success" type="redirect">index.jsp</result>
 			<result name="incorrect_user" type="redirect">logon.jsp?error=incorrect_user</result>
 			<result name="invalid_user_status" type="redirect">logon.jsp?error=invalid_user_status</result>
+			<result name="invalid_user_group" type="redirect">logon.jsp?error=invalid_user_group</result>
 		</action>
 		<action name="logoff" class="com.stardust.express.actions.LogonAction" method="logoff">
 			<result name="success" type="redirect">logon.jsp</result>
