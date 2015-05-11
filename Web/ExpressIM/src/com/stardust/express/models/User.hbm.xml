@@ -13,5 +13,6 @@
      <property name="email" column="EMAIL" type="string"/>
      <property name="status" column="STATUS" type="string"/>
      <property name="roleId" column="USER_ROLE_ID" type="long"/>
+     <property name="type" column="USER_TYPE" type="string"/>
   </class>
 </hibernate-mapping>

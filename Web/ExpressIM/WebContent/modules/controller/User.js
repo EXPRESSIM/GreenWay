@@ -34,11 +34,13 @@ ExpressIM.AdminUserController.prototype = Class.extend({
     _bindEvents: function () {
         this.on("OnCreateNew", this, (function (ctx) {
             this.find("status").combobox("setValue", "A");
+            this.find("type").combobox("setValue", "A");
             this._restrictPassword();
         }));
 
         this.on("OnReset", this, (function (ctx) {
             this.find("status").combobox("setValue", "A");
+            this.find("type").combobox("setValue", "A");
         }));
 
         this.on("OnReadComplete", this, (function (ctx) {

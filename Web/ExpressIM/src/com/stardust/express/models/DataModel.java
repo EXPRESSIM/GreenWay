@@ -6,7 +6,6 @@ public class DataModel {
 	final public static String STATUS_WITHDRAW = "W";
 	
 	protected long id = -1;
-	protected String status = DataModel.STATUS_ACTIVE;
 	
 	public long getId() {
 		return id;
@@ -16,11 +15,5 @@ public class DataModel {
 		this.id = id;
 	}
 	
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	public String getStatus() {
-		return this.status;
-	}
+
 }

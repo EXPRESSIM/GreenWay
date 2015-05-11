@@ -313,16 +313,16 @@ public abstract class DataGate implements IDataGate{
     
     public void edit(DataModel model) {
     	Session session = getSession();
-    	//Transaction transaction = null;  
+    	Transaction transaction = null;  
     	
     	try{  
-    		//transaction = session.beginTransaction();   
+    		transaction = session.beginTransaction();   
             session.update(model);  
-           // transaction.commit();  
+            transaction.commit();  
         } catch (Exception e) {  
-            //if(null != transaction){  
-            	//transaction.rollback();  
-            //}  
+            if(null != transaction){  
+            	transaction.rollback();  
+            }  
             e.printStackTrace();  
         } finally {  
             session.close();  
