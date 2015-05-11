@@ -17,7 +17,7 @@ Upsizing Table EXPRESSWAY_USER
 
 Upsizing Table EXPRESSWAY_USER_ROLE
 
-Upsizing Table EXPRESSWAY_DATASOUCE
+Upsizing Table EXPRESSWAY_DATASOURCE
 
 Creating relations for tables.
 

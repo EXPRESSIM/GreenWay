@@ -9,6 +9,7 @@
 				<Column Name="PASSWORD" DataType="VARCHAR" ColumnSize="60"/>
 				<Column Name="USER_ROLE_ID" DataType="INT"/>
 				<Column Name="EMAIL" DataType="VARCHAR" ColumnSize="255" AllowNulls="True"/>
+				<Column Name="USER_TYPE" DataType="VARCHAR" ColumnSize="1"/>
         	</Columns>
 			<Indexes/>
         	<Relations>	
