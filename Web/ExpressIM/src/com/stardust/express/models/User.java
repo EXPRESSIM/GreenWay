@@ -13,7 +13,7 @@ public class User extends DataModel {
 	protected String password = "";
 	protected String email = "";
 	protected long roleId;
-	protected String type = "A";
+	protected String type = USER_TYPE_ADMIN;
 	protected String status = DataModel.STATUS_ACTIVE;
 	
 	public User(){
