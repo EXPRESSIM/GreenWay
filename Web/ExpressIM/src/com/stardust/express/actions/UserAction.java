@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.struts2.json.annotations.JSON;
 import com.opensymphony.xwork2.ActionContext;
 import com.stardust.express.dao.implementations.Selection;
@@ -58,7 +59,7 @@ public class UserAction extends ActionExecutor{
 	
 	public String loadUser() {
 		IViewContext context = new ViewContext(actionContext);
-		String ds = context.getString("datasource");
+		String ds = StringEscapeUtils.escapeHtml4(context.getString("datasource"));
 		int userid = context.getInt("userid");
 		
         User user = new User();
@@ -76,8 +77,8 @@ public class UserAction extends ActionExecutor{
         List<Selection> selections = new ArrayList<Selection>();
         selections.add(new Selection("id", Selection.Operator.GREATER, 20));
         int a = gate.count(selections);
-        stringResponse = new StringBufferInputStream("Permission Denied");
-        return "permission_denied";
-        //return SUCCESS;
+        //stringResponse = new StringBufferInputStream("Permission Denied");
+        //return "permission_denied";
+        return SUCCESS;
     }
 }

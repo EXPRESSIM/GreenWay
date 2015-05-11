@@ -28,22 +28,65 @@ public abstract class DataGate implements IDataGate{
 	protected static HashMap<String, SessionFactory> connections = new HashMap<String, SessionFactory>();
 	protected String keyProperty = "";
 	public static String connectionString;
+	public static String username;
+	public static String password;
+	protected static Configuration config;
 	
     static{  
         try{  
-            Configuration conf = new Configuration();  
+            Configuration conf = new Configuration(); 
+            config = conf;
             conf.configure();  
             ServiceRegistry sr = new ServiceRegistryBuilder()  
                                     .applySettings(conf.getProperties())  
                                     .buildServiceRegistry();  
             
-            sessionFactory = conf.buildSessionFactory(sr);  
+            sessionFactory = conf.buildSessionFactory(sr); 
             connectionString = conf.getProperty("hibernate.connection.url");
+            username = conf.getProperty("hibernate.connection.username");
+            password = conf.getProperty("hibernate.connection.password");
             initializeConnections(conf);
         } catch (Exception e) {  
             e.printStackTrace();  
         }  
     }  
+    
+    public static void addDatasource(Datasource ds) {
+    	addDatasource(ds, config);
+    }
+    
+    public static void addDatasource(Datasource ds, Configuration config) {
+    	// Modify configuration
+    	String url = config.getProperty("hibernate.connection.url");
+    	String newUrl = url.replace(url.substring(url.indexOf(";databaseName=")),";databaseName=" + ds.getDatabaseName());
+    	config.setProperty("hibernate.connection.url", newUrl);
+    	
+    	ServiceRegistry sr = new ServiceRegistryBuilder()  
+        .applySettings(config.getProperties())  
+        .buildServiceRegistry();
+    	
+    	// Create session factory
+    	SessionFactory factory = config.buildSessionFactory(sr);
+    	
+    	// Push factory to map
+    	connections.put(ds.getDatasourceName(), factory);
+    	
+    	// Restore configuration
+    	config.setProperty("hibernate.connection.url", url);
+    }
+    
+    public static void reload(){
+    	for (String key : connections.keySet()) {
+    		SessionFactory sf = connections.get(key);
+    		try {
+    			sf.close();
+    		} catch (Exception e) {
+    			continue;
+    		}
+    	}
+    	connections.clear();
+    	initializeConnections(config);
+    }
     
 	protected static void initializeConnections(Configuration conf){
 		Session session = sessionFactory.openSession(); 
@@ -55,7 +98,8 @@ public abstract class DataGate implements IDataGate{
 			List<Datasource> datasources = query.list();
             for (Datasource datasource : datasources)  { 
                 
-            	
+            	if (connections.containsKey(datasource.getDatasourceName())) continue;
+            	/*
             	// Modify configuration
             	String url = conf.getProperty("hibernate.connection.url");
             	String newUrl = url.replace(url.substring(url.indexOf(";databaseName=")),";databaseName=" + datasource.getDatabaseName());
@@ -73,6 +117,8 @@ public abstract class DataGate implements IDataGate{
             	
             	// Restore configuration
             	conf.setProperty("hibernate.connection.url", url);
+            	*/
+            	addDatasource(datasource, conf);
             }
         } catch (Exception e) {  
         	e.printStackTrace();  
