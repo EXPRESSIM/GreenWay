@@ -3,6 +3,7 @@ package com.stardust.express.tools;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -11,8 +12,15 @@ public class ViewContext implements IViewContext {
 	
 	protected ActionContext context;
 	
+	protected HashMap<String, Object> parameters = new HashMap<String, Object>();
+	
 	public ViewContext(ActionContext context) {
 		this.context = context;
+		
+		for (String key : context.getParameters().keySet()) {
+			Object value = context.getParameters().get(key);
+			parameters.put(key, value);
+		}
 	}
 	
 	public Map<String, Object> getSession(){
@@ -28,7 +36,7 @@ public class ViewContext implements IViewContext {
 	}
 	
 	public Integer getInt(String paramName, Integer defaultValue) {
-		Object value = context.getParameters().get(paramName);
+		Object value = parameters.get(paramName);
 		int results = defaultValue;
 		try {
 			String [] values =  (String [])value;
@@ -43,7 +51,7 @@ public class ViewContext implements IViewContext {
 	}
 	
 	public String getString(String paramName, String defaultValue) {
-		Object value = context.getParameters().get(paramName);
+		Object value = parameters.get(paramName);
 		String results = defaultValue;
 		try {
 			String [] values =  (String [])value;
@@ -58,7 +66,7 @@ public class ViewContext implements IViewContext {
 	}
 	
 	public long getLong(String paramName, long defaultValue) {
-		Object value = context.getParameters().get(paramName);
+		Object value = parameters.get(paramName);
 		long results = defaultValue;
 		try {
 			String [] values =  (String [])value;
@@ -73,7 +81,7 @@ public class ViewContext implements IViewContext {
 	}
 	
 	public boolean getBoolean(String paramName, boolean defaultValue) {
-		Object value = context.getParameters().get(paramName);
+		Object value = parameters.get(paramName);
 		boolean results = defaultValue;
 		try {
 			String [] values =  (String [])value;
@@ -88,7 +96,7 @@ public class ViewContext implements IViewContext {
 	}
 	
 	public Date getDate(String paramName, Date defaultValue) {
-		Object value = context.getParameters().get(paramName);
+		Object value = parameters.get(paramName);
 		Date results = defaultValue;
 		try {
 			String [] values =  (String [])value;
@@ -103,7 +111,7 @@ public class ViewContext implements IViewContext {
 	}
 	
 	public BigDecimal getDecimal(String paramName, BigDecimal defaultValue) {
-		Object value = context.getParameters().get(paramName);
+		Object value = parameters.get(paramName);
 		BigDecimal results = defaultValue;
 		try {
 			String [] values =  (String [])value;
@@ -118,7 +126,7 @@ public class ViewContext implements IViewContext {
 	}
 	
 	public double getDouble(String paramName, double defaultValue) {
-		Object value = context.getParameters().get(paramName);
+		Object value = parameters.get(paramName);
 		double results = defaultValue;
 		try {
 			String [] values =  (String [])value;

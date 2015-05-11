@@ -13,6 +13,6 @@
         <property name="hibernate.connection.password">8forxiao</property>  
         <mapping resource="com/stardust/express/models/User.hbm.xml"/>  
         <mapping resource="com/stardust/express/models/Datasource.hbm.xml"/>  
-       
+        <mapping resource="com/stardust/express/models/HistoryRecord.hbm.xml"/>
     </session-factory>  
 </hibernate-configuration>  
