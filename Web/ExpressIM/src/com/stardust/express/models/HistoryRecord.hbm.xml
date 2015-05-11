@@ -10,7 +10,7 @@
      <property name="vehicleNumber" column="VEHICLE_NUMBER" type="string"/>   
      <property name="entranceGateway" column="ENTRANCE_GATEWAY_NAME" type="string"/>
      <property name="exitGateway" column="EXIT_GATEWAY_NAME" type="string"/>
-     <property name="date" column="REOCRD_DATE" type="date"/>
+     <property name="date" column="REOCRD_DATE" type="timestamp"/>
      <property name="amount" column="AMOUNT" type="double"/>
      <property name="comment" column="COMMENT" type="string"/>
      <property name="merchandiseType" column="MERCHANDISE_TYPE" type="string"/>

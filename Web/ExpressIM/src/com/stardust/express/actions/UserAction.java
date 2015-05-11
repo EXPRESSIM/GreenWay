@@ -64,7 +64,7 @@ public class UserAction extends ActionExecutor{
 	public String loadHistory(){
 		IHistoryRecordGate gate = DataGateFactory.getHistoryRecordGate(context.getString("datasource"));
 		
-		for (int i=0; i<0;i++) {
+		for (int i=0; i<1;i++) {
 			HistoryRecord hr = new HistoryRecord();
 			hr.setAmount(10);
 			hr.setChannel("通道-1");
