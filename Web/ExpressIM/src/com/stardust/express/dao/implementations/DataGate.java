@@ -19,7 +19,6 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import com.stardust.express.dao.abstracts.IDataGate;
 import com.stardust.express.models.DataModel;
 import com.stardust.express.models.Datasource;
-import com.stardust.express.models.User;
 
 
 public abstract class DataGate implements IDataGate{
@@ -227,7 +226,7 @@ public abstract class DataGate implements IDataGate{
     		Session session = getSession(); 
         	
         	try{  
-        		Criteria c = session.createCriteria(User.class);
+        		Criteria c = session.createCriteria(this.getModelClass());
         		c.add(Restrictions.eq(this.keyProperty,key));
                 
                 @SuppressWarnings("unchecked")
@@ -248,7 +247,7 @@ public abstract class DataGate implements IDataGate{
     	Session session = getSession(); 
     	
     	try{  
-    		Criteria c = session.createCriteria(User.class);
+    		Criteria c = session.createCriteria(this.getModelClass());
     		c.add(Restrictions.eq("id",id));
             
             @SuppressWarnings("unchecked")

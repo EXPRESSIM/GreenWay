@@ -31,6 +31,9 @@
                  <param name="inputName">stringResponse</param>
             </result>
 	    </action>
+	    <action name="history" class="com.stardust.express.actions.UserAction" method="loadHistory">
+	        <result name="success" type="json"></result>
+	    </action>
 	</package>
 	
 	<package name="expressway-logon" extends="struts-default">

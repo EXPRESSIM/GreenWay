@@ -22,6 +22,10 @@ public class HistoryRecord  extends DataModel {
 	private User operator;
 	private User leader;
 	
+	public HistoryRecord(){
+		
+	}
+	
 	public HistoryRecord(IViewContext ctx) {
 		vehicleNumber = ctx.getString("vehicleNumber");
 		entranceGateway = ctx.getString("entranceGateway");

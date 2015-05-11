@@ -3,7 +3,7 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="com.stardust.express.models.User" table="EXPRESSWAY_USER">
+  <class name="com.stardust.express.models.User" table="EXPRESSWAY_USER" lazy="false">
   	 <id name="id" column="ID" type="long">
         <generator class="native"/>  
      </id>
