@@ -181,7 +181,7 @@ public abstract class DataGate implements IDataGate{
     	} else {
     		SessionFactory factory = connections.get(datasource);
     		if (factory == null) {
-    			return sessionFactory.openSession(); 
+    			return null; 
     		} else {
     			return factory.openSession();
     		}

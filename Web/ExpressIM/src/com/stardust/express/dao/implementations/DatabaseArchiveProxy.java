@@ -33,7 +33,7 @@ public class DatabaseArchiveProxy {
 			Statement s = conn.createStatement();
 			conn.setAutoCommit(false);
 			try {
-				// s.executeUpdate("DROP DATABASE " + database);
+				 s.executeUpdate("DROP DATABASE " + database);
 			} catch (Exception e) {
 				//do nothing if has not table exits
 			}
