@@ -24,7 +24,13 @@ ExpressIM.AdminUserController.prototype = Class.extend({
             },
             { label: "状态",
                 property: "status",
-                gridOptions: "width:200,field:'status'",
+                gridOptions: "width:200,field:'status',formatter:ExpressIM.UIComponent.DataGridFormater.UserStatus",
+                isSearchField: true,
+                isKeyField: false
+            },
+            { label: "用户组",
+                property: "type",
+                gridOptions: "width:200,field:'type',formatter:ExpressIM.UIComponent.DataGridFormater.UserGroup",
                 isSearchField: true,
                 isKeyField: false
             }
@@ -48,7 +54,28 @@ ExpressIM.AdminUserController.prototype = Class.extend({
             var value = password.textbox("getValue");
             this._restrictPassword();
         }));
-
+        
+        this._lookup.on("OnPreFilter", this, function (ctx) {
+            if (ctx.params.searchBy == "status") {
+                if ("激活".indexOf(ctx.params.searchValue) != -1) {
+                    ctx.params.searchValue = "A";
+                }
+                if ("注销".indexOf(ctx.params.searchValue) != -1) {
+                    ctx.params.searchValue = "W";
+                }
+            }
+            if (ctx.params.searchBy == "type") {
+                if ("管理员".indexOf(ctx.params.searchValue) != -1) {
+                    ctx.params.searchValue = "A";
+                }
+                if ("操作员".indexOf(ctx.params.searchValue) != -1) {
+                    ctx.params.searchValue = "O";
+                }
+                if ("审核人".indexOf(ctx.params.searchValue) != -1) {
+                    ctx.params.searchValue = "L";
+                }
+            }
+        });
     },
 
     _restrictPassword: function () {
@@ -57,6 +84,8 @@ ExpressIM.AdminUserController.prototype = Class.extend({
         this._disableField(this.find("username"));
     }
 }, ExpressIM.MaintenanceController.prototype);
+
+
 
 
 $(document).ready(function () {

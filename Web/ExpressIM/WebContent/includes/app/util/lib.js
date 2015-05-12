@@ -1613,3 +1613,15 @@ ExpressIM.Menu.prototype = {
         return retVal;
     }
 };
+
+ExpressIM.UIComponent.DataGridFormater = {};
+ExpressIM.UIComponent.DataGridFormater.UserStatus = function(val,row) {
+     if(val == "A") return "激活";
+     if(val == "W") return "注销";
+} ;
+
+ExpressIM.UIComponent.DataGridFormater.UserGroup = function(val,row) {
+    if(val == "A") return "管理员";
+    if(val == "O") return "操作员";
+    if(val == "L") return "审核人";
+} ;
