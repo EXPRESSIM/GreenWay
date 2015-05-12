@@ -63,8 +63,10 @@ public class UserAction extends ActionExecutor{
 	
 	public String loadHistory(){
 		IHistoryRecordGate gate = DataGateFactory.getHistoryRecordGate(context.getString("datasource"));
-		
-		for (int i=0; i<1;i++) {
+		HistoryRecord hr = (HistoryRecord)gate.find(3);
+		for (int i=0; i<50;i++) {
+			hr.setId(-1);
+			/*
 			HistoryRecord hr = new HistoryRecord();
 			//hr.setAmount(10);
 			hr.setAdjustAmount(20);
@@ -83,11 +85,11 @@ public class UserAction extends ActionExecutor{
 			leader.setId(78);
 			hr.setLeader(leader);
 			hr.setOperator(operator);
-			
+			*/
 			gate.update(hr);
 		}
 		
-		HistoryRecord hr = (HistoryRecord)gate.find(3);
+	    // hr = (HistoryRecord)gate.find(3);
 		return SUCCESS;
 	}
 	

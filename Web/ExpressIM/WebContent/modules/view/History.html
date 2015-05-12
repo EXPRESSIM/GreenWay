@@ -1,5 +1,5 @@
 ﻿
-<div style="width:1000px;height:500px;">
+<div style="width:1000px;height:410px;">
 	<div class="panel-header" style="width:1390px;">
 		<table>
 			<tr>
@@ -11,7 +11,39 @@
 				
 				</td>
 				<td>
-					车牌号: <input class="easyui-textbox"  data-index="vehicleNumber" data-field="vehicleNumber" data-property="vehicleNumber" type="text"  data-options="" style="width:120px;"></input>
+					车牌号: <input class="easyui-textbox"  data-index="vehicleNumber" data-field="vehicleNumber" data-property="vehicleNumber" type="text"  data-options="" style="width:80px;"></input>
+				</td>
+				<td>
+					车型:<select class="easyui-combobox" style="height:20px;width:60px;" data-options="editable:false" data-index="vehicleType" data-field="vehicleType" data-property="vehicleType" >
+		                    <option value=""></option>
+		                    <option value="一类">一类</option>
+		                    <option value="二类">二类</option>
+		                    <option value="三类">三类</option>
+		                    <option value="四类">四类</option>
+		                    <option value="五类">五类</option>
+		                </select>
+				</td>
+				<td>
+					通道:<select class="easyui-combobox" style="height:20px;width:80px;" data-options="editable:false" data-index="channel" data-field="channel" data-property="channel" >
+		                    <option value=""></option>
+		                    <option value="通道-1">通道-1</option>
+		                    <option value="通道-2">通道-2</option>
+		                    <option value="通道-3">通道-3</option>
+		                    <option value="通道-4">通道-4</option>
+		                    <option value="通道-5">通道-5</option>
+		                    <option value="通道-6">通道-6</option>
+		                    <option value="通道-7">通道-7</option>
+		                    <option value="通道-8">通道-8</option>
+		                    <option value="通道-9">通道-9</option>
+		                    <option value="通道-10">通道-10</option>
+		                </select>
+				</td>
+				<td>
+					放行方式:<select class="easyui-combobox" style="height:20px;width:50px;" data-options="editable:false" data-index="channelType" data-field="channelType" data-property="channelType" >
+		                    <option value=""></option>
+		                    <option value="国绿">国绿</option>
+		                    <option value="省绿">省绿</option>
+		                </select>
 				</td>
 				<td>
 					<a href="javascript:void(0)" data-index="search" iconCls="icon-ok" class="easyui-linkbutton" style="width:70px;">搜索</a>
@@ -20,11 +52,11 @@
 		</table>
 	
 	</div>
-    <table data-index='grid' title="车辆检验登记表" style="width:1400px;height:450px" remoteSort='true' loadMsg='处理中,请等待...'
-            data-options="rownumbers:true,singleSelect:true,method:'post',pageSize:10,fitColumns:true,pagination:true,rownumbers:false">
+    <table data-index='grid' title="车辆检验登记表" style="width:1400px;height:360px" remoteSort='true' loadMsg='处理中,请等待...'
+            data-options="rownumbers:true,singleSelect:true,method:'post',pageSize:10,fitColumns:true,pagination:true,rownumbers:true">
         <thead>
             <tr>
-                <th data-options="field:'id',width:30" rowspan="2">ID</th>
+                <!-- <th data-options="field:'id',width:30" rowspan="2">ID</th> -->
                 <th data-options="field:'date',width:100,formatter:ExpressIM.UIComponent.DataGridFormater.DateTime" rowspan="2">时间</th>
                 <th data-options="field:'vehicleNumber',width:160" rowspan="2">车牌号</th>
                 <th data-options="field:'entranceGateway',width:160" rowspan="2">入站名称</th>

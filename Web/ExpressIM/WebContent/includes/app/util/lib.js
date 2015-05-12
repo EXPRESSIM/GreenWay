@@ -1497,7 +1497,7 @@ ExpressIM.TaskManger = {
             title: title,
             minimizable: false,
             maximizable: false,
-            resizable: false,
+            resizable: true,
             shadow: false,
             onClose: function () {
                 ExpressIM.TaskManger.terminate(view);

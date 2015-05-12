@@ -15,6 +15,21 @@ ExpressIM.HistoryController.prototype = Class.extend({
             this._setFieldValue(this.find("endDate"), "");
         }).bind(this)).bind(this);
     	
+        this._vehicleType = this.find("vehicleType");
+        this._vehicleType.datebox("textbox").bind("focus", (function () {
+            this._setFieldValue(this.find("vehicleType"), "");
+        }).bind(this)).bind(this);
+        
+        this._channel = this.find("channel");
+        this._channel.datebox("textbox").bind("focus", (function () {
+            this._setFieldValue(this.find("channel"), "");
+        }).bind(this)).bind(this);
+        
+        this._channelType = this.find("channelType");
+        this._channelType.datebox("textbox").bind("focus", (function () {
+            this._setFieldValue(this.find("channelType"), "");
+        }).bind(this)).bind(this);
+        
     	this.grid = this.find("grid");
     	this.grid.datagrid({
             url: "history",
@@ -22,6 +37,9 @@ ExpressIM.HistoryController.prototype = Class.extend({
                 params.startDate = this._getFieldValue(this.find("startDate"));
                 params.endDate = this._getFieldValue(this.find("endDate"));
                 params.vehicleNumber = this._getFieldValue(this.find("vehicleNumber"));
+                params.vehicleType = this._getFieldValue(this.find("vehicleType"));
+                params.channel = this._getFieldValue(this.find("channel"));
+                params.channelType = this._getFieldValue(this.find("channelType"));
             }).bind(this),
             onLoadError: (function(data) {
               
@@ -40,6 +58,10 @@ ExpressIM.HistoryController.prototype = Class.extend({
 $(document).ready(function () {
     var controller = new ExpressIM.HistoryController({});
 });
+
+ExpressIM.HistoryController.showDetailsWindow(){
+	
+}
 
 function formatDatebox(val) {
     var re = /-?\d+/;

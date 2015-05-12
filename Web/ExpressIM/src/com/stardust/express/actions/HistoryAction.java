@@ -39,6 +39,10 @@ public class HistoryAction extends ActionExecutor {
 		Date startDate = context.getDate("startDate", null);
 		Date endDate = context.getDate("endDate", null);
 		String vehicleNumber = context.getString("vehicleNumber");
+		String vehicleType = context.getString("vehicleType");
+		String channel = context.getString("channel");
+		String channelType = context.getString("channelType");
+		
 		List<Selection> selections = new ArrayList<Selection>();
 		if (startDate != null) {
 			selections.add(new Selection("date", Operator.GEATER_EQUAL, startDate, "startdate"));
@@ -59,6 +63,31 @@ public class HistoryAction extends ActionExecutor {
 				selections.add(new Selection("vehicleNumber", Operator.EQUAL, vehicleNumber));
 			}	
 		}
+		
+		if (vehicleType != null && !vehicleType.isEmpty()) {
+			if (selections.size() > 0) {
+				selections.add(new Selection("vehicleType", Operator.EQUAL, vehicleType, Operand.AND));
+			} else {
+				selections.add(new Selection("vehicleType", Operator.EQUAL, vehicleType));
+			}	
+		}
+		
+		if (channel != null && !channel.isEmpty()) {
+			if (selections.size() > 0) {
+				selections.add(new Selection("channel", Operator.EQUAL, channel, Operand.AND));
+			} else {
+				selections.add(new Selection("channel", Operator.EQUAL, channel));
+			}	
+		}
+		
+		if (channelType != null && !channelType.isEmpty()) {
+			if (selections.size() > 0) {
+				selections.add(new Selection("channelType", Operator.EQUAL, channelType, Operand.AND));
+			} else {
+				selections.add(new Selection("channelType", Operator.EQUAL, channelType));
+			}	
+		}
+		
 		
 		rows = bo.filter(selections, sortBy, pageSize, start);
 		total = bo.count(selections);
