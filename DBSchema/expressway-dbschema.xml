@@ -56,6 +56,8 @@
 				<Column Name="OPERATOR_USER_ID" DataType="INT"/>
 				<!-- 审核员 -->
 				<Column Name="REVIEWER_USER_ID" DataType="INT"/>
+				<!-- 收费员 -->
+				<Column Name="TOLL_COLLECTOR" DataType="VARCHAR" ColumnSize="10"/>
         	</Columns>
 			<Indexes>
 				<Index Expression="VEHICLE_NUMBER"/>

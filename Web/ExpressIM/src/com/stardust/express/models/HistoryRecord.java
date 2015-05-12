@@ -23,6 +23,7 @@ public class HistoryRecord  extends DataModel {
 	private User leader;
 	private double adjustAmount = 0;
 	private boolean isAffectation = false;
+	private String tollCollector = "";
 	
 	public HistoryRecord(){
 		
@@ -45,6 +46,7 @@ public class HistoryRecord  extends DataModel {
 		snapshoot3 = ctx.getString("snapshoot3");
 		snapshoot4 = ctx.getString("snapshoot4");
 		video = ctx.getString("video");
+		tollCollector = ctx.getString("tollCollector");
 		if (ctx.getLong("operatorId") > 0) {
 			User opt = new User();
 			opt.setId(ctx.getLong("operatorId"));
@@ -77,6 +79,14 @@ public class HistoryRecord  extends DataModel {
 	
 	public String getExitGateway(){
 		return exitGateway;
+	}
+	
+	public String getTollCollector(){
+		return tollCollector;
+	}
+	
+	public void setTollCollector(String tc) {
+		tollCollector = tc;
 	}
 	
 	public void setDate(Date d) {
