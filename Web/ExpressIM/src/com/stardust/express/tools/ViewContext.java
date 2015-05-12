@@ -100,7 +100,7 @@ public class ViewContext implements IViewContext {
 		Date results = defaultValue;
 		try {
 			String [] values =  (String [])value;
-			results = new SimpleDateFormat().parse(values[0]);
+			results = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(values[0]);
 		} catch (Exception e){
 		} 
 		return results;

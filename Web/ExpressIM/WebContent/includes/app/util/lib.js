@@ -955,7 +955,7 @@ ExpressIM.Controller.prototype = Class.extend({
             field.textbox("setValue", value.toString());
         } else if (field.attr("class") && field.attr("class").indexOf("easyui-combobox") != -1) {
             field.combobox("setValue", value);
-        } else if (field.attr("class") && field.attr("class").indexOf("easyui-datebox") != -1) {
+        } else if (field.attr("class") && (field.attr("class").indexOf("easyui-datebox") != -1 || field.attr("class").indexOf("easyui-datetimebox") != -1)) {
             field.datebox("setValue", value);
         }
         else if (field.attr("type") == "checkbox") {
@@ -984,7 +984,7 @@ ExpressIM.Controller.prototype = Class.extend({
             return field.textbox("getValue");
         } else if (field.attr("class") && field.attr("class").indexOf("easyui-combobox") != -1) {
             return field.combobox("getValue");
-        } else if (field.attr("class") && field.attr("class").indexOf("easyui-datebox") != -1) {
+        } else if (field.attr("class") && (field.attr("class").indexOf("easyui-datebox") != -1 || field.attr("class").indexOf("easyui-datetimebox") != -1)) {
             return field.datebox("getValue");
         }else if (field.attr("type") == "checkbox") {
             var checked = false;
@@ -1019,7 +1019,7 @@ ExpressIM.Controller.prototype = Class.extend({
                 disabled: true
             });
             */
-        } else if (field.attr("class") && field.attr("class").indexOf("easyui-datebox") != -1) {
+        } else if (field.attr("class") && (field.attr("class").indexOf("easyui-datebox") != -1 || field.attr("class").indexOf("easyui-datetimebox") != -1)) {
             field.datebox({
                 disabled: true
             });
@@ -1046,7 +1046,7 @@ ExpressIM.Controller.prototype = Class.extend({
                 disabled: false
             });
             */
-        } else if (field.attr("class") && field.attr("class").indexOf("easyui-datebox") != -1) {
+        } else if (field.attr("class") && (field.attr("class").indexOf("easyui-datebox") != -1|| field.attr("class").indexOf("easyui-datetimebox")!=-1)) {
             field.datebox({
                 disabled: false
             });
@@ -1614,6 +1614,18 @@ ExpressIM.Menu.prototype = {
     }
 };
 
+Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
+    places = !isNaN(places = Math.abs(places)) ? places : 2;
+    symbol = symbol !== undefined ? symbol : "￥";
+    thousand = thousand || ",";
+    decimal = decimal || ".";
+    var number = this,
+        negative = number < 0 ? "-" : "",
+        i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+};
+
 ExpressIM.UIComponent.DataGridFormater = {};
 ExpressIM.UIComponent.DataGridFormater.UserStatus = function(val,row) {
      if(val == "A") return "激活";
@@ -1625,3 +1637,24 @@ ExpressIM.UIComponent.DataGridFormater.UserGroup = function(val,row) {
     if(val == "O") return "操作员";
     if(val == "L") return "审核人";
 } ;
+
+ExpressIM.UIComponent.DataGridFormater.Opeartor = function(val,row) {
+    return row.operator.name;
+} ;
+
+ExpressIM.UIComponent.DataGridFormater.Leader = function(val,row) {
+    return row.operator.name + ", " + row.leader.name;
+} ;
+
+ExpressIM.UIComponent.DataGridFormater.DateTime = function(val, row) {
+	return val.replace("T"," ");
+};
+
+ExpressIM.UIComponent.DataGridFormater.HistoryAmount = function(val, row) {
+	if (row.isAffectation) {
+		return "<span style='color:red;font-weight:bold;'>" + row.adjustAmount.formatMoney() + "</span>";
+	} else {
+		return "<span style='color:green;font-weight:bold;'>" + row.amount.formatMoney() + "</span>";
+	}
+};
+

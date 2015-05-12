@@ -145,6 +145,11 @@ abstract public class AdminBO extends BusinessObject implements IAdminBO{
         return _createModel(context);
     }
 
+    public List<DataModel> filter(List<Selection> selections, String sortBy, int pageSize, int page)
+    {
+        return gate.find(page, pageSize, selections, sortBy);
+    }
+    
     public List<DataModel> filter(String searchBy, String searchValue, String sortBy, int pageSize, int page)
     {
     	List<Selection> selections = new ArrayList<Selection>();
@@ -182,6 +187,10 @@ abstract public class AdminBO extends BusinessObject implements IAdminBO{
     	if (searchBy != null && !searchBy.isEmpty()) {
     		selections.add(new Selection(searchBy, Selection.Operator.LIKE, searchValue));
     	}
+    	return gate.count(selections);
+    }
+    
+    public int count(List<Selection> selections) {
     	return gate.count(selections);
     }
     

@@ -2,6 +2,7 @@ package com.stardust.express.bo;
 
 import java.util.List;
 
+import com.stardust.express.dao.implementations.Selection;
 import com.stardust.express.models.DataModel;
 
 public interface IAdminBO {
@@ -14,4 +15,6 @@ public interface IAdminBO {
     DataModel update(DataModel model);
     DataModel update();
     int count(String searchBy, String searchValue);
+    List<DataModel> filter(List<Selection> selections, String sortBy, int pageSize, int page);
+    int count(List<Selection> selections);
 }

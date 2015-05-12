@@ -5,13 +5,40 @@ ExpressIM.HistoryController.prototype = Class.extend({
     },
 
     _bindEvents: function () {
-        
+    	
+    	this._startTime = this.find("startDate");
+        this._startTime.datebox("textbox").bind("focus", (function() {
+            this._setFieldValue(this.find("startDate"),"");
+        }).bind(this)).bind(this);
+        this._endTime = this.find("endDate");
+        this._endTime.datebox("textbox").bind("focus", (function () {
+            this._setFieldValue(this.find("endDate"), "");
+        }).bind(this)).bind(this);
+    	
+    	this.grid = this.find("grid");
+    	this.grid.datagrid({
+            url: "history",
+            onBeforeLoad:(function(params){
+                params.startDate = this._getFieldValue(this.find("startDate"));
+                params.endDate = this._getFieldValue(this.find("endDate"));
+                params.vehicleNumber = this._getFieldValue(this.find("vehicleNumber"));
+            }).bind(this),
+            onLoadError: (function(data) {
+              
+            }).bind(this)
+    	});
+    	
+    	this.search = this.find("search");
+    	this.search.linkbutton({
+            onClick: (function () {
+            	this.grid.datagrid('reload');
+            }).bind(this)
+        });
     }
 }, ExpressIM.Controller.prototype);
 
 $(document).ready(function () {
     var controller = new ExpressIM.HistoryController({});
-    
 });
 
 function formatDatebox(val) {

@@ -113,25 +113,25 @@ public abstract class DataGate implements IDataGate{
 			Object value = selection.getValue();
 			if (value instanceof String) {
 				if (selection.getOperator().equals(Selection.Operator.LIKE)) {
-					query.setString(selection.getProperty(), ((String) value) + "%%");
+					query.setString(selection.getParameterName(), ((String) value) + "%%");
 				} else {
-					query.setString(selection.getProperty(), (String) value);
+					query.setString(selection.getParameterName(), (String) value);
 				}
 			}
 			if (value instanceof Integer) {
-				query.setInteger(selection.getProperty(), (Integer) value);
+				query.setInteger(selection.getParameterName(), (Integer) value);
 			}
 			if (value instanceof BigDecimal) {
-				query.setBigDecimal(selection.getProperty(), (BigDecimal) value);
+				query.setBigDecimal(selection.getParameterName(), (BigDecimal) value);
 			}
 			if (value instanceof Date) {
-				query.setDate(selection.getProperty(), (Date) value);
+				query.setDate(selection.getParameterName(), (Date) value);
 			}
 			if (value instanceof Double) {
-				query.setDouble(selection.getProperty(), (Double) value);
+				query.setDouble(selection.getParameterName(), (Double) value);
 			}
 			if (value instanceof Boolean) {
-				query.setBoolean(selection.getProperty(), (Boolean) value);
+				query.setBoolean(selection.getParameterName(), (Boolean) value);
 			}
 		}
 	}
@@ -144,7 +144,7 @@ public abstract class DataGate implements IDataGate{
 			if (!where.isEmpty()) {
 				where += " " + selection.getOperand().getOperand();
 			}
-			where += " " + selection.getProperty() + "" + selection.getOperator().getOperator() +":" + selection.getProperty();
+			where += " " + selection.getProperty() + "" + selection.getOperator().getOperator() +":" + selection.getParameterName();
 		}
 		if (!where.isEmpty()) {
 			where = " where " + where;

@@ -1,29 +1,47 @@
-﻿<div style="width:1000px;">
-	时间从: <input data-index="startDate" class="easyui-datebox" style="width:100px" editable="false" data-options="sharedCalendar:'#cc'">
-        到: <input data-index="endDate" class="easyui-datebox" style="width:100px" editable="false" data-options="sharedCalendar:'#cc'">
-</div>
-<div style="width:1000px;height:400px;">
-    <table class="easyui-datagrid" title="车辆检验登记表" style="width:1000px;height:400px"
-            data-options="rownumbers:true,singleSelect:true,method:'get'">
+﻿
+<div style="width:1000px;height:500px;">
+	<div class="panel-header" style="width:1390px;">
+		<table>
+			<tr>
+				<td>
+						时间&nbsp;从: <input data-index="startDate" class="easyui-datetimebox" style="width:140px" editable="false" data-options="sharedCalendar:'#cc'">
+	        &nbsp;到: <input data-index="endDate" class="easyui-datetimebox" style="width:140px" editable="false" data-options="sharedCalendar:'#cc'">
+				</td>
+				<td style="width:10px;">
+				
+				</td>
+				<td>
+					车牌号: <input class="easyui-textbox"  data-index="vehicleNumber" data-field="vehicleNumber" data-property="vehicleNumber" type="text"  data-options="" style="width:120px;"></input>
+				</td>
+				<td>
+					<a href="javascript:void(0)" data-index="search" iconCls="icon-ok" class="easyui-linkbutton" style="width:70px;">搜索</a>
+				</td>
+			</tr>
+		</table>
+	
+	</div>
+    <table data-index='grid' title="车辆检验登记表" style="width:1400px;height:450px" remoteSort='true' loadMsg='处理中,请等待...'
+            data-options="rownumbers:true,singleSelect:true,method:'post',pageSize:10,fitColumns:true,pagination:true,rownumbers:false">
         <thead>
             <tr>
                 <th data-options="field:'id',width:30" rowspan="2">ID</th>
-                <th data-options="field:'date',width:50" rowspan="2">时间</th>
-                <th data-options="field:'vehicleNumber',width:60" rowspan="2">车牌号</th>
-                <th data-options="field:'entranceGateway',width:60" rowspan="2">入站名称</th>
-                <th colspan="5">出口通行信息</th>
+                <th data-options="field:'date',width:100,formatter:ExpressIM.UIComponent.DataGridFormater.DateTime" rowspan="2">时间</th>
+                <th data-options="field:'vehicleNumber',width:160" rowspan="2">车牌号</th>
+                <th data-options="field:'entranceGateway',width:160" rowspan="2">入站名称</th>
+                <th colspan="6">出口通行信息</th>
                 <th colspan="3">检验人信息</th>
                 <th data-options="field:'comment',width:160" rowspan="2">备注</th>
             </tr>
             <tr>
-                <th data-options="field:'vehicleType',width:30">车型</th>
-                <th data-options="field:'channel',width:30">车道</th>
-                <th data-options="field:'tollCollector',width:80">收费员工号</th>
-                <th data-options="field:'amount',width:80,align:'right'">免(缴)金额(元)</th>
-                <th data-options="field:'merchandiseType',width:60">货物名称</th>
-                <th data-options="field:'operatorName',width:60">操作人</th>
-                <th data-options="field:'leaderName',width:60">审核人</th>
-                <th data-options="field:'supervisor',width:60">站长</th>
+                <th data-options="field:'vehicleType',width:50">车型</th>
+                <th data-options="field:'channel',width:50">车道</th>
+                <th data-options="field:'tollCollector',width:120">收费员工号</th>
+                <th data-options="field:'channelType',width:80">放行方式</th>
+                <th data-options="field:'amount',width:80,align:'right',formatter:ExpressIM.UIComponent.DataGridFormater.HistoryAmount">免(缴)金额(元)</th>
+                <th data-options="field:'merchandiseType',width:160">货物名称</th>
+                <th data-options="field:'operator',width:160,formatter:ExpressIM.UIComponent.DataGridFormater.Opeartor">操作人</th>
+                <th data-options="field:'leader',width:160,formatter:ExpressIM.UIComponent.DataGridFormater.Leader">审核人</th>
+                <th data-options="field:'supervisor',width:160">站长</th>
             </tr>
         </thead>
     </table>
