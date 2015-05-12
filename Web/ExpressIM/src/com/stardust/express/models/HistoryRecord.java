@@ -21,6 +21,8 @@ public class HistoryRecord  extends DataModel {
 	private String video = "";
 	private User operator;
 	private User leader;
+	private double adjustAmount = 0;
+	private boolean isAffectation = false;
 	
 	public HistoryRecord(){
 		
@@ -32,6 +34,8 @@ public class HistoryRecord  extends DataModel {
 		exitGateway = ctx.getString("exitGateway");
 		date = ctx.getDate("date");
 		amount = ctx.getDouble("amount");
+		adjustAmount = ctx.getDouble("adjustAmount");
+		isAffectation = ctx.getBoolean("isAffectation");
 		comment = ctx.getString("comment");
 		merchandiseType = ctx.getString("merchandiseType");
 		vehicleType = ctx.getString("vehicleType");
@@ -89,6 +93,22 @@ public class HistoryRecord  extends DataModel {
 	
 	public double getAmount(){
 		return amount;
+	}
+	
+	public void setAdjustAmount(double amt) {
+		adjustAmount = amt;
+	}
+	
+	public double getAdjustAmount(){
+		return adjustAmount;
+	}
+	
+	public void setIsAffectation(boolean is) {
+		isAffectation = is;
+	}
+	
+	public boolean getIsAffectation(){
+		return this.isAffectation;
 	}
 	
 	public void setComment(String comment) {

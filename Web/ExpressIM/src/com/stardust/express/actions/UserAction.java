@@ -66,7 +66,9 @@ public class UserAction extends ActionExecutor{
 		
 		for (int i=0; i<1;i++) {
 			HistoryRecord hr = new HistoryRecord();
-			hr.setAmount(10);
+			//hr.setAmount(10);
+			hr.setAdjustAmount(20);
+			hr.setIsAffectation(true);
 			hr.setChannel("通道-1");
 			hr.setComment("测试");
 			hr.setDate(new Date());
@@ -81,6 +83,7 @@ public class UserAction extends ActionExecutor{
 			leader.setId(78);
 			hr.setLeader(leader);
 			hr.setOperator(operator);
+			
 			gate.update(hr);
 		}
 		

@@ -28,8 +28,12 @@
 				<Column Name="EXIT_GATEWAY_NAME" DataType="VARCHAR" ColumnSize="50"/>
 				<!--记录时间-->
 				<Column Name="REOCRD_DATE" DataType="DATETIME"/>
-				<!-- 价格 -->
+				<!-- 免征金额 -->
 				<Column Name="AMOUNT" DataType="MONEY"/>
+				<!-- 追缴金额 -->
+				<Column Name="ADJUST_AMOUNT" DataType="MONEY"/>
+				<!-- 是否假冒 -->
+				<Column Name="IS_AFFECTATION" DataType="BIT"/>
 				<!-- 备注 -->
 				<Column Name="COMMENT" DataType="VARCHAR" ColumnSize="255" AllowNulls="True"/>
 				<!-- 货物类别 -->

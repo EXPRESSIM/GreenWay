@@ -1,0 +1,25 @@
+﻿
+<div style="width:722px;height:402px;">
+    <table data-index="questionGrid"></table>
+    <div id="tb" style="padding:2px 5px;">
+        标题:<input data-index="textTitle" class="easyui-textbox" style="width:150px">
+        提问时间从: <input data-index="txtCreateTimeStart" class="easyui-datebox" style="width:100px" editable="false" data-options="sharedCalendar:'#cc'">
+        到: <input data-index="txtCreateTimeEnd" class="easyui-datebox" style="width:100px" editable="false" data-options="sharedCalendar:'#cc'">
+        问题状态:
+        <select data-index="comboStatus" class="easyui-combobox" panelheight="auto" style="width:80px" editable="false">
+            <option value="">全部</option>
+            <option value="P">待解答</option>
+            <option value="A">已解答</option>
+            <option value="W">已删除</option>
+        </select>
+        <a href="#" data-index="btnSearch" class="easyui-linkbutton" iconcls="icon-search" style="width:70px;">搜索</a>
+        
+    </div>
+    <div id="ft" style="padding:2px 5px;">
+        <a href="#" data-index="btnRemoveQuestion" class="easyui-linkbutton" iconcls="icon-remove"></a>
+    </div>
+    <div id="cc" class="easyui-calendar"></div>
+</div>
+   
+<script language="javascript" src="modules/controller/EXPRESSWAY.js" type="text/javascript"></script>
+

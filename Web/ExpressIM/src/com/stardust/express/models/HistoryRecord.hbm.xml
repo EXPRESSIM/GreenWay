@@ -12,6 +12,8 @@
      <property name="exitGateway" column="EXIT_GATEWAY_NAME" type="string"/>
      <property name="date" column="REOCRD_DATE" type="timestamp"/>
      <property name="amount" column="AMOUNT" type="double"/>
+     <property name="adjustAmount" column="ADJUST_AMOUNT" type="double"/>
+     <property name="isAffectation" column="IS_AFFECTATION" type="boolean"/>
      <property name="comment" column="COMMENT" type="string"/>
      <property name="merchandiseType" column="MERCHANDISE_TYPE" type="string"/>
      <property name="vehicleType" column="VEHICLE_TYPE" type="string"/>
