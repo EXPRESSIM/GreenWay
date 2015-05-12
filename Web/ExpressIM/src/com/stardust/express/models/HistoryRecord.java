@@ -24,7 +24,7 @@ public class HistoryRecord  extends DataModel {
 	private double adjustAmount = 0;
 	private boolean isAffectation = false;
 	private String tollCollector = "";
-	
+	private String channelType = "";
 	public HistoryRecord(){
 		
 	}
@@ -47,6 +47,7 @@ public class HistoryRecord  extends DataModel {
 		snapshoot4 = ctx.getString("snapshoot4");
 		video = ctx.getString("video");
 		tollCollector = ctx.getString("tollCollector");
+		channelType = ctx.getString("channelType");
 		if (ctx.getLong("operatorId") > 0) {
 			User opt = new User();
 			opt.setId(ctx.getLong("operatorId"));
@@ -91,6 +92,14 @@ public class HistoryRecord  extends DataModel {
 	
 	public void setDate(Date d) {
 		date = d;
+	}
+	
+	public String getChannelType(){
+		return channelType;
+	}
+	
+	public void setChannelType(String ct) {
+		this.channelType = ct;
 	}
 	
 	public Date getDate(){

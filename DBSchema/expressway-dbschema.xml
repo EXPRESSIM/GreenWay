@@ -42,6 +42,8 @@
 				<Column Name="VEHICLE_TYPE" DataType="VARCHAR" ColumnSize="24"/>
 				<!-- 车道 -->
 				<Column Name="CHANNEL_NUMBER" DataType="VARCHAR" ColumnSize="24"/>
+				<!-- 放行方式 -->
+				<Column Name="CHANNEL_TYPE" DataType="VARCHAR" ColumnSize="24"/>
 				<!-- 快照1 -->
 				<Column Name="SNAPSHOOT_1" DataType="VARCHAR" ColumnSize="100"/>
 				<!-- 快照2 -->
