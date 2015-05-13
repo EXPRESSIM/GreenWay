@@ -25,6 +25,10 @@ public class HistoryRecord  extends DataModel {
 	private boolean isAffectation = false;
 	private String tollCollector = "";
 	private String channelType = "";
+	private int year = 0;
+	private int month = 0;
+	private int day = 0;
+	
 	public HistoryRecord(){
 		
 	}
@@ -56,6 +60,30 @@ public class HistoryRecord  extends DataModel {
 			this.operator = opt;
 			this.leader = reviewer;
 		}
+	}
+	
+	public void setYear(int data) {
+		year = data;
+	}
+	
+	public int getYear(){
+		return year;
+	}
+	
+	public void setMonth(int data) {
+		month = data;
+	}
+	
+	public int getMonth(){
+		return month;
+	}
+	
+	public void setDay(int data) {
+		day = data;
+	}
+	
+	public int getDay(){
+		return day;
 	}
 	
 	public void setVehicleNumber(String number) {

@@ -60,6 +60,11 @@
 				<Column Name="REVIEWER_USER_ID" DataType="INT"/>
 				<!-- 收费员 -->
 				<Column Name="TOLL_COLLECTOR" DataType="VARCHAR" ColumnSize="10"/>
+				
+				<Column Name="YEAR" DataType="INT"/>
+				<Column Name="MONTH" DataType="INT"/>
+				<Column Name="DAY" DataType="INT"/>
+				
         	</Columns>
 			<Indexes>
 				<Index Expression="VEHICLE_NUMBER"/>
