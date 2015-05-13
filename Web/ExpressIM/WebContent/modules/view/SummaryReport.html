@@ -1,16 +1,21 @@
-﻿<div style="padding:10px 60px 20px 60px;width:200px;height:100px;">
+﻿<div style="padding:10px 60px 20px 60px;width:400px;height:50px;">
     <table cellpadding="5">
         <tr>
-            <td>汇总周期:</td>
+        	<td style="width:60px;">
+        		时间&nbsp;从: 
+        	</td>
             <td>
-                 <select class="easyui-combobox" style="height:20px;width:80px;" data-options="editable:false" data-index="summaryType" data-field="summaryType" data-property="summaryType" >
-                    <option value="year">按年</option>
-                    <option value="monty">按月</option>
-                    <option value="day">按日</option>
-                </select>
-            </td>
+				<input data-index="startDate" class="easyui-datebox" style="width:140px" editable="false" data-options="sharedCalendar:'#cc'">
+			</td>
+			<td>
+			&nbsp;到:
+			</td>
+			<td>
+			 <input data-index="endDate" class="easyui-datebox" style="width:140px" editable="false" data-options="sharedCalendar:'#cc'">
+			</td>
         </tr>
     </table>
+    <div id="cc" class="easyui-calendar"></div>
 </div>
 <div style="text-align:center;padding-bottom:20px;">
     <a href="javascript:void(0)" data-index="run" iconCls="icon-ok" class="easyui-linkbutton" style="width:100px;">运行</a>

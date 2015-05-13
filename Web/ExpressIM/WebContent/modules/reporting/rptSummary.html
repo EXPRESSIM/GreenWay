@@ -3,17 +3,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>假冒"鲜活农产品"绿色通道车辆处理等级表</title>
-<script language="javascript" src="../../includes/easyui/jquery.min.js" type="text/javascript" ></script>
+
 <link href="../../includes/easyui/themes/default/easyui.css" rel="stylesheet"   type="text/css"/>
 <link href="../../includes/easyui/themes/icon.css" rel="stylesheet"   type="text/css"/>
 <link href="../../includes/easyui/themes/color.css" rel="stylesheet"   type="text/css"/>
+<script language="javascript" src="../../includes/easyui/jquery.min.js" type="text/javascript" ></script>
 <script language="javascript" src="../../includes/easyui/jquery.easyui.min.js" type="text/javascript"  charset="gbk"></script>
 <script language="javascript" src="../../includes/app/util/lib.js" type="text/javascript" ></script>
 </head>
 <body style="background-color:rgb(247,247,247)">
 	<script>
 	$(document).ready(function () {
-		
+		var msg = new ExpressIM.UIComponent.LoadingMask({});
+        msg.render();
+		 $.ajax({
+	            type: "post",
+	            data: {startDate:getUrlParam("startDate") + " " + "00:00:00",endDate:getUrlParam("endDate")+ " " + "00:00:00"},
+	            url: "summaryReport?summaryType=day",
+	            success: function (data, textStatus) {
+	                   msg.destroy();
+	                   if (data.records) {
+	                	   var rows = "";
+	                	   for (var i=0; i < data.records.length; i++) {
+	                		   var row = data.records[i];
+	                		   rows+="<tr>";
+	                		   rows+="<td>" + row.date + "</td>";
+	                		   rows+="<td>" + row.freeCount + "</td>";
+	                		   rows+="<td>" + row.freeAmount.formatMoney() + "</td>";
+	                		   rows+="<td>" + row.chargeCount + "</td>";
+	                		   rows+="<td>" + row.chargeAmount.formatMoney() + "</td>";	
+	                		   rows+="<td>" + "</td>";	
+	                		   rows+="</tr>";
+	                	   }
+	                	   $("#grid").append(rows);
+	                   }
+	            }
+	        });
 	});
 	function getUrlParam(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
@@ -22,102 +47,37 @@
     }
 	</script>
 <div style="width:100%;" align="center">
-	<div style="width:850px;height:800px;" class="datagrid-header">
+	<div style="width:850px;height:700px;overflow:auto;" class="datagrid-header">
 	<div>
 		<image width="847" height="170" src="../../resource/images/summary-rpt-header.png"/>
 	</div>
-	<table style="width:100%;" cellspacing="0" cellpadding="0" class='datagrid-cell'>
+	<table id="grid" style="width:100%;" cellspacing="0" cellpadding="0" class='datagrid-cell'>
 		<tr>
-			<td style="font-weight:bold;">
+			<td style="width:100px;font-weight:bold;" rowspan="2">
 				时间:
 			</td>
-			<td style="width:200px;"  colspan="3">
-				<span id="date"></span>
+			<td style="font-weight:bold;width:200px;"  colspan="2">
+				"鲜活农产品"免费车辆
 			</td>
-			<td style="font-weight:bold;">
-				查验人:
+			<td style="font-weight:bold;width:200px;" colspan="2">
+				假冒"鲜活农产品"车辆
 			</td>
-			<td style="width:200px;">
-				<span id="leader"></span>
+			<td style="font-weight:bold;width:100px;" rowspan="2">
+				备注
 			</td>
 		</tr>
 		<tr>
-			<td style="font-weight:bold;">
-				车牌号:
-			</td>
-			<td style="width:100px;">
-				<span id="vehicleNumber"></span>
+			<td style="font-weight:bold;width:100px;">
+				数量（辆）
 			</td>
 			<td style="font-weight:bold;width:100px;">
-				入站口名称:
+				免费金额（元）
 			</td>
-			<td style="width:150px;">
-				<span id="entranceGateway"></span>
+			<td style="font-weight:bold;width:100px;">
+				数量（辆）
 			</td>
-			<td style="font-weight:bold;">
-				记录员:
-			</td>
-			<td>
-				<span id="operator"></span>
-			</td>
-		</tr>
-		<tr>
-			<td style="font-weight:bold;">
-				车道:
-			</td>
-			<td style="width:200px;"  colspan="3">
-				<span id="channel"></span>
-			</td>
-			<td style="font-weight:bold;">
-				收费员工号:
-			</td>
-			<td style="width:200px;">
-				<span id="tollCollector"></span>
-			</td>
-		</tr>
-		<tr>
-			<td style="font-weight:bold;">
-				车型:
-			</td>
-			<td style="width:200px;"  colspan="3">
-				<span id="vehicleType"></span>
-			</td>
-			<td style="font-weight:bold;">
-				追缴金额:
-			</td>
-			<td style="width:200px;">
-				<span id="adjustAmount"></span>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="6" >
-				<div style="font-weight:bold;">查验情况:</div>
-				<div>
-					<table>
-						<tr style="width:810px;height:310px;">
-							<td>
-								<image id="snapshoot1" width="200" height="300"/>
-							</td>
-							<td>
-								<image id="snapshoot2" width="200" height="300"/>
-							</td>
-							<td>
-								<image id="snapshoot3" width="200" height="300"/>
-							</td>
-							<td>
-								<image id="snapshoot4" width="200" height="300"/>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</td>
-		</tr>
-		<tr >
-			<td colspan="6">
-				<div style="font-weight:bold;">处理结果:</div><br>
-				<div id="comment" style="height:300px;">
-					
-				</div>
+			<td style="font-weight:bold;width:100px;">
+				追缴金额（元）
 			</td>
 		</tr>
 	</table>
