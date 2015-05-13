@@ -50,7 +50,10 @@ ExpressIM.HistoryController.prototype = Class.extend({
             	  var record = rows[index];
             	  this.showDetailForm(record);
               }
-            }).bind(this)
+            }).bind(this),
+            onDblClickRow: (function(index,row) {
+              	  this.showDetailForm(row);
+              }).bind(this)
     	});
     	
     	this.search = this.find("search");
