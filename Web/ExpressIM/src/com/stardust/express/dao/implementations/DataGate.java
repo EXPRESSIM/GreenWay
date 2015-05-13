@@ -214,7 +214,7 @@ public abstract class DataGate implements IDataGate{
     }
     
     public List<DataModel> find(int start, int size, String sortBy) {
-    	return find(start, size , null);
+    	return find(start, size ,null, null);
     }
     
     public List<DataModel> find(List<Selection> selections, String sortBy) {

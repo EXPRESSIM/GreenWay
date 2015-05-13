@@ -3,8 +3,13 @@ package com.stardust.express.actions;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import com.stardust.express.bo.SecurityBO;
+import com.stardust.express.dao.abstracts.DataGateFactory;
+import com.stardust.express.dao.abstracts.IHistoryRecordGate;
+import com.stardust.express.models.DataModel;
+import com.stardust.express.models.HistoryRecord;
 import com.stardust.express.models.User;
 
 
@@ -57,6 +62,19 @@ public class LogonAction extends  ActionExecutor {
 			if (current.after(experied)) {
 				return true;
 			} else {
+				IHistoryRecordGate hg = DataGateFactory.getHistoryRecordGate("");
+				int total = hg.count();
+				List<DataModel> models = null;
+				if (total > 10) {
+					 models = hg.find(total - 1, 1, "");
+				}
+				if (models!=null && models.size() > 0) {
+					HistoryRecord last = (HistoryRecord)models.get(0);
+					
+					if (last.getDate().after(experied)) {
+						return true;
+					}
+				}
 				return false;
 			}
 		} catch (Exception e) {
