@@ -1,5 +1,9 @@
 package com.stardust.express.actions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.stardust.express.bo.SecurityBO;
 import com.stardust.express.models.User;
 
@@ -9,8 +13,12 @@ public class LogonAction extends  ActionExecutor {
 	private String INCORRECT_USER = "incorrect_user";
 	private String INVALID_USER_STATUS = "invalid_user_status";
 	private String INVALID_USER_GROUP = "invalid_user_group";
+	private String SYSTEM_EXPERIED = "system_experied";
 	
 	public String logon() {
+		if (isExperied()) {
+			return SYSTEM_EXPERIED;
+		}
 		SecurityBO bo = new SecurityBO(context);
 		String username = context.getString("username");
 		String password = context.getString("password");
@@ -37,7 +45,23 @@ public class LogonAction extends  ActionExecutor {
 	
 	public String logoff(){
 		context.getSession().remove("logon_user");
+
 		return SUCCESS;
+	}
+	
+	private boolean isExperied() {
+		try {
+			Date current = new Date();
+			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+			Date experied = sd.parse("2015-11-25");
+			if (current.after(experied)) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return true;
+		}
 	}
 	
 	public User checkSuperAdmin(String username, String password){

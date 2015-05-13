@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.struts2.ServletActionContext;
 
 import com.stardust.express.bo.HistoryRecordBO;
 import com.stardust.express.dao.implementations.Selection;
@@ -32,6 +33,7 @@ public class HistoryAction extends ActionExecutor {
 	}
 	
 	public String fetch() {
+		if (context.getSession().get("logon_user") == null) return ERROR;
 		HistoryRecordBO bo = new HistoryRecordBO(context);
 		int pageSize = context.getInt("rows");
 		int start = (context.getInt("page")-1) * pageSize;
@@ -87,7 +89,6 @@ public class HistoryAction extends ActionExecutor {
 				selections.add(new Selection("channelType", Operator.EQUAL, channelType));
 			}	
 		}
-		
 		
 		rows = bo.filter(selections, sortBy, pageSize, start);
 		total = bo.count(selections);

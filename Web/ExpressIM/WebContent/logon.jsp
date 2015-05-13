@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="resource/images/logo.png"/> 
 <title>高速公路绿色通道稽查综合管理系统</title>
 <link href="includes/easyui/themes/default/easyui.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/icon.css" rel="stylesheet"   type="text/css"/>

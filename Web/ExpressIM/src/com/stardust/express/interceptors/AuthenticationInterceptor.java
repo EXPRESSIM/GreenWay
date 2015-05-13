@@ -2,8 +2,11 @@ package com.stardust.express.interceptors;
 
 import java.util.Map;
 
+import sun.org.mozilla.javascript.internal.Context;
+
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
+import com.stardust.express.models.User;
 
 public class AuthenticationInterceptor implements Interceptor {  
 
@@ -22,8 +25,8 @@ public class AuthenticationInterceptor implements Interceptor {
 	@Override
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
 		Map<String, Object> session = actionInvocation.getInvocationContext().getSession();  
-		String isLoggedIn = (String)session.get("LOGGED_IN");  
-	    if (isLoggedIn == null || isLoggedIn.equals("N")) {
+		User user = (User)session.get("logon_user");  
+	    if (user == null) {
 	      return "invalid_session";
 	    } else {  
 	      return actionInvocation.invoke();  
