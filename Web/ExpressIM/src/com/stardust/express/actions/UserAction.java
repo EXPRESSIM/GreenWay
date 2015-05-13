@@ -16,6 +16,7 @@ import com.stardust.express.dao.implementations.Selection;
 import com.stardust.express.dao.implementations.UserGate;
 import com.stardust.express.models.HistoryRecord;
 import com.stardust.express.models.User;
+import com.stardust.express.reporting.SummaryReport;
 import com.stardust.express.tools.IViewContext;
 import com.stardust.express.tools.ViewContext;
 
@@ -64,7 +65,7 @@ public class UserAction extends ActionExecutor{
 	public String loadHistory(){
 		IHistoryRecordGate gate = DataGateFactory.getHistoryRecordGate(context.getString("datasource"));
 		HistoryRecord hr = (HistoryRecord)gate.find(3);
-		for (int i=0; i<1;i++) {
+		for (int i=0; i<0;i++) {
 			hr.setId(-1);
 			/*
 			HistoryRecord hr = new HistoryRecord();
@@ -90,7 +91,8 @@ public class UserAction extends ActionExecutor{
 			
 			gate.update(hr);
 		}
-		
+		SummaryReport sr = new SummaryReport();
+		sr.run("year",null);
 	    // hr = (HistoryRecord)gate.find(3);
 		return SUCCESS;
 	}

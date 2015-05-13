@@ -17,7 +17,7 @@
 		{
 		    text: "统计",
 		    items: [
-				{ text: "稽查金额统计", view: "" }
+				{ text: "汇总统计", view: "SummaryReport" }
 			],
 		    isRoot: true
 		},
