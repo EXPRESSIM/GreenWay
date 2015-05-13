@@ -2,8 +2,6 @@ package com.stardust.express.interceptors;
 
 import java.util.Map;
 
-import sun.org.mozilla.javascript.internal.Context;
-
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 import com.stardust.express.models.User;
