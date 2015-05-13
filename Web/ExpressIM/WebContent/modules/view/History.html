@@ -14,13 +14,13 @@
 					车牌号: <input class="easyui-textbox"  data-index="vehicleNumber" data-field="vehicleNumber" data-property="vehicleNumber" type="text"  data-options="" style="width:80px;"></input>
 				</td>
 				<td>
-					车型:<select class="easyui-combobox" style="height:20px;width:60px;" data-options="editable:false" data-index="vehicleType" data-field="vehicleType" data-property="vehicleType" >
+					车轴数:<select class="easyui-combobox" style="height:20px;width:60px;" data-options="editable:false" data-index="vehicleType" data-field="vehicleType" data-property="vehicleType" >
 		                    <option value=""></option>
-		                    <option value="一类">一类</option>
-		                    <option value="二类">二类</option>
-		                    <option value="三类">三类</option>
-		                    <option value="四类">四类</option>
-		                    <option value="五类">五类</option>
+		                    <option value="二轴">二轴</option>
+		                    <option value="三轴">三轴</option>
+		                    <option value="四轴">四轴</option>
+		                    <option value="五轴">五轴</option>
+		                    <option value="六轴">六轴</option>
 		                </select>
 				</td>
 				<td>
@@ -65,7 +65,7 @@
                 <th data-options="field:'comment',width:100,formatter:ExpressIM.UIComponent.DataGridFormater.HistoryForm" rowspan="2">备注</th>
             </tr>
             <tr>
-                <th data-options="field:'vehicleType',width:50">车型</th>
+                <th data-options="field:'vehicleType',width:50">车轴数</th>
                 <th data-options="field:'channel',width:50">车道</th>
                 <th data-options="field:'tollCollector',width:120">收费员工号</th>
                 <th data-options="field:'channelType',width:80">放行方式</th>
@@ -73,7 +73,7 @@
                 <th data-options="field:'merchandiseType',width:160">货物名称</th>
                 <th data-options="field:'operator',width:160,formatter:ExpressIM.UIComponent.DataGridFormater.Opeartor">操作人</th>
                 <th data-options="field:'leader',width:160,formatter:ExpressIM.UIComponent.DataGridFormater.Leader">审核人</th>
-                <th data-options="field:'supervisor',width:160">站长</th>
+                <th data-options="field:'supervisor',width:160,formatter:ExpressIM.UIComponent.DataGridFormater.stationOwner">站长</th>
             </tr>
         </thead>
     </table>
