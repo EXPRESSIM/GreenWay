@@ -39,9 +39,9 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH) + 1;
 		int day = cal.get(Calendar.DATE);
-		hr.setYear(year);
-		hr.setMonth(month);
-		hr.setDay(day);
+		hr.setYear(year+"");
+		hr.setMonth(month+"");
+		hr.setDay(day+"");
 		return super.update(model);
 	}
 }

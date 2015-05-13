@@ -61,9 +61,9 @@
 				<!-- 收费员 -->
 				<Column Name="TOLL_COLLECTOR" DataType="VARCHAR" ColumnSize="10"/>
 				
-				<Column Name="YEAR" DataType="INT"/>
-				<Column Name="MONTH" DataType="INT"/>
-				<Column Name="DAY" DataType="INT"/>
+				<Column Name="YEAR" DataType="VARCHAR" ColumnSize="10"/>
+				<Column Name="MONTH" DataType="VARCHAR" ColumnSize="10"/>
+				<Column Name="DAY" DataType="VARCHAR" ColumnSize="10"/>
 				
         	</Columns>
 			<Indexes>

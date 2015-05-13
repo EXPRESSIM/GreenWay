@@ -25,9 +25,9 @@
      <property name="snapshoot4" column="SNAPSHOOT_4" type="string"/>
      <property name="video" column="VIDEO" type="string"/>
      <property name="tollCollector" column="TOLL_COLLECTOR" type="string"/>
-     <property name="year" column="YEAR" type="integer"/>
-     <property name="month" column="MONTH" type="integer"/>
-     <property name="day" column="DAY" type="integer"/>
+     <property name="year" column="YEAR" type="string"/>
+     <property name="month" column="MONTH" type="string"/>
+     <property name="day" column="DAY" type="string"/>
      <many-to-one name="operator" column="OPERATOR_USER_ID" class="com.stardust.express.models.User" fetch="select"/>
      <many-to-one name="leader" column="REVIEWER_USER_ID" class="com.stardust.express.models.User" fetch="select"/>
   </class>
