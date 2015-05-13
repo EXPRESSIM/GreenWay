@@ -28,7 +28,25 @@
 			response.sendRedirect("logon.jsp");
 		}
 	%>
-	
+	<script>
+		$(document).ready(function () {
+			var error = getUrlParam("error");
+			if (error.indexOf("incorrect_user") != -1) {
+				$("#error").html("用户名密码不正确");
+			} else if (error.indexOf("invalid_user_status") != -1) {
+				$("#error").html("该用户已被注销,无权登录");
+			} else if (error.indexOf("invalid_user_group") != -1) {
+				$("#error").html("该用户所在的用户组无权登录");
+			} else if (error.indexOf("system_experied") != -1) {
+				$("#error").html("试用期已到,请联系软件提供商来继续使用本软件");
+			}
+		});
+		function getUrlParam(name) {
+	        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+	        var r = window.location.search.substr(1).match(reg);  
+	        if (r != null) return unescape(r[2]); return "";
+	    }
+	</script>
 	<div class="window-shadow" style="z-index: 90; position: absolute; top: 20%; left:30%; height: 405px; width: 657px;">
         <div style="position:relative;width:656px;height:401px;z-index:99;" class="logon-window-background "> 
         	<img style="position:absolute;left:500px;top:30px;width:100px;height:100px;" src="resource/images/login_logo_black.png"/>
@@ -48,6 +66,7 @@
                         </tr>
                         <tr style="height:30px;">
                             <td>
+                            	<span id="error" style="font-size:12px;font-weight:bold;color:red;"></span>
                             </td>
                         </tr>
                         <tr>
