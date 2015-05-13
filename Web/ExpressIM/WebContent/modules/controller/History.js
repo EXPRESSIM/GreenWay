@@ -62,6 +62,7 @@ ExpressIM.HistoryController.prototype = Class.extend({
     },
     
     showDetailForm: function(row){
+    	/*
     	$('#formDlg').show();
     	var win = $('#formDlg').window({
             modal: true,
@@ -77,10 +78,27 @@ ExpressIM.HistoryController.prototype = Class.extend({
                
             }
         });
+        */
+    	var reportName = "rptApproved.html";
+    	if (row.isAffectation) {
+    		reportName = "rptRejected.html";
+    	}
+    	window.open ('modules/reporting/' + reportName + this.modelToParameter(row), 'newwindow', 'height=500px, width=900px, scrollbars=yes, resizable=yes');
     },
     
-    getFormHTML: function(type) {
-    	
+    modelToParameter: function(model) {
+    	var results = "?run=true";
+    	for (var key in model) {
+    		if (key == "operator") {
+    			results +="&" + key + "=" +escape(model[key].name);
+    		} else if (key == "leader") {
+    			results +="&" + key + "=" +escape(model[key].name);
+    		} else {
+    			results +="&" + key + "=" +escape(model[key]);
+    		}
+    		
+    	}
+    	return results;
     }
 }, ExpressIM.Controller.prototype);
 

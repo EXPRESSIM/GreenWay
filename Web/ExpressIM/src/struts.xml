@@ -68,5 +68,8 @@
 	    <action name="history" class="com.stardust.express.actions.HistoryAction" method="fetch">
 	        <result name="success" type="json"></result>
 	    </action>
+	   	<action name="reporting" class="com.stardust.express.actions.HistoryAction" method="fetch">
+	        <result name="success" type="json"></result>
+	    </action>
 	</package>
 </struts>
