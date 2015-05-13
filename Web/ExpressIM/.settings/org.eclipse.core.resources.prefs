@@ -1,5 +1,6 @@
-#Wed May 13 01:21:27 EDT 2015
+#Wed May 13 03:12:33 EDT 2015
 eclipse.preferences.version=1
 encoding//WebContent/index.jsp=UTF-8
 encoding//WebContent/logon.jsp=UTF-8
+encoding//WebContent/modules/reporting/rptApproved.html=UTF-8
 encoding//WebContent/modules/reporting/rptRejected.html=UTF-8
