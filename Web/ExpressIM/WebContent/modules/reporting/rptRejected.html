@@ -7,10 +7,14 @@
 <link href="../../includes/easyui/themes/default/easyui.css" rel="stylesheet"   type="text/css"/>
 <link href="../../includes/easyui/themes/icon.css" rel="stylesheet"   type="text/css"/>
 <link href="../../includes/easyui/themes/color.css" rel="stylesheet"   type="text/css"/>
+<script language="javascript" src="../../includes/easyui/jquery.min.js" type="text/javascript" ></script>
+<script language="javascript" src="../../includes/easyui/jquery.easyui.min.js" type="text/javascript"  charset="gbk"></script>
+<script language="javascript" src="../../includes/app/util/lib.js" type="text/javascript" ></script>
 </head>
 <body style="background-color:rgb(247,247,247)">
 	<script>
 	$(document).ready(function () {
+		$("#station").html(ExpressIM.stationName);
 		$("#snapshoot1").attr('src', "../../" + getUrlParam("snapshoot1"));
 		$("#snapshoot2").attr('src', "../../" + getUrlParam("snapshoot2"));
 		$("#snapshoot3").attr('src', "../../" + getUrlParam("snapshoot3"));
@@ -23,7 +27,7 @@
 		$("#operator").html(getUrlParam("operator"));
 		$("#channel").html(getUrlParam("channel"));
 		$("#vehicleType").html(getUrlParam("vehicleType"));
-		$("#adjustAmount").html(getUrlParam("adjustAmount"));
+		$("#adjustAmount").html(Number(getUrlParam("adjustAmount")).formatMoney());
 		$("#tollCollector").html(getUrlParam("tollCollector"));
 	});
 	function getUrlParam(name) {
@@ -38,6 +42,9 @@
 		<image width="847" height="170" src="../../resource/images/reject-rpt-header.png"/>
 	</div>
 	<table style="width:100%;" cellspacing="0" cellpadding="0" class='datagrid-cell'>
+		<tr>
+			<td colspan="6"><span style="font-weight:bold;">收费站名称:</span> <span id="station"></span></td>
+		</tr>
 		<tr>
 			<td style="font-weight:bold;">
 				时间:

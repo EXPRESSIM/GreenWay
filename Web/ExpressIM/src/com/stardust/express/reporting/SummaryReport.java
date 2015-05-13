@@ -32,8 +32,9 @@ public class SummaryReport {
 	protected String getWhereClause(List<Selection> selections) {
 		String where = "";
 		for (Selection s : selections) {
-			where += s.getOperand().getOperand() + s.getProperty() + s.getOperator().getOperator() + "?";
+			where += s.getOperand().getOperand() + s.getProperty() + s.getOperator().getOperator() + "? ";
 		}
+		if (where.length() > 0) where = " where " + where;
 		return where;
 	}
 	

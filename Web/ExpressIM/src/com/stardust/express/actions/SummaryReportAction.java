@@ -29,14 +29,14 @@ public class SummaryReportAction extends ActionExecutor {
 		Date endDate = context.getDate("endDate", null);
 		List<Selection> selections = new ArrayList<Selection>();
 		if (startDate != null) {
-			selections.add(new Selection("RECORD_DATE", Operator.GEATER_EQUAL, startDate, "startdate"));
+			selections.add(new Selection("REOCRD_DATE", Operator.GEATER_EQUAL, startDate, "startdate"));
 		}
 		
 		if (endDate != null) {
 			if (selections.size() > 0) {
-				selections.add(new Selection("RECORD_DATE", Operator.LESS_EQUAL, endDate, Operand.AND));
+				selections.add(new Selection("REOCRD_DATE", Operator.LESS_EQUAL, endDate, Operand.AND));
 			} else {
-				selections.add(new Selection("RECORD_DATE", Operator.LESS_EQUAL, endDate));
+				selections.add(new Selection("REOCRD_DATE", Operator.LESS_EQUAL, endDate));
 			}	
 		}
 		records = new SummaryReport().run(summaryBy, selections);
