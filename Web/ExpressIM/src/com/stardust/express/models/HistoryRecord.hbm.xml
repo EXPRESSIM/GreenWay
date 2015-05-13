@@ -18,6 +18,7 @@
      <property name="merchandiseType" column="MERCHANDISE_TYPE" type="string"/>
      <property name="vehicleType" column="VEHICLE_TYPE" type="string"/>
      <property name="channel" column="CHANNEL_NUMBER" type="string"/>
+     <property name="channelType" column="CHANNEL_TYPE" type="string"/>
      <property name="snapshoot1" column="SNAPSHOOT_1" type="string"/>
      <property name="snapshoot2" column="SNAPSHOOT_2" type="string"/>
      <property name="snapshoot3" column="SNAPSHOOT_3" type="string"/>
