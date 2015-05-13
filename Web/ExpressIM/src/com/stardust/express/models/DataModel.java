@@ -1,6 +1,8 @@
 package com.stardust.express.models;
 
-public class DataModel {
+import java.io.Serializable;
+
+public class DataModel implements Serializable{
 	
 	final public static String STATUS_ACTIVE = "A";
 	final public static String STATUS_WITHDRAW = "W";

@@ -72,4 +72,24 @@
 	        <result name="success" type="json"></result>
 	    </action>
 	</package>
+
+	<package name="web-interface" extends="json-default" namespace="/web-interface">
+		<action name="operatorlogon" class="com.stardust.express.webInterfaces.UserAction" method="operatorLogon">
+			<result type="json">
+				<param name="root">responseData</param>
+			</result>
+		</action>
+
+		<action name="leaderlogon" class="com.stardust.express.webInterfaces.UserAction" method="leaderLogon">
+			<result type="json">
+				<param name="root">responseData</param>
+			</result>
+		</action>
+
+		<action name="archive" class="com.stardust.express.webInterfaces.HistoryAction" method="archive">
+			<result type="json">
+				<param name="root">responseData</param>
+			</result>
+		</action>
+	</package>
 </struts>
