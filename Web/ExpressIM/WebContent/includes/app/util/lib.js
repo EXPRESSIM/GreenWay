@@ -1658,3 +1658,6 @@ ExpressIM.UIComponent.DataGridFormater.HistoryAmount = function(val, row) {
 	}
 };
 
+ExpressIM.UIComponent.DataGridFormater.HistoryForm = function(val, row) {
+	return '<a href="javascript:void(0)" class="history-row" data-index="row_' + row.id + '">' + "详细" +'</a>';
+};

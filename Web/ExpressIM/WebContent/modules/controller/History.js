@@ -43,6 +43,13 @@ ExpressIM.HistoryController.prototype = Class.extend({
             }).bind(this),
             onLoadError: (function(data) {
               
+            }).bind(this),
+            onClickCell: (function(index,field,value) {
+              var rows = this.grid.datagrid("getRows");
+              if (field == "comment") {
+            	  var record = rows[index];
+            	  this.showDetailForm(record);
+              }
             }).bind(this)
     	});
     	
@@ -52,16 +59,34 @@ ExpressIM.HistoryController.prototype = Class.extend({
             	this.grid.datagrid('reload');
             }).bind(this)
         });
+    },
+    
+    showDetailForm: function(row){
+    	$('#formDlg').show();
+    	var win = $('#formDlg').window({
+            modal: true,
+            title: "车辆登记处理表",
+            minimizable: false,
+            maximizable: false,
+            resizable: true,
+            shadow: false,
+            onClose: function () {
+            	$('#formDlg').hide();
+            },
+            onOpen: function () {
+               
+            }
+        });
+    },
+    
+    getFormHTML: function(type) {
+    	
     }
 }, ExpressIM.Controller.prototype);
 
 $(document).ready(function () {
     var controller = new ExpressIM.HistoryController({});
 });
-
-ExpressIM.HistoryController.showDetailsWindow(){
-	
-}
 
 function formatDatebox(val) {
     var re = /-?\d+/;
