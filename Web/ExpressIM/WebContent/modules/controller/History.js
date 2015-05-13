@@ -93,7 +93,14 @@ ExpressIM.HistoryController.prototype = Class.extend({
     			results +="&" + key + "=" +escape(model[key].name);
     		} else if (key == "leader") {
     			results +="&" + key + "=" +escape(model[key].name);
-    		} else {
+    		} else if (key.indexOf("snapshoot") != -1){
+    			if (model[key] && model[key].length > 0) {
+    				results +="&" + key + "=" +escape(model[key]);
+    			} else {
+    				results +="&" + key + "=" +escape("resource/images/photo-not-available.jpg");
+    			}
+    			
+    		}else {
     			results +="&" + key + "=" +escape(model[key]);
     		}
     		
