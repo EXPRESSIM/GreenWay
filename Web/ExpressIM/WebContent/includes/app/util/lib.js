@@ -1658,14 +1658,47 @@ ExpressIM.UIComponent.DataGridFormater.stationOwner = function(val, row) {
 
 ExpressIM.UIComponent.DataGridFormater.HistoryAmount = function(val, row) {
 	if (row.isAffectation) {
-		return "<span style='color:red;font-weight:bold;'>" + row.adjustAmount.formatMoney() + "</span>";
+		return "<span style='color:red;font-weight:bold;'>" + "(" + row.adjustAmount.formatMoney() + ")" + "</span>";
 	} else {
 		return "<span style='color:green;font-weight:bold;'>" + row.amount.formatMoney() + "</span>";
 	}
 };
 
+var sumCols = ["月出口总流量",
+               "月拆分前",
+               "车辆免缴率",
+               "通行费免征率",
+               "合计"
+];
+
+function isSumRow(row){
+	var val = row.date;
+	for (var i=0; i < sumCols.length; i++) {
+		if (val.toString().indexOf(sumCols[i])!=-1) {
+			return true;
+		}
+	}
+	return false;
+}
+
+ExpressIM.UIComponent.DataGridFormater.Count = function(val, row) {
+	if (isSumRow(row)) return "-";
+	return val;
+};
+
 ExpressIM.UIComponent.DataGridFormater.Money = function(val, row) {
+	if (isSumRow(row)) return "-";
 	return val.formatMoney();
+};
+
+formatter:ExpressIM.UIComponent.DataGridFormater.Sum = function(val, row) {
+	//if (isSumRow(row)) return "x";
+	if (row.date.indexOf("合计") != -1) return "-";
+	if (row.date.indexOf("月出口总流量") != -1) return row.chargeAmount.formatMoney();
+	if (row.date.indexOf("月拆分前") != -1) return row.chargeAmount.formatMoney();
+	if (row.date.indexOf("车辆免缴率") != -1) return  Math.round(row.chargeAmount*100)/100 + "%";
+	if (row.date.indexOf("通行费免征率") != -1) return Math.round(row.chargeAmount*100)/100 + "%";
+	return val;
 };
 
 ExpressIM.UIComponent.DataGridFormater.HistoryForm = function(val, row) {

@@ -118,7 +118,7 @@
             data-options="">
         <thead>
 			<tr>
-				<th data-options="field:'date'" style="width:100px;font-weight:bold;" rowspan="2"  align="center">
+				<th data-options="field:'date'" style="width:100px;font-weight:bold;" rowspan="2"  align="left">
 					时间:
 				</th>
 				<th style="font-weight:bold;width:300px;"  colspan="2" align="center">
@@ -132,13 +132,13 @@
 				</th>
 			</tr>
 			<tr>
-				<th data-options="field:'freeCount'" style="font-weight:bold;width:150px;">
+				<th data-options="field:'freeCount',formatter:ExpressIM.UIComponent.DataGridFormater.Sum" style="font-weight:bold;width:150px;">
 					数量（辆）
 				</th>
 				<th data-options="field:'freeAmount',formatter:ExpressIM.UIComponent.DataGridFormater.Money" style="font-weight:bold;width:150px;">
 					免费金额（元）
 				</th>
-				<th data-options="field:'chargeCount'" style="font-weight:bold;width:150px;">
+				<th data-options="field:'chargeCount',formatter:ExpressIM.UIComponent.DataGridFormater.Count" style="font-weight:bold;width:150px;">
 					数量（辆）
 				</th>
 				<th data-options="field:'chargeAmount',formatter:ExpressIM.UIComponent.DataGridFormater.Money" style="font-weight:bold;width:150px;">

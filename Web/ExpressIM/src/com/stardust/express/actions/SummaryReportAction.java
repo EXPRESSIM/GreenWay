@@ -46,6 +46,38 @@ public class SummaryReportAction extends ActionExecutor {
 			}	
 		}
 		rows = new SummaryReport().run(summaryBy, selections);
+		
+		double totalChargeCount = 0;
+		double totalFreeCount = 0;
+		double totalChargeAmount = 0;
+		double totalFreeAmount = 0;
+		for(SummaryRecord sr : rows) {
+			totalFreeCount +=  sr.getFreeCount();
+			totalChargeCount += sr.getChargeCount();
+			totalChargeAmount +=  sr.getChargeAmount();
+			totalFreeAmount += sr.getFreeAmount();
+		}
+		
+		SummaryRecord srTotalCount = new SummaryRecord();
+		srTotalCount.setDate("月出口总流量(辆)");
+		srTotalCount.setChargeAmount(totalChargeCount + totalFreeCount);
+		SummaryRecord srTotaAmount = new SummaryRecord();
+		srTotaAmount.setDate("月拆分前<br>应收总金额(元))");
+		srTotaAmount.setChargeAmount(totalChargeAmount + totalFreeAmount);
+		SummaryRecord srPercentCount = new SummaryRecord();
+		srPercentCount.setDate("车辆免缴率(%)");
+		srPercentCount.setChargeAmount((totalFreeCount/(totalFreeCount + totalChargeCount)) * 100);
+		SummaryRecord srPercentAmount = new SummaryRecord();
+		srPercentAmount.setDate("通行费免征率(%)");
+		srPercentAmount.setChargeAmount(totalFreeAmount/(totalChargeAmount + totalFreeAmount) * 100);
+		SummaryRecord sum = new SummaryRecord();
+		sum.setDate("合计:");
+		
+		rows.add(sum);
+		rows.add(srTotalCount);
+		rows.add(srTotaAmount);
+		rows.add(srPercentCount);
+		rows.add(srPercentAmount);
 		total = rows.size();
 		return SUCCESS;
 	}
