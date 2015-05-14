@@ -10,11 +10,33 @@
 <script language="javascript" src="../../includes/easyui/jquery.min.js" type="text/javascript" ></script>
 <script language="javascript" src="../../includes/easyui/jquery.easyui.min.js" type="text/javascript"  charset="gbk"></script>
 <script language="javascript" src="../../includes/app/util/lib.js" type="text/javascript" ></script>
+<style type="text/css">
+        .datagrid-body 
+        {
+            overflow:visible !important;
+        }
+</style>
 </head>
 <body style="background-color:rgb(247,247,247)">
 	<script>
 	$(document).ready(function () {
 		$("#station").html(ExpressIM.stationName);
+		var grid = $("#grid");
+		grid.datagrid({
+            url: "summaryReport",
+            singleSelect: true,
+            onBeforeLoad: function(params){
+                params.startDate = getUrlParam("startDate") != "" ? getUrlParam("startDate")+ " " + "00:00:00" : "";
+                params.endDate = getUrlParam("endDate") !="" ? getUrlParam("endDate")+ " " + "00:00:00" : "";
+            },
+            onLoadSuccess: function(data){
+            	var h = 70 + (data.total * 25);
+            	if (h < 700) h = 700;
+            	$('.datagrid-body').css("height", h);
+            	grid.datagrid("resize",{height: h});
+            }
+    	});
+		/*
 		var msg = new ExpressIM.UIComponent.LoadingMask({});
         msg.render();
 		 $.ajax({
@@ -23,10 +45,10 @@
 	            url: "summaryReport?summaryType=day",
 	            success: function (data, textStatus) {
 	                   msg.destroy();
-	                   if (data.records) {
+	                   if (data.rows) {
 	                	   var rows = "";
-	                	   for (var i=0; i < data.records.length; i++) {
-	                		   var row = data.records[i];
+	                	   for (var i=0; i < data.rows.length; i++) {
+	                		   var row = data.rows[i];
 	                		   rows+="<tr>";
 	                		   rows+="<td>" + row.date + "</td>";
 	                		   rows+="<td>" + row.freeCount + "</td>";
@@ -40,6 +62,7 @@
 	                   }
 	            }
 	        });
+		 */
 	});
 	function getUrlParam(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
@@ -48,10 +71,14 @@
     }
 	</script>
 <div style="width:100%;" align="center">
-	<div style="width:850px;height:700px;overflow:auto;" class="datagrid-header">
+	<div style="width:850px;height:100%;overflow:visible;" class="datagrid-header">
 	<div>
 		<image width="847" height="170" src="../../resource/images/summary-rpt-header.png"/>
 	</div>
+	<div>
+		<span style="font-weight:bold;">收费站名称:</span> <span id="station"></span>
+	</div>
+	<!--
 	<table id="grid" style="width:100%;" cellspacing="0" cellpadding="0" class='datagrid-cell'>
 		<tr>
 			<td colspan="6"><span style="font-weight:bold;">收费站名称:</span> <span id="station"></span></td>
@@ -86,6 +113,40 @@
 		</tr>
 	</table>
 	<br/>
+	  -->
+	  <table id='grid' title="" style="width:847px;height:100%;overflow:visible;" remoteSort='true' loadMsg='处理中,请等待...'
+            data-options="">
+        <thead>
+			<tr>
+				<th data-options="field:'date'" style="width:100px;font-weight:bold;" rowspan="2"  align="center">
+					时间:
+				</th>
+				<th style="font-weight:bold;width:300px;"  colspan="2" align="center">
+					"鲜活农产品"免费车辆
+				</th>
+				<th style="font-weight:bold;width:300px;" colspan="2"  align="center">
+					假冒"鲜活农产品"车辆
+				</th>
+				<th data-options="field:'chargeAmount2'" style="font-weight:bold;width:150px;" rowspan="2"  align="center">
+					备注
+				</th>
+			</tr>
+			<tr>
+				<th data-options="field:'freeCount'" style="font-weight:bold;width:150px;">
+					数量（辆）
+				</th>
+				<th data-options="field:'freeAmount',formatter:ExpressIM.UIComponent.DataGridFormater.Money" style="font-weight:bold;width:150px;">
+					免费金额（元）
+				</th>
+				<th data-options="field:'chargeCount'" style="font-weight:bold;width:150px;">
+					数量（辆）
+				</th>
+				<th data-options="field:'chargeAmount',formatter:ExpressIM.UIComponent.DataGridFormater.Money" style="font-weight:bold;width:150px;">
+					追缴金额（元）
+				</th>
+			</tr>
+        </thead>
+    </table>
 </div>
 </div>
 

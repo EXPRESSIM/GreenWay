@@ -86,7 +86,7 @@ ExpressIM.HistoryController.prototype = Class.extend({
     	if (row.isAffectation) {
     		reportName = "rptRejected.html";
     	}
-    	window.open ('modules/reporting/' + reportName + this.modelToParameter(row), 'newwindow', 'height=500px, width=900px, scrollbars=yes, resizable=yes');
+    	window.open ('modules/reporting/' + reportName + this.modelToParameter(row), 'newwindow', 'height=600px, width=900px, scrollbars=yes, resizable=yes');
     },
     
     modelToParameter: function(model) {

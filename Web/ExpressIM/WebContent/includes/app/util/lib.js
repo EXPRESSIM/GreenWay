@@ -1499,7 +1499,7 @@ ExpressIM.TaskManger = {
             title: title,
             minimizable: false,
             maximizable: false,
-            resizable: true,
+            resizable: false,
             shadow: false,
             onClose: function () {
                 ExpressIM.TaskManger.terminate(view);
@@ -1662,6 +1662,10 @@ ExpressIM.UIComponent.DataGridFormater.HistoryAmount = function(val, row) {
 	} else {
 		return "<span style='color:green;font-weight:bold;'>" + row.amount.formatMoney() + "</span>";
 	}
+};
+
+ExpressIM.UIComponent.DataGridFormater.Money = function(val, row) {
+	return val.formatMoney();
 };
 
 ExpressIM.UIComponent.DataGridFormater.HistoryForm = function(val, row) {

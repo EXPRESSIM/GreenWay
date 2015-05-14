@@ -17,12 +17,18 @@ public class SummaryReportAction extends ActionExecutor {
 	 */
 	private static final long serialVersionUID = 4014745096879618188L;
 	
-	private List<SummaryRecord> records = new ArrayList<SummaryRecord>();
+	private List<SummaryRecord> rows = new ArrayList<SummaryRecord>();
 	
-	public List<SummaryRecord> getRecords(){
-		return this.records;
+	private int total = 0;
+	
+	public List<SummaryRecord> getRows(){
+		return this.rows;
 	}
 		
+	public int getTotal(){
+		return total;
+	}
+	
 	public String fetch(){
 		String summaryBy = context.getString("summaryBy","day");
 		Date startDate = context.getDate("startDate", null);
@@ -39,7 +45,8 @@ public class SummaryReportAction extends ActionExecutor {
 				selections.add(new Selection("REOCRD_DATE", Operator.LESS_EQUAL, endDate));
 			}	
 		}
-		records = new SummaryReport().run(summaryBy, selections);
+		rows = new SummaryReport().run(summaryBy, selections);
+		total = rows.size();
 		return SUCCESS;
 	}
 
