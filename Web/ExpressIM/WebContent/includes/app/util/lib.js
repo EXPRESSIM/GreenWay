@@ -1495,7 +1495,7 @@ ExpressIM.TaskManger = {
         $("#taskContainer").append("<div id='task_" + ExpressIM.TaskManger.taskIndex + "' style='visibility:hidden;'>" + html + "</div>");
 
         var win = $('#task_' + ExpressIM.TaskManger.taskIndex).window({
-            modal: true,
+            modal: false,
             title: title,
             minimizable: false,
             maximizable: false,
