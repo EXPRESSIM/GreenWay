@@ -1727,6 +1727,15 @@ ExpressIM.UIComponent.DataGridFormater.HistoryForm = function(val, row) {
 	if (row.isAffectation) {
 		reportName = "rptRejected.html";
 	}
-	return "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>" + "详细" +'</a>';
+	
+	if (!row.isAffectation) {
+		return "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>车辆查验图片资料</a>";
+	} else {
+		var results = "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>车辆处理登记表</a>";
+		results += "&nbsp;&nbsp;<a href='" +'modules/reporting/rptRejectedPhoto.html' + modelToParameter(row) + "' target='_blank'>调查照片记录表</a>"
+		//return "<a href='" +'modules/reporting/rptRejectedPhoto.html'+ modelToParameter(row) + "' target='_blank'>车辆处理登记表</a>";
+		return results;
+	}
+	//return "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>" + text +'</a>';
 	//return '<a href="javascript:void(0)" class="history-row" data-index="row_' + row.id + '">' + "详细" +'</a>';
 };
