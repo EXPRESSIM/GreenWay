@@ -5,7 +5,7 @@
 
 <struts>
 
-    <constant name="struts.multipart.maxSize" value="10701096"/>
+    <constant name="struts.multipart.maxSize" value="1000000000"/>
 
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index"/>

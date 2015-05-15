@@ -40,7 +40,6 @@ public class HistoryAction extends BaseAction {
 
     private static final String SNAPSHOOT_DIR = "/upload/snapshoot";
     private static final String VIDEO_DIR = "/upload/video";
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
 
     public String archive() {
         HistoryRecordBO bo = new HistoryRecordBO(context);
