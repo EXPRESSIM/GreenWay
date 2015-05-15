@@ -21,11 +21,11 @@
 				<!--自增ID-->
 				<Column Name="ID" DataType="INT" AutoIncrement="True"/>
 				<!--车辆类型-->
-				<Column Name="VEHICLE_NUMBER" DataType="VARCHAR" ColumnSize="50" Unique="True"/>
+				<Column Name="VEHICLE_NUMBER" DataType="VARCHAR" ColumnSize="50" AllowNulls="True"/>
 				<!--入站名称-->
-				<Column Name="ENTRANCE_GATEWAY_NAME" DataType="VARCHAR" ColumnSize="50" Unique="True"/>
+				<Column Name="ENTRANCE_GATEWAY_NAME" DataType="VARCHAR" ColumnSize="50" Unique="True" AllowNulls="True"/>
 				<!--出站名称-->
-				<Column Name="EXIT_GATEWAY_NAME" DataType="VARCHAR" ColumnSize="50"/>
+				<Column Name="EXIT_GATEWAY_NAME" DataType="VARCHAR" ColumnSize="50" AllowNulls="True"/>
 				<!--记录时间-->
 				<Column Name="REOCRD_DATE" DataType="DATETIME"/>
 				<!-- 免征金额 -->
@@ -35,31 +35,31 @@
 				<!-- 是否假冒 -->
 				<Column Name="IS_AFFECTATION" DataType="BIT"/>
 				<!-- 备注 -->
-				<Column Name="COMMENT" DataType="TEXT"/>
+				<Column Name="COMMENT" DataType="TEXT" AllowNulls="True"/>
 				<!-- 货物类别 -->
-				<Column Name="MERCHANDISE_TYPE" DataType="VARCHAR" ColumnSize="50"/>
+				<Column Name="MERCHANDISE_TYPE" DataType="VARCHAR" ColumnSize="50" AllowNulls="True"/>
 				<!-- 车型 -->
-				<Column Name="VEHICLE_TYPE" DataType="VARCHAR" ColumnSize="24"/>
+				<Column Name="VEHICLE_TYPE" DataType="VARCHAR" ColumnSize="24" AllowNulls="True"/>
 				<!-- 车道 -->
-				<Column Name="CHANNEL_NUMBER" DataType="VARCHAR" ColumnSize="24"/>
+				<Column Name="CHANNEL_NUMBER" DataType="VARCHAR" ColumnSize="24" AllowNulls="True"/>
 				<!-- 放行方式 -->
-				<Column Name="CHANNEL_TYPE" DataType="VARCHAR" ColumnSize="24"/>
+				<Column Name="CHANNEL_TYPE" DataType="VARCHAR" ColumnSize="24" AllowNulls="True"/>
 				<!-- 快照1 -->
-				<Column Name="SNAPSHOOT_1" DataType="TEXT"/>
+				<Column Name="SNAPSHOOT_1" DataType="TEXT" AllowNulls="True"/>
 				<!-- 快照2 -->
-				<Column Name="SNAPSHOOT_2" DataType="TEXT"/>
+				<Column Name="SNAPSHOOT_2" DataType="TEXT" AllowNulls="True"/>
 				<!-- 快照3 -->
-				<Column Name="SNAPSHOOT_3" DataType="TEXT"/>
+				<Column Name="SNAPSHOOT_3" DataType="TEXT" AllowNulls="True"/>
 				<!-- 快照4 -->
-				<Column Name="SNAPSHOOT_4" DataType="TEXT"/>
+				<Column Name="SNAPSHOOT_4" DataType="TEXT" AllowNulls="True"/>
 				<!-- 录像 -->
-				<Column Name="VIDEO" DataType="TEXT"/>
+				<Column Name="VIDEO" DataType="TEXT" AllowNulls="True"/>
 				<!-- 操作员 -->
 				<Column Name="OPERATOR_USER_ID" DataType="INT"/>
 				<!-- 审核员 -->
 				<Column Name="REVIEWER_USER_ID" DataType="INT"/>
 				<!-- 收费员 -->
-				<Column Name="TOLL_COLLECTOR" DataType="VARCHAR" ColumnSize="10"/>
+				<Column Name="TOLL_COLLECTOR" DataType="VARCHAR" ColumnSize="10" AllowNulls="True"/>
 				
 				<Column Name="YEAR" DataType="VARCHAR" ColumnSize="10"/>
 				<Column Name="MONTH" DataType="VARCHAR" ColumnSize="10"/>
