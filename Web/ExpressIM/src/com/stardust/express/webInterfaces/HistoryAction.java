@@ -16,19 +16,29 @@ public class HistoryAction extends BaseAction {
 
     //车牌照片
     public File carFrontImage;
+
+    private String carFrontImageFileName;
     //车身照片
     public File carBodyImage;
+
+    private String carBodyImageFileName;
     //车尾照片
     public File carBackImage;
+
+    private String carBackImageFileName;
     //货物照片
     public File goodsImage;
+
+    private String goodsImageFileName;
     //视频
     public File video;
 
+    private String videoFileName;
+
     private HistoryRecord historyRecord;
 
-    private static final String SNAPSHOOT_DIR = "/snapshoot";
-    private static final String VIDEO_DIR = "/video";
+    private static final String SNAPSHOOT_DIR = "/upload/snapshoot";
+    private static final String VIDEO_DIR = "/upload/video";
 
     public String archive() {
         HistoryRecordBO bo = new HistoryRecordBO(context);
@@ -37,11 +47,11 @@ public class HistoryAction extends BaseAction {
         String videoPath = ServletActionContext.getServletContext().getRealPath(VIDEO_DIR);
         ResponseObject.Builder builder = new ResponseObject.Builder();
         try {
-            historyRecord.setSnapshoot1(copyFileToDest(snapShootPath, carFrontImage));
-            historyRecord.setSnapshoot2(copyFileToDest(snapShootPath, carBodyImage));
-            historyRecord.setSnapshoot3(copyFileToDest(snapShootPath, carBackImage));
-            historyRecord.setSnapshoot4(copyFileToDest(snapShootPath, goodsImage));
-            historyRecord.setVideo(copyFileToDest(videoPath, video));
+            historyRecord.setSnapshoot1(copyFileToDest(snapShootPath, carFrontImage, carFrontImageFileName));
+            historyRecord.setSnapshoot2(copyFileToDest(snapShootPath, carBodyImage, carBodyImageFileName));
+            historyRecord.setSnapshoot3(copyFileToDest(snapShootPath, carBackImage, carBackImageFileName));
+            historyRecord.setSnapshoot4(copyFileToDest(snapShootPath, goodsImage, goodsImageFileName));
+            historyRecord.setVideo(copyFileToDest(videoPath, video, videoFileName));
             historyRecord = (HistoryRecord) bo.update(historyRecord);
             if (historyRecord != null && historyRecord.getId() > 0) {
                 builder.setSuccess(true);
@@ -62,11 +72,12 @@ public class HistoryAction extends BaseAction {
         return SUCCESS;
     }
 
-    private String copyFileToDest(String baseDir, File file) throws IOException {
+    private String copyFileToDest(String baseDir, File file, String filename) throws IOException {
         if (file == null) return "";
-        String destPath = baseDir + File.separator + file.getName();
+        String destPath = baseDir + File.separator + filename;
         FileUtils.copyFile(file, new File(destPath));
-        return destPath;
+        String contextPath = SNAPSHOOT_DIR + File.separator + filename;
+        return contextPath;
     }
 
     public File getVideo() {
@@ -115,5 +126,45 @@ public class HistoryAction extends BaseAction {
 
     public void setHistoryRecord(HistoryRecord historyRecord) {
         this.historyRecord = historyRecord;
+    }
+
+    public String getCarFrontImageFileName() {
+        return carFrontImageFileName;
+    }
+
+    public void setCarFrontImageFileName(String carFrontImageFileName) {
+        this.carFrontImageFileName = carFrontImageFileName;
+    }
+
+    public String getCarBodyImageFileName() {
+        return carBodyImageFileName;
+    }
+
+    public void setCarBodyImageFileName(String carBodyImageFileName) {
+        this.carBodyImageFileName = carBodyImageFileName;
+    }
+
+    public String getCarBackImageFileName() {
+        return carBackImageFileName;
+    }
+
+    public void setCarBackImageFileName(String carBackImageFileName) {
+        this.carBackImageFileName = carBackImageFileName;
+    }
+
+    public String getGoodsImageFileName() {
+        return goodsImageFileName;
+    }
+
+    public void setGoodsImageFileName(String goodsImageFileName) {
+        this.goodsImageFileName = goodsImageFileName;
+    }
+
+    public String getVideoFileName() {
+        return videoFileName;
+    }
+
+    public void setVideoFileName(String videoFileName) {
+        this.videoFileName = videoFileName;
     }
 }
