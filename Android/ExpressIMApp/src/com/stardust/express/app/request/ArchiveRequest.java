@@ -5,7 +5,6 @@ import android.util.Log;
 import com.stardust.express.app.Constants;
 import com.stardust.express.app.entity.HistoryRecordEntity;
 import com.stardust.express.app.http.StringResponseListener;
-import com.stardust.express.app.utils.BitmapUtils;
 import com.stardust.express.app.utils.SharedUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -14,9 +13,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
@@ -25,7 +22,6 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -102,9 +98,9 @@ public class ArchiveRequest extends Thread {
                 if (file != null && file.exists()) {
                     if (file.getName().endsWith(".jpg") || file.getName().endsWith(".JPG")) {
                         Log.e("TAG", "file" + entry.getValue());
-                        byte[] imageBytes = BitmapUtils.compressImage(file.getAbsolutePath());
-                        ContentBody contentBody = new InputStreamBody(new ByteArrayInputStream(imageBytes), file.getName());
-                        entity.addPart(entry.getKey(), contentBody);
+//                        byte[] imageBytes = BitmapUtils.compressImage(file.getAbsolutePath());
+//                        ContentBody contentBody = new InputStreamBody(new ByteArrayInputStream(imageBytes), file.getName());
+                        entity.addPart(entry.getKey(), new FileBody(file));
                     } else {
                         Log.e("TAG", "video" + entry.getValue());
                         entity.addPart(entry.getKey(), new FileBody(file));
