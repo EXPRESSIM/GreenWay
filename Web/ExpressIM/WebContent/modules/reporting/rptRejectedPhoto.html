@@ -19,12 +19,12 @@
 		$("#snapshoot2").attr('src', "../../" + getUrlParam("snapshoot2"));
 		$("#snapshoot3").attr('src', "../../" + getUrlParam("snapshoot3"));
 		$("#snapshoot4").attr('src', "../../" + getUrlParam("snapshoot4"));
-		$("#comment").html(getUrlParam("comment"));
+		$("#photoPlace").html(ExpressIM.stationName + " - " + getUrlParam("channel"));
 		$("#date").html(getUrlParam("date").replace("T"," "));
-		$("#leader").html(getUrlParam("leader") + ", " +getUrlParam("operator"));
+		$("#operator").html(getUrlParam("leader") + ", " +getUrlParam("operator"));
 		$("#vehicleNumber").html(getUrlParam("vehicleNumber"));
 		$("#entranceGateway").html(getUrlParam("entranceGateway"));
-		$("#operator").html(getUrlParam("operator"));
+		//$("#operator").html(getUrlParam("operator"));
 		$("#channel").html(getUrlParam("channel"));
 		$("#vehicleType").html(getUrlParam("vehicleType"));
 		$("#adjustAmount").html(Number(getUrlParam("adjustAmount")).formatMoney());
@@ -40,100 +40,78 @@
 	<div style="width:850px;height:100%;border:0px;" class="datagrid-header">
 	<table style="width:100%;border:0px;" cellspacing="0" cellpadding="0" class='datagrid-cell'>
 		<tr>
-			<td colspan="6"><span style="font-weight:bold;">收费站名称:</span> <span id="station"></span></td>
+			<td colspan="4" align="center"><span style="font-weight:bold;font-size:16px;">陕西省收费公路逃稽通行费稽查现场调查照片记录表</span></td>
 		</tr>
 		<tr>
-			<td style="font-weight:bold;">
-				时间:
+			<td colspan="4"><span style="font-weight:bold;">收费站名称:</span> <span id="station"></span></td>
+		</tr>
+		<tr>
+			<td style="font-weight:bold;width:25%;">
+				拍摄时间:
 			</td>
-			<td style="width:200px;"  colspan="3">
+			<td style="width:25%;">
 				<span id="date"></span>
 			</td>
-			<td style="font-weight:bold;">
-				查验人:
+			<td style="font-weight:bold;width:25%;">
+				拍摄地点:
 			</td>
-			<td style="width:200px;">
-				<span id="leader"></span>
+			<td style="width:25%;">
+				<span id="photoPlace"></span>
 			</td>
 		</tr>
 		<tr>
 			<td style="font-weight:bold;">
 				车牌号:
 			</td>
-			<td style="width:100px;">
+			<td style="">
 				<span id="vehicleNumber"></span>
 			</td>
-			<td style="font-weight:bold;width:100px;">
-				入站口名称:
-			</td>
-			<td style="width:150px;">
-				<span id="entranceGateway"></span>
-			</td>
-			<td style="font-weight:bold;">
-				记录员:
-			</td>
-			<td>
-				<span id="operator"></span>
-			</td>
-		</tr>
-		<tr>
-			<td style="font-weight:bold;">
-				车道:
-			</td>
-			<td style="width:200px;"  colspan="3">
-				<span id="channel"></span>
-			</td>
-			<td style="font-weight:bold;">
-				收费员工号:
-			</td>
-			<td style="width:200px;">
-				<span id="tollCollector"></span>
-			</td>
-		</tr>
-		<tr>
 			<td style="font-weight:bold;">
 				车型:
 			</td>
-			<td style="width:200px;"  colspan="3">
+			<td style="">
 				<span id="vehicleType"></span>
-			</td>
-			<td style="font-weight:bold;">
-				追缴金额:
-			</td>
-			<td style="width:200px;">
-				<span id="adjustAmount"></span>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="6" style="border-width:0px;" align="center">
-				<div style="font-weight:bold;">查验情况:</div>
-				<div>
-					<table>
-						<tr style="width:810px;height:310px;">
-							<td style="border-width:0px;">
-								<image id="snapshoot1" width="200" height="300"/>
-							</td>
-							<td style="border-width:0px;">
-								<image id="snapshoot2" width="200" height="300"/>
-							</td>
-							<td style="border-width:0px;">
-								<image id="snapshoot3" width="200" height="300"/>
-							</td>
-							<td style="border-width:0px;">
-								<image id="snapshoot4" width="200" height="300"/>
-							</td>
-						</tr>
-					</table>
-				</div>
+			<td style="font-weight:bold;" colspan="4" align="center">
+				现场照片
 			</td>
 		</tr>
-		<tr >
-			<td colspan="6" style="border-width:0px;">
-				<br/>
-				<div style="font-weight:bold;">处理结果:</div><br>
-				<div id="comment" style="height:300px;">
-					
-				</div>
+		<tr>
+			<td style="font-weight:bold;" colspan="2" align="center">
+				车辆正面
+			</td>
+			<td style="font-weight:bold;"  colspan="2" align="center">
+				前方45度照片
+			</td>
+		</tr>
+		<tr>
+			<td style="font-weight:bold;" colspan="2" align="center">
+				<image id="snapshoot1" width="350" height="200"/>
+			</td>
+			<td style="font-weight:bold;"  colspan="2" align="center">
+				<image id="snapshoot2" width="350"" height="200"/>
+			</td>
+		</tr>
+		<tr>
+			<td style="font-weight:bold;" colspan="4" align="center">
+				逃费事实照片
+			</td>
+		</tr>
+		<tr>
+			<td style="font-weight:bold;" colspan="4" align="center">
+				<image id="snapshoot3" width="770"" height="400"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="left" style="height:40px;">
+				
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4" align="left">
+				<span style="font-weight:bold;padding-left:40px;">稽查人员:</span>&nbsp;<span id="operator"></span>
 			</td>
 		</tr>
 	</table>

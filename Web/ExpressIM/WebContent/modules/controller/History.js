@@ -52,7 +52,7 @@ ExpressIM.HistoryController.prototype = Class.extend({
               }
             }).bind(this),
             onDblClickRow: (function(index,row) {
-              	  this.showDetailForm(row);
+              	  //this.showDetailForm(row);
               }).bind(this)
     	});
     	
