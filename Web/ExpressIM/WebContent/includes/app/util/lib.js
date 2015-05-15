@@ -1725,13 +1725,18 @@ ExpressIM.UIComponent.DataGridFormater.HistoryForm = function(val, row) {
 		reportName = "rptRejected.html";
 	}
 	
+	var videoLink = "";
+	if (row.video) {
+		videoLink = "&nbsp;&nbsp;<a href='" + row.video +"' target='_blank'>下载视频</a>";
+	}
+	
 	if (!row.isAffectation) {
-		return "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>车辆查验图片资料</a>";
+		return  "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>车辆查验图片资料</a>" + videoLink;
 	} else {
 		var results = "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>车辆处理登记表</a>";
-		results += "&nbsp;&nbsp;<a href='" +'modules/reporting/rptRejectedPhoto.html' + modelToParameter(row) + "' target='_blank'>调查照片记录表</a>"
+		results += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='" +'modules/reporting/rptRejectedPhoto.html' + modelToParameter(row) + "' target='_blank'>调查照片记录表</a>"
 		//return "<a href='" +'modules/reporting/rptRejectedPhoto.html'+ modelToParameter(row) + "' target='_blank'>车辆处理登记表</a>";
-		return results;
+		return  results  + videoLink;
 	}
 	//return "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>" + text +'</a>';
 	//return '<a href="javascript:void(0)" class="history-row" data-index="row_' + row.id + '">' + "详细" +'</a>';
