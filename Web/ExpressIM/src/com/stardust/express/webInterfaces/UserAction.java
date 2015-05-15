@@ -4,6 +4,9 @@ import com.stardust.express.bo.SecurityBO;
 import com.stardust.express.models.User;
 import com.stardust.express.tools.ResponseObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Sylar on 15/5/12.
  */
@@ -25,7 +28,11 @@ public class UserAction extends BaseAction {
                 builder.setMessage("请使用操作员账号登陆");
                 responseData = builder.build();
             } else {
-                builder.setData(user);
+                Map<String, Object> data = new HashMap<String, Object>();
+                data.put("username", user.getUsername());
+                data.put("name", user.getName());
+                data.put("id", user.getId());
+                builder.setData(data);
                 builder.setMessage("登陆成功");
                 builder.setSuccess(true);
                 responseData = builder.build();
@@ -53,9 +60,12 @@ public class UserAction extends BaseAction {
                 builder.setMessage("请使用审核员账号登陆");
                 responseData = builder.build();
             } else {
-                builder.setData(user);
+                Map<String, Object> data = new HashMap<String, Object>();
+                data.put("id", user.getId());
+                builder.setData(data);
                 builder.setMessage("登陆成功");
                 builder.setSuccess(true);
+                responseData = builder.build();
             }
         } else {
             builder.setMessage("用户名或者密码错误");
