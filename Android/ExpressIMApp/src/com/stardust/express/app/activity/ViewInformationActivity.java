@@ -89,11 +89,11 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
 
         carFrontImage.setImageBitmap(BitmapUtils.getBitmapWithNewSize(historyRecordEntity.carFrontImage,
                 ScreenUtils.dp2px(this, 70), ScreenUtils.dp2px(this, 70)));
-        carBodyImage.setImageBitmap(BitmapUtils.getBitmapWithNewSize(historyRecordEntity.carFrontImage,
+        carBodyImage.setImageBitmap(BitmapUtils.getBitmapWithNewSize(historyRecordEntity.carBodyImage,
                 ScreenUtils.dp2px(this, 70), ScreenUtils.dp2px(this, 70)));
-        carBackImage.setImageBitmap(BitmapUtils.getBitmapWithNewSize(historyRecordEntity.carFrontImage,
+        carBackImage.setImageBitmap(BitmapUtils.getBitmapWithNewSize(historyRecordEntity.carBackImage,
                 ScreenUtils.dp2px(this, 70), ScreenUtils.dp2px(this, 70)));
-        goodsImage.setImageBitmap(BitmapUtils.getBitmapWithNewSize(historyRecordEntity.carFrontImage,
+        goodsImage.setImageBitmap(BitmapUtils.getBitmapWithNewSize(historyRecordEntity.goodsImage,
                 ScreenUtils.dp2px(this, 70), ScreenUtils.dp2px(this, 70)));
 
         setTitle(historyRecordEntity.exitName + "-" + SharedUtil.getString(this, "DeviceNO"));

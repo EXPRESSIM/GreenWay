@@ -1,7 +1,6 @@
 package com.stardust.express.app.request;
 
 import android.content.Context;
-import android.util.Log;
 import com.stardust.express.app.Constants;
 import com.stardust.express.app.entity.HistoryRecordEntity;
 import com.stardust.express.app.http.StringResponseListener;
@@ -18,7 +17,6 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
@@ -96,15 +94,14 @@ public class ArchiveRequest extends Thread {
             for (Map.Entry<String, File> entry : files.entrySet()) {
                 File file = entry.getValue();
                 if (file != null && file.exists()) {
-                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".JPG")) {
-                        Log.e("TAG", "file" + entry.getValue());
-//                        byte[] imageBytes = BitmapUtils.compressImage(file.getAbsolutePath());
-//                        ContentBody contentBody = new InputStreamBody(new ByteArrayInputStream(imageBytes), file.getName());
-                        entity.addPart(entry.getKey(), new FileBody(file));
-                    } else {
-                        Log.e("TAG", "video" + entry.getValue());
-                        entity.addPart(entry.getKey(), new FileBody(file));
-                    }
+                    entity.addPart(entry.getKey(), new FileBody(file));
+//                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".JPG")) {
+////                        byte[] imageBytes = BitmapUtils.compressImage(file.getAbsolutePath());
+////                        ContentBody contentBody = new InputStreamBody(new ByteArrayInputStream(imageBytes), file.getName());
+//
+//                    } else {
+//                        entity.addPart(entry.getKey(), new FileBody(file));
+//                    }
                 }
             }
         }
@@ -129,8 +126,6 @@ public class ArchiveRequest extends Thread {
         HttpConnectionParams.setConnectionTimeout(httpParams, 180 * 1000);
         HttpConnectionParams.setSoTimeout(httpParams, 180 * 1000);
         HttpClientParams.setRedirecting(httpParams, true);
-        String userAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2) Gecko/20100115 Firefox/3.6";
-        HttpProtocolParams.setUserAgent(httpParams, userAgent);
         return new DefaultHttpClient(httpParams);
     }
 

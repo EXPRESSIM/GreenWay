@@ -576,7 +576,9 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                 break;
             case 1:
                 SQLiteManager.getInstance(SendInformationActivity.this).release();
-                SharedUtil.clear(this);
+                SharedUtil.putLong(this, Constants.SHARED_KEY.uid, -1);
+                SharedUtil.putString(this, Constants.SHARED_KEY.name, "");
+                SharedUtil.putString(this, Constants.SHARED_KEY.account, "");
                 finish();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
