@@ -90,6 +90,22 @@
                           android:background="#ffffff"
                           android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:text="收费员工号:"
+                          android:gravity="center_vertical"
+                          android:drawableLeft="@drawable/operator_icon"
+                          android:drawablePadding="4dp"
+                          android:layout_weight="2"/>
+                <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
+                         android:id="@+id/toll_collector"
+                         android:gravity="center_vertical"
+                         android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
+                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:text="操作人:"
                           android:gravity="center_vertical"
                           android:drawableLeft="@drawable/operator_icon"
@@ -103,6 +119,7 @@
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:background="#ffffff"
+                          android:layout_marginTop="1dp"
                           android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:text="入口站名:"
@@ -171,7 +188,7 @@
                           android:drawableLeft="@drawable/car_type_icon"
                           android:gravity="center_vertical"
                           android:drawablePadding="4dp"
-                          android:text="车型:"/>
+                          android:text="车轴数:"/>
                 <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
                          android:id="@+id/car_type"
                          android:layout_weight="1"/>
@@ -193,6 +210,21 @@
             </LinearLayout>
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:padding="10dp">
+                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_weight="2"
+                          android:drawableLeft="@drawable/station_icon"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
+                          android:text="放行方式:"/>
+                <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
+                         android:id="@+id/channel_type"
+                         android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:layout_marginTop="10dp"
                           android:background="#ffffff"
                           android:padding="10dp">
@@ -201,20 +233,73 @@
                           android:drawableLeft="@drawable/total_amount_icon"
                           android:gravity="center_vertical"
                           android:drawablePadding="4dp"
-                          android:text="免(缴)金额:"/>
-                <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
-                          android:id="@+id/total_amount"
-                          android:inputType="numberDecimal"
-                          android:layout_weight="1"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:text="元"
-                          android:textColor="#ff0000"/>
-            </LinearLayout>
+                          android:text="免缴金额:"/>
+                <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                                android:layout_weight="1">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="元"
+                              android:id="@+id/total_amount_unit"
+                              android:layout_alignParentRight="true"
+                              android:layout_centerVertical="true"
+                              android:textColor="#ff0000"/>
 
+                    <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:id="@+id/total_amount"
+                              android:layout_toLeftOf="@id/total_amount_unit"
+                              android:inputType="numberDecimal"
+                              android:layout_weight="1"/>
+
+                </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:layout_marginTop="1dp"
                           android:background="#ffffff"
+                          android:padding="10dp">
+                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_weight="2"
+                          android:drawableLeft="@drawable/total_amount_icon"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
+                          android:text="是否绿通:"/>
+                <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
+                         android:id="@+id/is_green"
+                         android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:id="@+id/adjust_amount_layout"
+                          android:visibility="gone"
+                          android:padding="10dp">
+                <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_weight="2"
+                          android:drawableLeft="@drawable/total_amount_icon"
+                          android:gravity="center_vertical"
+                          android:drawablePadding="4dp"
+                          android:text="追缴金额:"/>
+                <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                                android:layout_weight="1">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:text="元"
+                              android:id="@+id/adjust_amount_unit"
+                              android:layout_alignParentRight="true"
+                              android:layout_centerVertical="true"
+                              android:textColor="#ff0000"/>
+
+                    <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
+                              android:id="@+id/adjust_amount"
+                              android:layout_toLeftOf="@id/adjust_amount_unit"
+                              android:inputType="numberDecimal"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_marginTop="1dp"
+                          android:background="#ffffff"
+                          android:id="@+id/goods_name_layout"
                           android:padding="10dp">
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                           android:layout_weight="2"

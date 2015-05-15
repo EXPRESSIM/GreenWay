@@ -4,20 +4,26 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.*;
 import android.widget.*;
 import com.stardust.express.app.BaseActivity;
+import com.stardust.express.app.Constants;
 import com.stardust.express.app.R;
 import com.stardust.express.app.activity.widget.DateTimePickerDialog;
+import com.stardust.express.app.db.SQLiteManager;
+import com.stardust.express.app.db.dao.HistoryRecordDao;
 import com.stardust.express.app.entity.GoodsNameEntity;
+import com.stardust.express.app.entity.HistoryRecordEntity;
 import com.stardust.express.app.entity.StationEntity;
 import com.stardust.express.app.entity.UserEntity;
-import com.stardust.express.app.utils.StringUtils;
-import com.stardust.express.app.utils.ToastUtils;
+import com.stardust.express.app.http.StringResponseListener;
+import com.stardust.express.app.request.ArchiveRequest;
+import com.stardust.express.app.request.LeaderLogonRequest;
+import com.stardust.express.app.response.ArchiveResponse;
+import com.stardust.express.app.response.LeaderLogonResponse;
+import com.stardust.express.app.utils.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,6 +53,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private EditText comment;
     private TextView operator;
     private TextView videoPath;
+    private Spinner isGreenSpinner;
+    private Spinner tollCollectorSpinner;
+    private EditText adjustAmount;
+    private Spinner channelTypeSpinner;
+    private LinearLayout adjustAmountLayout;
+    private LinearLayout goodsNameLayout;
 
     private static final int TAKE_PICTURE = 400;
     private static final int RECORD_VIDEO = 500;
@@ -63,6 +75,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private ArrayAdapter<GoodsNameEntity> goodsCategoryAdapter;
     private ArrayAdapter<GoodsNameEntity> goodsNameAdapter;
     private ArrayAdapter<String> channelAdapter;
+    private ArrayAdapter<String> isGreenAdapter;
+    private ArrayAdapter<String> channelTypeAdapter;
+    private ArrayAdapter<String> tollCollectorAdapter;
+    private UserEntity logonOperatorEntity;
+
+    private HistoryRecordDao historyRecordDao;
 
     private static interface ImageIndex {
         int car_front = 1;
@@ -78,6 +96,8 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void initViews() {
+        historyRecordDao = new HistoryRecordDao(this);
+
         carFrontImage = (ImageView) findViewById(R.id.car_front_image);
         carBodyImage = (ImageView) findViewById(R.id.car_body_image);
         carBackImage = (ImageView) findViewById(R.id.car_back_image);
@@ -95,6 +115,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         provinceSpinner = (Spinner) findViewById(R.id.province_spinner);
         letterSpinner = (Spinner) findViewById(R.id.letter_spinner);
         videoPath = (TextView) findViewById(R.id.video_path);
+        isGreenSpinner = (Spinner) findViewById(R.id.is_green);
+        tollCollectorSpinner = (Spinner) findViewById(R.id.toll_collector);
+        adjustAmount = (EditText) findViewById(R.id.adjust_amount);
+        adjustAmountLayout = (LinearLayout) findViewById(R.id.adjust_amount_layout);
+        goodsNameLayout = (LinearLayout) findViewById(R.id.goods_name_layout);
+        channelTypeSpinner = (Spinner) findViewById(R.id.channel_type);
 
         findViewById(R.id.submit_button).setOnClickListener(this);
         findViewById(R.id.reset_button).setOnClickListener(this);
@@ -129,13 +155,32 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         });
 
         findViewById(R.id.video).setOnClickListener(this);
+
+        isGreenSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = (String) adapterView.getItemAtPosition(i);
+                if (item.equals("是")) {
+                    adjustAmountLayout.setVisibility(View.GONE);
+                    goodsNameLayout.setVisibility(View.VISIBLE);
+                } else {
+                    adjustAmountLayout.setVisibility(View.VISIBLE);
+                    goodsNameLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
     protected void fillData() {
-        UserEntity userEntity = (UserEntity) getIntent().getSerializableExtra("Operator");
-        operator.setText(userEntity.userName);
-        setTitle("勉县收费站－01号机");
+        logonOperatorEntity = (UserEntity) getIntent().getSerializableExtra("Operator");
+        operator.setText(logonOperatorEntity.name);
+        setTitle(SharedUtil.getString(this, "StationName") + "－" + SharedUtil.getString(this, "DeviceNO"));
 
         File dir = getExternalFilesDir("/");
         if (dir != null) {
@@ -149,6 +194,24 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         initLetterSpinner();
         initCarTypeSpinner();
         initStationChannelSpinner();
+        initIsGreenSpinner();
+        initChannelTypeSpinner();
+        initTollCollectorSpinner();
+    }
+
+    private void initTollCollectorSpinner() {
+        tollCollectorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.toll_collector));
+        tollCollectorSpinner.setAdapter(tollCollectorAdapter);
+    }
+
+    private void initChannelTypeSpinner() {
+        channelTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.channel_type));
+        channelTypeSpinner.setAdapter(channelTypeAdapter);
+    }
+
+    private void initIsGreenSpinner() {
+        isGreenAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.is_green));
+        isGreenSpinner.setAdapter(isGreenAdapter);
     }
 
     private void initStationChannelSpinner() {
@@ -202,33 +265,13 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         switch (view.getId()) {
             case R.id.submit_button:
                 if (validateInput()) {
-                    View dialogView = LayoutInflater.from(SendInformationActivity.this).inflate(R.layout.dialog_validate, null);
-                    final EditText userName = (EditText) dialogView.findViewById(R.id.username);
-                    final EditText password = (EditText) dialogView.findViewById(R.id.password);
-                    final AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("提交验证")
-                            .setPositiveButton("验证", null).setNegativeButton("取消", null)
-                            .create();
-                    alertDialog.setView(dialogView);
-                    alertDialog.show();
-                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            String strUserName = userName.getText().toString();
-                            String strPassword = password.getText().toString();
-                            if (!StringUtils.isNotNull(strUserName)) {
-                                ToastUtils.showToastAtCenter(SendInformationActivity.this, "用户名不能为空!");
-                                return;
-                            }
-
-                            if (!StringUtils.isNotNull(strPassword)) {
-                                ToastUtils.showToastAtCenter(SendInformationActivity.this, "密码不能为空!");
-                                return;
-                            }
-                            ToastUtils.showToast(SendInformationActivity.this, "提交成功");
-                            resetComponents();
-                            alertDialog.dismiss();
-                        }
-                    });
+                    if (NetworkUtils.isNetworkConnected(SendInformationActivity.this)) {
+                        leaderLogon();
+                    } else {
+                        ToastUtils.showToastAtCenter(SendInformationActivity.this, "网络未链接，提交数据已保存，请在网络恢复后再次提交。");
+                        HistoryRecordEntity entity = getHistoryRecordEntity(-1, false);
+                        historyRecordDao.save(entity);
+                    }
                 }
                 break;
             case R.id.reset_button:
@@ -255,6 +298,122 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                 readyToVideo();
                 break;
         }
+    }
+
+    private void leaderLogon() {
+        final View dialogView = LayoutInflater.from(SendInformationActivity.this).inflate(R.layout.dialog_validate, null);
+        final EditText userName = (EditText) dialogView.findViewById(R.id.username);
+        final EditText password = (EditText) dialogView.findViewById(R.id.password);
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("提交验证")
+                .setPositiveButton("验证", null).setNegativeButton("取消", null)
+                .create();
+        alertDialog.setView(dialogView);
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String strUserName = userName.getText().toString();
+                String strPassword = password.getText().toString();
+                if (!StringUtils.isNotNull(strUserName)) {
+                    ToastUtils.showToastAtCenter(SendInformationActivity.this, "用户名不能为空!");
+                    return;
+                }
+
+                if (!StringUtils.isNotNull(strPassword)) {
+                    ToastUtils.showToastAtCenter(SendInformationActivity.this, "密码不能为空!");
+                    return;
+                }
+
+                showProgressDialog("验证中...");
+                new LeaderLogonRequest(SendInformationActivity.this, strUserName, strPassword, new StringResponseListener() {
+                    @Override
+                    public void onResponse(String response) {
+                        dismissProgressDialog();
+                        alertDialog.dismiss();
+                        LeaderLogonResponse logonResponse = new LeaderLogonResponse(response);
+                        if (logonResponse.success) {
+                            HistoryRecordEntity entity = getHistoryRecordEntity(logonResponse.data.id, false);
+                            sendInformation(entity);
+                        } else {
+                            ToastUtils.showToastAtCenter(SendInformationActivity.this, logonResponse.message);
+                        }
+                    }
+
+                    @Override
+                    public void onError(String errorMessage) {
+                        dismissProgressDialog();
+                        ToastUtils.showToastAtCenter(SendInformationActivity.this, "网络链接失败，请稍后重试");
+                    }
+                }).execute();
+            }
+        });
+    }
+
+    private void sendInformation(final HistoryRecordEntity entity) {
+        if (NetworkUtils.isNetworkConnected(SendInformationActivity.this)) {
+            showProgressDialog("提交中...");
+            new ArchiveRequest(this, entity, new StringResponseListener() {
+                @Override
+                public void onResponse(String response) {
+                    dismissProgressDialog();
+                    final ArchiveResponse archiveResponse = new ArchiveResponse(response);
+                    if (archiveResponse.success) {
+                        entity.isCommit = true;
+                        historyRecordDao.save(entity);
+                        resetComponents();
+                    }
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            ToastUtils.showToastAtCenter(SendInformationActivity.this, archiveResponse.message);
+                        }
+                    });
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    dismissProgressDialog();
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            ToastUtils.showToastAtCenter(SendInformationActivity.this, "网络链接失败，请稍后重试");
+                        }
+                    });
+                }
+            }).execute();
+        } else {
+            entity.isCommit = false;
+            historyRecordDao.save(entity);
+        }
+    }
+
+    private HistoryRecordEntity getHistoryRecordEntity(long id, boolean isCommit) {
+        final HistoryRecordEntity entity = new HistoryRecordEntity();
+        entity.vehicleNumber = provinceSpinner.getSelectedItem().toString() + letterSpinner.getSelectedItem().toString() + carNumber.getText().toString();
+        entity.entranceName = stationName.getText().toString();//入站名称
+        entity.exitName = SharedUtil.getString(this, "StationName");//出站名称
+        entity.recordDate = dateTime.getText().toString();//记录时间
+        entity.amount = totalAmount.getText().toString();//价格
+        entity.comment = comment.getText().toString();//备注
+        entity.merchandiseType = ((GoodsNameEntity) goodsName.getSelectedItem()).name;//货物类别
+        entity.vehicleType = carType.getSelectedItem().toString();//车型
+        entity.channelNumber = stationChannel.getSelectedItem().toString();//车道
+        entity.carBodyImage = (String) carBodyImage.getTag();//车身照片
+        entity.carFrontImage = (String) carFrontImage.getTag();//车牌照片
+        entity.carBackImage = (String) carBackImage.getTag();//车尾照片
+        entity.goodsImage = (String) goodsImage.getTag();//获取照片
+        entity.adjustAmount = adjustAmount.getText().toString();//追加金额
+        entity.video = videoPath.getText().toString();//视频文件
+        entity.isGreen = isGreenSpinner.getSelectedItem().toString().equals("是");//是否绿通
+        entity.isCommit = isCommit;//是否已提交,true：已提交，false:未提交
+        entity.operatorId = SharedUtil.getLong(this, Constants.SHARED_KEY.uid);//操作员Id
+        entity.leaderId = id;//审核员Id
+        entity.tollCollector = tollCollectorSpinner.getSelectedItem().toString();//收费员工号
+        entity.channelType = channelTypeSpinner.getSelectedItem().toString();
+        entity.operatorName = SharedUtil.getString(this, Constants.SHARED_KEY.name);//操作员名称
+        return entity;
     }
 
     private boolean validateInput() {
@@ -293,6 +452,11 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
             }
         }
 
+        if (adjustAmountLayout.isShown() && !StringUtils.isNotNull(adjustAmount.getText().toString())) {
+            ToastUtils.showToastAtCenter(this, "请添加追缴金额");
+            return false;
+        }
+
         if (!StringUtils.isNotNull(totalAmount.getText().toString())) {
             ToastUtils.showToastAtCenter(this, "请输入免(缴)金额");
             return false;
@@ -322,7 +486,8 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case TAKE_PICTURE:
-                    Bitmap captureImage = zoomImg(captureFileName, 100, 100);
+                    Bitmap captureImage = BitmapUtils.getBitmapWithNewSize(captureFileName, ScreenUtils.dp2px(this, 70),
+                            ScreenUtils.dp2px(this, 70));
                     switch (takePictureIdx) {
                         case ImageIndex.car_back:
                             carBackImage.setTag(captureFileName);
@@ -376,36 +541,24 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         stationName.setText(null);
         dateTime.setText(null);
         carNumber.setText(null);
-        carType.setSelection(0);
         totalAmount.setText(null);
+        adjustAmount.setText(null);
+        adjustAmountLayout.setVisibility(View.GONE);
+        goodsNameLayout.setVisibility(View.VISIBLE);
+        isGreenSpinner.setSelection(0);
+        carType.setSelection(0);
         stationChannel.setSelection(0);
         provinceSpinner.setSelection(0);
         letterSpinner.setSelection(0);
         goodsCategory.setSelection(0);
         goodsName.setSelection(0);
+        tollCollectorSpinner.setSelection(0);
         comment.setText(null);
-    }
-
-    // 缩放图片
-    public static Bitmap zoomImg(String path, int newWidth, int newHeight) {
-        Bitmap bm = BitmapFactory.decodeFile(path);
-        // 获得图片的宽高
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        // 计算缩放比例
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        // 取得想要缩放的matrix参数
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        // 得到新的图片
-        Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
-        return newbm;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        menu.add(0, 0, 0, "查看历史数据");
+        menu.add(0, 0, 0, "查看历史数据");
         menu.add(0, 1, 1, "注销用户");
         return true;
     }
@@ -414,8 +567,11 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 0:
+                startActivity(new Intent(this, HistoryRecordActivity.class));
                 break;
             case 1:
+                SQLiteManager.getInstance(SendInformationActivity.this).release();
+                SharedUtil.clear(this);
                 finish();
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
@@ -621,15 +777,16 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
         GoodsNameEntity other = new GoodsNameEntity(149, "其他", new ArrayList<GoodsNameEntity>());
         other.children.add(new GoodsNameEntity(150, "蜜蜂(转地放蜂)"));
+        other.children.add(new GoodsNameEntity(151, "其他"));
         goodsNameList.add(other);
 
-        GoodsNameEntity eggs = new GoodsNameEntity(151, "新鲜的肉、蛋、奶", new ArrayList<GoodsNameEntity>());
-        eggs.children.add(new GoodsNameEntity(152, "新鲜的鸡蛋"));
-        eggs.children.add(new GoodsNameEntity(153, "鸭蛋"));
-        eggs.children.add(new GoodsNameEntity(154, "鹅蛋"));
-        eggs.children.add(new GoodsNameEntity(155, "鹌鹑蛋"));
-        eggs.children.add(new GoodsNameEntity(156, "新鲜的家畜肉和家禽肉"));
-        eggs.children.add(new GoodsNameEntity(157, "新鲜奶"));
+        GoodsNameEntity eggs = new GoodsNameEntity(152, "新鲜的肉、蛋、奶", new ArrayList<GoodsNameEntity>());
+        eggs.children.add(new GoodsNameEntity(153, "新鲜的鸡蛋"));
+        eggs.children.add(new GoodsNameEntity(154, "鸭蛋"));
+        eggs.children.add(new GoodsNameEntity(155, "鹅蛋"));
+        eggs.children.add(new GoodsNameEntity(156, "鹌鹑蛋"));
+        eggs.children.add(new GoodsNameEntity(157, "新鲜的家畜肉和家禽肉"));
+        eggs.children.add(new GoodsNameEntity(158, "新鲜奶"));
         goodsNameList.add(eggs);
     }
 }

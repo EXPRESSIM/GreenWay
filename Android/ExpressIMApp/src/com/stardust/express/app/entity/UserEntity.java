@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class UserEntity implements Serializable {
 
-    public int userId;
-    public String userName;
-    public String stationName;
+    public long id;
+    public String username;
+    public String name;
 }

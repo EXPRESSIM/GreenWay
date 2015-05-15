@@ -7,6 +7,35 @@
     <string-array name="province">
         <item>陕</item>
         <item>川</item>
+        <item>京</item>
+        <item>津</item>
+        <item>沪</item>
+        <item>渝</item>
+        <item>冀</item>
+        <item>豫</item>
+        <item>云</item>
+        <item>辽</item>
+        <item>黑</item>
+        <item>湘</item>
+        <item>皖</item>
+        <item>鲁</item>
+        <item>新</item>
+        <item>苏</item>
+        <item>浙</item>
+        <item>赣</item>
+        <item>鄂</item>
+        <item>桂</item>
+        <item>甘</item>
+        <item>晋</item>
+        <item>蒙</item>
+        <item>吉</item>
+        <item>闽</item>
+        <item>贵</item>
+        <item>粤</item>
+        <item>青</item>
+        <item>藏</item>
+        <item>宁</item>
+        <item>琼</item>
     </string-array>
 
     <string-array name="letter">
@@ -39,11 +68,11 @@
     </string-array>
 
     <string-array name="car_type">
-        <item>第一类</item>
-        <item>第二类</item>
-        <item>第三类</item>
-        <item>第四类</item>
-        <item>第五类</item>
+        <item>二轴</item>
+        <item>三轴</item>
+        <item>四轴</item>
+        <item>五轴</item>
+        <item>六轴</item>
     </string-array>
 
     <string-array name="station_channel">
@@ -57,5 +86,67 @@
         <item>出口08道</item>
         <item>出口09道</item>
         <item>出口10道</item>
+    </string-array>
+
+    <string-array name="is_green">
+        <item>是</item>
+        <item>否</item>
+    </string-array>
+
+    <string-array name="channel_type">
+        <item>省绿</item>
+        <item>国绿</item>
+    </string-array>
+
+    <string-array name="toll_collector">
+        <item>0450103001</item>
+        <item>0450103002</item>
+        <item>0450103003</item>
+        <item>0450103004</item>
+        <item>0450103005</item>
+        <item>0450103006</item>
+        <item>0450103007</item>
+        <item>0450103008</item>
+        <item>0450103009</item>
+        <item>0450103010</item>
+        <item>0450103011</item>
+        <item>0450103012</item>
+        <item>0450103013</item>
+        <item>0450103014</item>
+        <item>0450103015</item>
+        <item>0450103016</item>
+        <item>0450103017</item>
+        <item>0450103018</item>
+        <item>0450103019</item>
+        <item>0450103020</item>
+        <item>0450103021</item>
+        <item>0450103022</item>
+        <item>0450103023</item>
+        <item>0450103024</item>
+        <item>0450103025</item>
+        <item>0450103026</item>
+        <item>0450103027</item>
+        <item>0450103028</item>
+        <item>0450103029</item>
+        <item>0450103030</item>
+        <item>0450103031</item>
+        <item>0450103032</item>
+        <item>0450103033</item>
+        <item>0450103034</item>
+        <item>0450103035</item>
+        <item>0450103036</item>
+        <item>0450103037</item>
+        <item>0450103038</item>
+        <item>0450103039</item>
+        <item>0450103040</item>
+        <item>0450103041</item>
+        <item>0450103042</item>
+        <item>0450103043</item>
+        <item>0450103044</item>
+        <item>0450103045</item>
+        <item>0450103046</item>
+        <item>0450103047</item>
+        <item>0450103048</item>
+        <item>0450103049</item>
     </string-array>
 </resources>
