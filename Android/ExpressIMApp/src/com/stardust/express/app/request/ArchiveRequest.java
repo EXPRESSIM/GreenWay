@@ -1,6 +1,7 @@
 package com.stardust.express.app.request;
 
 import android.content.Context;
+import android.util.Log;
 import com.stardust.express.app.Constants;
 import com.stardust.express.app.entity.HistoryRecordEntity;
 import com.stardust.express.app.http.StringResponseListener;
@@ -14,6 +15,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -51,20 +53,20 @@ public class ArchiveRequest extends Thread {
 
     protected Map<String, String> getRequestParams() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("vehicleNumber", entity.vehicleNumber);
-        params.put("entranceGateway", entity.entranceName);
-        params.put("exitGateway", entity.exitName);
-        params.put("date", entity.recordDate);
-        params.put("amount", entity.amount);
-        params.put("comment", entity.comment);
-        params.put("merchandiseType", entity.merchandiseType);
-        params.put("vehicleType", entity.vehicleType);
-        params.put("channel", entity.channelNumber);
-        params.put("adjustAmount", entity.adjustAmount);
-        params.put("isAffectation", String.valueOf(entity.isGreen));
-        params.put("operatorId", String.valueOf(entity.operatorId));
-        params.put("leaderId", String.valueOf(entity.leaderId));
-        params.put("tollCollector", String.valueOf(entity.tollCollector));
+        params.put("historyRecord.vehicleNumber", entity.vehicleNumber);
+        params.put("historyRecord.entranceGateway", entity.entranceName);
+        params.put("historyRecord.exitGateway", entity.exitName);
+        params.put("historyRecord.date", entity.recordDate);
+        params.put("historyRecord.amount", entity.amount);
+        params.put("historyRecord.comment", entity.comment);
+        params.put("historyRecord.merchandiseType", entity.merchandiseType);
+        params.put("historyRecord.vehicleType", entity.vehicleType);
+        params.put("historyRecord.channel", entity.channelNumber);
+        params.put("historyRecord.adjustAmount", entity.adjustAmount);
+        params.put("historyRecord.isAffectation", String.valueOf(entity.isGreen));
+        params.put("historyRecord.operatorId", String.valueOf(entity.operatorId));
+        params.put("historyRecord.leaderId", String.valueOf(entity.leaderId));
+        params.put("historyRecord.tollCollector", String.valueOf(entity.tollCollector));
         return params;
     }
 
@@ -97,9 +99,15 @@ public class ArchiveRequest extends Thread {
             for (Map.Entry<String, File> entry : files.entrySet()) {
                 File file = entry.getValue();
                 if (file != null && file.exists()) {
-                    byte[] imageBytes = BitmapUtils.compressImage(file.getAbsolutePath());
-                    ContentBody contentBody = new InputStreamBody(new ByteArrayInputStream(imageBytes), file.getName());
-                    entity.addPart(entry.getKey(), contentBody);
+                    if (file.getName().endsWith(".jpg") || file.getName().endsWith(".JPG")) {
+                        Log.e("TAG", "file" + entry.getValue());
+                        byte[] imageBytes = BitmapUtils.compressImage(file.getAbsolutePath());
+                        ContentBody contentBody = new InputStreamBody(new ByteArrayInputStream(imageBytes), file.getName());
+                        entity.addPart(entry.getKey(), contentBody);
+                    } else {
+                        Log.e("TAG", "video" + entry.getValue());
+                        entity.addPart(entry.getKey(), new FileBody(file));
+                    }
                 }
             }
         }
