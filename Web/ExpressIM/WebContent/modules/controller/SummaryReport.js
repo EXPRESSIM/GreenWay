@@ -42,7 +42,7 @@ ExpressIM.SummaryReportController.prototype = Class.extend({
         var s=document.getElementById("hiddenlink");
         s.submit();
     }
-}, ExpressIM.Controller.prototype);
+}, ExpressIM.ReportController.prototype);
 
 
 
