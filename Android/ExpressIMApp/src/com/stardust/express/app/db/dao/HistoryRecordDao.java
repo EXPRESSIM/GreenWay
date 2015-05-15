@@ -22,7 +22,7 @@ public class HistoryRecordDao extends BaseDao {
         List<HistoryRecordEntity> result = new ArrayList<HistoryRecordEntity>();
         Cursor cursor = null;
         try {
-            cursor = database.rawQuery("select * from " + DbConstants.TABLE.history_record, null);
+            cursor = database.rawQuery("select * from " + DbConstants.TABLE.history_record + " order by id desc", null);
             if (cursor != null) {
                 while (cursor.moveToNext()) {
                     HistoryRecordEntity record = new HistoryRecordEntity();
@@ -41,8 +41,8 @@ public class HistoryRecordDao extends BaseDao {
                     record.carBackImage = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.carBackImage));
                     record.goodsImage = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.goodsImage));
                     record.adjustAmount = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.adjustAmount));
-                    record.isGreen = Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.isGreen)));
-                    record.isCommit = Boolean.valueOf(cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.isCommit)));
+                    record.isGreen = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.isGreen)).equals("1");
+                    record.isCommit = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.isCommit)).equals("1");
                     record.channelType = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.channelType));
                     record.tollCollector = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.tollCollector));
                     record.operatorId = cursor.getLong(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.operatorId));

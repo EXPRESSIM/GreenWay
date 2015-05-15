@@ -63,10 +63,11 @@ public class ArchiveRequest extends Thread {
         params.put("historyRecord.vehicleType", entity.vehicleType);
         params.put("historyRecord.channel", entity.channelNumber);
         params.put("historyRecord.adjustAmount", entity.adjustAmount);
-        params.put("historyRecord.isAffectation", String.valueOf(entity.isGreen));
-        params.put("historyRecord.operatorId", String.valueOf(entity.operatorId));
-        params.put("historyRecord.leaderId", String.valueOf(entity.leaderId));
+        params.put("historyRecord.isAffectation", String.valueOf(!entity.isGreen));
+        params.put("historyRecord.operator.id", String.valueOf(entity.operatorId));
+        params.put("historyRecord.leader.id", String.valueOf(entity.leaderId));
         params.put("historyRecord.tollCollector", String.valueOf(entity.tollCollector));
+        params.put("historyRecord.channelType", entity.channelType);
         return params;
     }
 
@@ -129,8 +130,8 @@ public class ArchiveRequest extends Thread {
 
     private HttpClient getHttpClient() {
         BasicHttpParams httpParams = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(httpParams, 60 * 1000);
-        HttpConnectionParams.setSoTimeout(httpParams, 60 * 1000);
+        HttpConnectionParams.setConnectionTimeout(httpParams, 180 * 1000);
+        HttpConnectionParams.setSoTimeout(httpParams, 180 * 1000);
         HttpClientParams.setRedirecting(httpParams, true);
         String userAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.2) Gecko/20100115 Firefox/3.6";
         HttpProtocolParams.setUserAgent(httpParams, userAgent);

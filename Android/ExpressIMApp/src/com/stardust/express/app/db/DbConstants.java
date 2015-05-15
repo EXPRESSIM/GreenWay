@@ -61,8 +61,8 @@ public class DbConstants {
         create_history_record_table.append(COLUMN_HISTORY_RECORD.carBodyImage).append(" TEXT,");
         create_history_record_table.append(COLUMN_HISTORY_RECORD.goodsImage).append(" TEXT,");
         create_history_record_table.append(COLUMN_HISTORY_RECORD.adjustAmount).append(" TEXT,");
-        create_history_record_table.append(COLUMN_HISTORY_RECORD.isCommit).append(" INTEGER,");
-        create_history_record_table.append(COLUMN_HISTORY_RECORD.isGreen).append(" INTEGER,");
+        create_history_record_table.append(COLUMN_HISTORY_RECORD.isCommit).append(" TEXT,");
+        create_history_record_table.append(COLUMN_HISTORY_RECORD.isGreen).append(" TEXT,");
         create_history_record_table.append(COLUMN_HISTORY_RECORD.video).append(" TEXT,");
         create_history_record_table.append(COLUMN_HISTORY_RECORD.operatorId).append(" TEXT,");
         create_history_record_table.append(COLUMN_HISTORY_RECORD.leaderId).append(" TEXT,");

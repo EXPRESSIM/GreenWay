@@ -360,7 +360,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                     if (archiveResponse.success) {
                         entity.isCommit = true;
                         historyRecordDao.save(entity);
-                        resetComponents();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                resetComponents();
+                            }
+                        });
                     }
                     runOnUiThread(new Runnable() {
 
