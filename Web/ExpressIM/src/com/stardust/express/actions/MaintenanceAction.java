@@ -11,9 +11,14 @@ import com.stardust.express.models.DataModel;
 public class MaintenanceAction extends  ActionExecutor {
 	private static final long serialVersionUID = -2191774577797836729L;
 	private DataModel model;
+	private String error = "";
 	
 	public DataModel getModel() {
 		return model;
+	}
+	
+	public String getError() {
+		return error;
 	}
 	
 	public String read() {
@@ -27,7 +32,10 @@ public class MaintenanceAction extends  ActionExecutor {
 	public String delete() {
 		if (context.getSession().get("logon_user") == null) return ERROR;
 		IAdminBO bo = AdminBOFactory.create(context);
-		bo.remove();
+		long error = bo.remove();
+		if (error == 547) {
+			this.error = "由于该记录在其他地方使用，无法进行删除，请将状态改为'注销'";
+		}
 		return SUCCESS;
 	}
 	

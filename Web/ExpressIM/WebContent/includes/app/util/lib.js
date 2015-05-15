@@ -1331,11 +1331,8 @@ ExpressIM.MaintenanceController.prototype = Class.extend({
                 this._msg.destroy();
                 this._msg = null;
                 this._reset();
-                if (data) {
-                    var json = eval("(" + data + ")");
-                    if (json.remoteMessage) {
-                        this._showRemoteMessage(json);
-                    }
+                if (data.error && data.error.length > 0) {
+                	 $.messager.alert('错误', data.error, 'error');
                 }
             }).bind(this),
             complete: (function (XMLHttpRequest, textStatus) {

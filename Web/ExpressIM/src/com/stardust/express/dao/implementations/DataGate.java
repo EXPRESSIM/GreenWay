@@ -16,6 +16,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import com.stardust.express.dao.abstracts.IDataGate;
 import com.stardust.express.models.DataModel;
 import com.stardust.express.models.Datasource;
@@ -275,8 +276,13 @@ public abstract class DataGate implements IDataGate{
         } catch (Exception e) {  
             if(null != transaction){  
             	transaction.rollback();  
-            }  
-            e.printStackTrace();  
+            } 
+            if (e instanceof org.hibernate.exception.ConstraintViolationException) {
+            	SQLServerException exception =  (SQLServerException) e.getCause();
+            	return exception.getErrorCode();
+            } else {
+            	e.printStackTrace();  
+            }
         } finally {  
             session.close();  
         }  
