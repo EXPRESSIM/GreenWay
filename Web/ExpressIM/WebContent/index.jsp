@@ -67,7 +67,9 @@
     <link href="includes/app/css/main.css" rel ="stylesheet"  type="text/css"/>
     <script language="javascript" src="includes/app/data/city.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/easyui/jquery.min.js" type="text/javascript" ></script>
-    <script language="javascript" src="includes/easyui/jquery.easyui.min.js" type="text/javascript"  charset="gbk"></script>
+    <script language="javascript" src="includes/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script language="javascript" src="includes/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript" ></script>
+    
     <script language="javascript" src="includes/app/util/checkbox/icheck.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/richeditor/jquery.cleditor.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/uploadify/jquery.uploadify.js" type="text/javascript"></script>
