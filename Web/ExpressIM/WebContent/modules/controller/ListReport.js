@@ -13,7 +13,8 @@ ExpressIM.ListReportController.prototype = Class.extend({
     	 this._btnRun = this.find("run");
     	 this._btnRun.linkbutton({
              onClick: (function () {
-            	 window.open ('modules/reporting/rptList.html' + this._getParams(), 'newwindow', 'height=510px, width=900px, scrollbars=yes, resizable=yes');
+            	 this.openNewTagWin('modules/reporting/rptList.html');
+            	 // window.open ('modules/reporting/rptList.html' + this._getParams(), 'newwindow', 'height=510px, width=900px, scrollbars=yes, resizable=yes');
              }).bind(this)
          });
     	 
@@ -32,6 +33,14 @@ ExpressIM.ListReportController.prototype = Class.extend({
          this._endTime.datebox("textbox").bind("focus", (function () {
              this._setFieldValue(this.find("endDate"), "");
          }).bind(this)).bind(this);
+    },
+    
+    openNewTagWin: function(url) {
+    	var params = "<input type='hidden' name='startDate' value='" + this._getFieldValue(this.find("startDate")) + "'/>"
+    				+ "<input type='hidden' name='endDate' value='" + this._getFieldValue(this.find("endDate")) + "'/>";
+    	$("#tagWinContainer").html("<form id='hiddenlink' method ='get' action='"+url+"' target='_blank'>" + params + "</form>");
+        var s=document.getElementById("hiddenlink");
+        s.submit();
     }
 }, ExpressIM.Controller.prototype);
 
