@@ -47,8 +47,8 @@ ExpressIM.HistoryController.prototype = Class.extend({
             onClickCell: (function(index,field,value) {
               var rows = this.grid.datagrid("getRows");
               if (field == "comment") {
-            	  var record = rows[index];
-            	  this.showDetailForm(record);
+            	 // var record = rows[index];
+            	//  this.showDetailForm(record);
               }
             }).bind(this),
             onDblClickRow: (function(index,row) {
@@ -65,23 +65,6 @@ ExpressIM.HistoryController.prototype = Class.extend({
     },
     
     showDetailForm: function(row){
-    	/*
-    	$('#formDlg').show();
-    	var win = $('#formDlg').window({
-            modal: true,
-            title: "车辆登记处理表",
-            minimizable: false,
-            maximizable: false,
-            resizable: true,
-            shadow: false,
-            onClose: function () {
-            	$('#formDlg').hide();
-            },
-            onOpen: function () {
-               
-            }
-        });
-        */
     	var reportName = "rptApproved.html";
     	if (row.isAffectation) {
     		reportName = "rptRejected.html";

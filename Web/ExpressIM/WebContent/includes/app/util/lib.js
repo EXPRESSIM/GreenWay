@@ -1702,5 +1702,31 @@ formatter:ExpressIM.UIComponent.DataGridFormater.Sum = function(val, row) {
 };
 
 ExpressIM.UIComponent.DataGridFormater.HistoryForm = function(val, row) {
-	return '<a href="javascript:void(0)" class="history-row" data-index="row_' + row.id + '">' + "详细" +'</a>';
+	function modelToParameter(model) {
+    	var results = "?run=true";
+    	for (var key in model) {
+    		if (key == "operator") {
+    			results +="&" + key + "=" +escape(model[key].name);
+    		} else if (key == "leader") {
+    			results +="&" + key + "=" +escape(model[key].name);
+    		} else if (key.indexOf("snapshoot") != -1){
+    			if (model[key] && model[key].length > 0) {
+    				results +="&" + key + "=" +escape(model[key]);
+    			} else {
+    				results +="&" + key + "=" +escape("resource/images/photo-not-available.jpg");
+    			}
+    			
+    		}else {
+    			results +="&" + key + "=" +escape(model[key]);
+    		}
+    		
+    	}
+    	return results;
+    }
+	var reportName = "rptApproved.html";
+	if (row.isAffectation) {
+		reportName = "rptRejected.html";
+	}
+	return "<a href='" +'modules/reporting/' + reportName + modelToParameter(row) + "' target='_blank'>" + "详细" +'</a>';
+	//return '<a href="javascript:void(0)" class="history-row" data-index="row_' + row.id + '">' + "详细" +'</a>';
 };
