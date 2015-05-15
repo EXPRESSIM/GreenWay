@@ -35,7 +35,7 @@
 				<!-- 是否假冒 -->
 				<Column Name="IS_AFFECTATION" DataType="BIT"/>
 				<!-- 备注 -->
-				<Column Name="COMMENT" DataType="VARCHAR" ColumnSize="255" AllowNulls="True"/>
+				<Column Name="COMMENT" DataType="TEXT"/>
 				<!-- 货物类别 -->
 				<Column Name="MERCHANDISE_TYPE" DataType="VARCHAR" ColumnSize="50"/>
 				<!-- 车型 -->
@@ -45,15 +45,15 @@
 				<!-- 放行方式 -->
 				<Column Name="CHANNEL_TYPE" DataType="VARCHAR" ColumnSize="24"/>
 				<!-- 快照1 -->
-				<Column Name="SNAPSHOOT_1" DataType="VARCHAR" ColumnSize="100"/>
+				<Column Name="SNAPSHOOT_1" DataType="TEXT"/>
 				<!-- 快照2 -->
-				<Column Name="SNAPSHOOT_2" DataType="VARCHAR" ColumnSize="100"/>
+				<Column Name="SNAPSHOOT_2" DataType="TEXT"/>
 				<!-- 快照3 -->
-				<Column Name="SNAPSHOOT_3" DataType="VARCHAR" ColumnSize="100"/>
+				<Column Name="SNAPSHOOT_3" DataType="TEXT"/>
 				<!-- 快照4 -->
-				<Column Name="SNAPSHOOT_4" DataType="VARCHAR" ColumnSize="100"/>
+				<Column Name="SNAPSHOOT_4" DataType="TEXT"/>
 				<!-- 录像 -->
-				<Column Name="VIDEO" DataType="VARCHAR" ColumnSize="100"/>
+				<Column Name="VIDEO" DataType="TEXT"/>
 				<!-- 操作员 -->
 				<Column Name="OPERATOR_USER_ID" DataType="INT"/>
 				<!-- 审核员 -->
