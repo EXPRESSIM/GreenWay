@@ -1727,7 +1727,7 @@ ExpressIM.UIComponent.DataGridFormater.HistoryForm = function(val, row) {
 	
 	var videoLink = "";
 	if (row.video) {
-		videoLink = "&nbsp;&nbsp;<a href='" + row.video +"' target='_blank'>下载视频</a>";
+		videoLink = "&nbsp;&nbsp;<a href='" + row.video +"' >下载视频</a>";
 	}
 	
 	if (!row.isAffectation) {
