@@ -15,6 +15,12 @@
         {
             overflow:visible !important;
         }
+        .datagrid-cell-c1-comment {
+        	 overflow:visible !important;
+        	 white-space:normal;!important;
+        	 word-break:break-all; !important;
+　　			 word-wrap:break-word;!important;
+        }
 </style>
 </head>
 <body style="background-color:rgb(247,247,247)">
@@ -25,6 +31,8 @@
 		grid.datagrid({
             url: "history",
             singleSelect: true,
+            nowrap: false,
+            autoRowHeight: true,
             onBeforeLoad: function(params){
                 params.startDate = getUrlParam("startDate") != "" ? getUrlParam("startDate")+ " " + "00:00:00" : "";
                 params.endDate = getUrlParam("endDate") !="" ? getUrlParam("endDate")+ " " + "00:00:00" : "";
@@ -56,18 +64,18 @@
                 <!-- <th data-options="field:'id',width:30" rowspan="2">ID</th> -->
                 <th data-options="field:'date',width:100,formatter:ExpressIM.UIComponent.DataGridFormater.DateTime" rowspan="2">时间</th>
                 <th data-options="field:'vehicleNumber',width:110" rowspan="2">车牌号</th>
-                <th data-options="field:'entranceGateway',width:120" rowspan="2">入站名称</th>
+                <th data-options="field:'entranceGateway',width:80" rowspan="2">入站名称</th>
                 <th colspan="6">出口通行信息</th>
                 <th colspan="3">检验人信息</th>
-                <th data-options="field:'comment',width:100" rowspan="2">备注</th>
+                <th data-options="field:'comment',width:200" rowspan="2">备注</th>
             </tr>
             <tr>
                 <th data-options="field:'vehicleType',width:50">车轴数</th>
                 <th data-options="field:'channel',width:50">车道</th>
                 <th data-options="field:'tollCollector',width:80">收费员工号</th>
-                <th data-options="field:'channelType',width:80">放行方式</th>
+                <th data-options="field:'channelType',width:60">放行方式</th>
                 <th data-options="field:'amount',width:80,align:'right',formatter:ExpressIM.UIComponent.DataGridFormater.HistoryAmount">免(缴)金额(元)</th>
-                <th data-options="field:'merchandiseType',width:160">货物名称</th>
+                <th data-options="field:'merchandiseType',width:100">货物名称</th>
                 <th data-options="field:'operator',width:100,formatter:ExpressIM.UIComponent.DataGridFormater.Opeartor">操作人</th>
                 <th data-options="field:'leader',width:100,formatter:ExpressIM.UIComponent.DataGridFormater.Leader">审核人</th>
                 <th data-options="field:'supervisor',width:120,formatter:ExpressIM.UIComponent.DataGridFormater.stationOwner">站长</th>
