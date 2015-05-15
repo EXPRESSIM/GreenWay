@@ -6,7 +6,6 @@
 <struts>
 
     <constant name="struts.multipart.maxSize" value="1000000000"/>
-    <constant name="struts.multipart.saveDir" value="c:/temps"/>
 
     <package name="default" namespace="/" extends="struts-default">
         <default-action-ref name="index"/>
