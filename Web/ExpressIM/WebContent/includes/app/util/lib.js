@@ -1562,7 +1562,7 @@ ExpressIM.Menu.prototype = {
     
     render: function (container) {
         this._container = container;
-        $.get(ExpressIM.baseURL + "/includes/app/data/"+this._menuType+".json", null,
+        $.get(ExpressIM.baseURL + "/includes/app/data/"+this._menuType+".js", null,
             (function (response) {
                 this._data = eval('(' + response + ')');
                 var html = this._render(this._data.items);
