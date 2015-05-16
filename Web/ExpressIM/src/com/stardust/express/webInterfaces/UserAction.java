@@ -22,10 +22,10 @@ public class UserAction extends BaseAction {
         builder.setSuccess(false);
         if (user != null && user.getId() > 0) {
             if (!user.getStatus().equals(User.STATUS_ACTIVE)) {
-                builder.setMessage("当前登陆用户为禁用状态，请联系管理员");
+                builder.setMessage("当前登录用户为禁用状态,请联系管理员");
                 responseData = builder.build();
             } else if (!user.getType().equals(User.USER_TYPE_OPERATOR)) {
-                builder.setMessage("请使用操作员账号登陆");
+                builder.setMessage("请使用操作员账户登录");
                 responseData = builder.build();
             } else {
                 Map<String, Object> data = new HashMap<String, Object>();
@@ -33,12 +33,12 @@ public class UserAction extends BaseAction {
                 data.put("name", user.getName());
                 data.put("id", user.getId());
                 builder.setData(data);
-                builder.setMessage("登陆成功");
+                builder.setMessage("登录成功");
                 builder.setSuccess(true);
                 responseData = builder.build();
             }
         } else {
-            builder.setMessage("用户名或者密码错误");
+            builder.setMessage("用户名或密码错误");
             responseData = builder.build();
         }
         return SUCCESS;
@@ -54,21 +54,21 @@ public class UserAction extends BaseAction {
         builder.setSuccess(false);
         if (user != null && user.getId() > 0) {
             if (!user.getStatus().equals(User.STATUS_ACTIVE)) {
-                builder.setMessage("当前登陆用户为禁用状态，请联系管理员");
+                builder.setMessage("当前登录用户为禁用状态,请联系管理员");
                 responseData = builder.build();
             } else if (!user.getType().equals(User.USER_TYPE_LEADER)) {
-                builder.setMessage("请使用审核员账号登陆");
+                builder.setMessage("请使用审核员账户登录");
                 responseData = builder.build();
             } else {
                 Map<String, Object> data = new HashMap<String, Object>();
                 data.put("id", user.getId());
                 builder.setData(data);
-                builder.setMessage("登陆成功");
+                builder.setMessage("登录成功");
                 builder.setSuccess(true);
                 responseData = builder.build();
             }
         } else {
-            builder.setMessage("用户名或者密码错误");
+            builder.setMessage("用户名或密码错误");
             responseData = builder.build();
         }
         return SUCCESS;

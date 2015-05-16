@@ -62,7 +62,7 @@ public class SummaryReportAction extends ActionExecutor {
 		srTotalCount.setDate("月出口总流量(辆)");
 		srTotalCount.setChargeAmount(totalChargeCount + totalFreeCount);
 		SummaryRecord srTotaAmount = new SummaryRecord();
-		srTotaAmount.setDate("月拆分前<br>应收总金额(元))");
+		srTotaAmount.setDate("月拆分前<br/>应收总金额(元))");
 		srTotaAmount.setChargeAmount(totalChargeAmount + totalFreeAmount);
 		SummaryRecord srPercentCount = new SummaryRecord();
 		srPercentCount.setDate("车辆免缴率(%)");
