@@ -84,7 +84,14 @@
 	%>
   <script  language="javascript" type="text/javascript">
   	$(document).ready(function () {
-        var menu = new ExpressIM.Menu({menuType:"admin-menu"});
+  		var username = ('<%=session.getAttribute("logon_username")%>');
+  		var menuname = "";
+  		if (username == "MASTER") {
+  			menuname = "admin-menu";
+  		} else {
+  			menuname = "admin-menu-normal";
+  		}
+  		var menu = new ExpressIM.Menu({menuType:menuname});
         menu.render($('#menuContainer'));
     });
   </script>

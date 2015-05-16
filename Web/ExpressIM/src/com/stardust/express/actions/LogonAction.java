@@ -34,6 +34,7 @@ public class LogonAction extends  ActionExecutor {
 				return INVALID_USER_GROUP;
 			} else {
 				context.getSession().put("logon_user", user);
+				context.getSession().put("logon_username", user.getUsername());
 				return SUCCESS;
 			}
 		} else {
@@ -42,6 +43,7 @@ public class LogonAction extends  ActionExecutor {
 				return INCORRECT_USER;
 			} else {
 				context.getSession().put("logon_user", user);
+				context.getSession().put("logon_username", user.getUsername());
 				return SUCCESS;
 			}
 		}
@@ -49,7 +51,7 @@ public class LogonAction extends  ActionExecutor {
 	
 	public String logoff(){
 		context.getSession().remove("logon_user");
-
+		context.getSession().remove("logon_username");
 		return SUCCESS;
 	}
 	
