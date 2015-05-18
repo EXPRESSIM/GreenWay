@@ -30,10 +30,13 @@
                 params.endDate = getUrlParam("endDate") !="" ? getUrlParam("endDate")+ " " + "00:00:00" : "";
             },
             onLoadSuccess: function(data){
-            	var h = 70 + (data.total * 25);
-            	if (h < 700) h = 700;
-            	$('.datagrid-body').css("height", h);
-            	grid.datagrid("resize",{height: h});
+            	var container = $('.datagrid-body')[1] ? $('.datagrid-body')[1] : $('.datagrid-body')[0];
+            	var scrollHeight = container.scrollHeight;
+            	container = $(container);
+            	var height = (container.height()) + scrollHeight;
+            	if (height < 600) height = 600;
+            	$('.datagrid-body').css("height", height);
+            	grid.datagrid("resize",{height: height});
             }
     	});
 		/*
