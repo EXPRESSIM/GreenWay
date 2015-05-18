@@ -1696,7 +1696,42 @@ ExpressIM.UIComponent.DataGridFormater.Money2 = function(val, row) {
 	return val.formatMoney();
 };
 
-formatter:ExpressIM.UIComponent.DataGridFormater.Sum = function(val, row) {
+ExpressIM.UIComponent.DataGridFormater.CommentFull = function(val, row){
+	if (row.affectationDesc != 0) {
+		var result = "";
+		var v = row.affectationDesc;
+		v = v.toString();
+		switch (v) {
+			case "1":
+				result = "[假冒原因]:装载货物为《鲜活农产品品种目录表》以外";
+				break;
+			case "2":
+				result = "[假冒原因]:装载绿通货物未占车辆核载质量80%以上";
+				break;
+			case "3":
+				result = "[假冒原因]:装载绿通货物未占车厢容积80%以上";
+				break;
+			case "4":
+				result = "[假冒原因]:混装鲜活农产品、混装范围以外其他农产品超过车辆核定载质量或车厢容积20%以上";
+				break;
+			case "5":
+				result = "[假冒原因]:装载绿通货物总重超过公路承载能力5%";
+				break;
+			case "6":
+				result = "[假冒原因]:装载货物为经过深加工农产品";
+				break;
+			case "7":
+				result = "[假冒原因]:故意混装非鲜活农产品或混装其他货物的运输车辆";
+				break;
+		} 
+		return val + "<br/>" + result;
+	} else {
+		return val;
+		
+	}
+};
+
+ExpressIM.UIComponent.DataGridFormater.Sum = function(val, row) {
 	//if (isSumRow(row)) return "x";
 	if (row.date.indexOf("合计") != -1) return row.freeCount;
 	if (row.date.indexOf("月出口总流量") != -1) return "";//row.chargeAmount.formatMoney();
@@ -1705,6 +1740,8 @@ formatter:ExpressIM.UIComponent.DataGridFormater.Sum = function(val, row) {
 	if (row.date.indexOf("通行费免征率") != -1) return "";//Math.round(row.chargeAmount*100)/100 + "%";
 	return val;
 };
+
+
 
 ExpressIM.UIComponent.DataGridFormater.HistoryForm = function(val, row) {
 	function modelToParameter(model) {
