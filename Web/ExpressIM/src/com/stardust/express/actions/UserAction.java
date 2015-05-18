@@ -64,10 +64,9 @@ public class UserAction extends ActionExecutor{
 	
 	public String loadHistory(){
 		IHistoryRecordGate gate = DataGateFactory.getHistoryRecordGate(context.getString("datasource"));
-		HistoryRecord hr = (HistoryRecord)gate.find(3);
-		for (int i=0; i<0;i++) {
-			hr.setId(-1);
-			/*
+		//HistoryRecord hr = (HistoryRecord)gate.find(3);
+		for (int i=0; i<155;i++) {
+			//hr.setId(-1);
 			HistoryRecord hr = new HistoryRecord();
 			//hr.setAmount(10);
 			hr.setAdjustAmount(20);
@@ -81,12 +80,11 @@ public class UserAction extends ActionExecutor{
 			hr.setVehicleType("I类");
 			hr.setVehicleNumber("陕A09623");
 			User operator = new User();
-			operator.setId(77);
+			operator.setId(2);
 			User leader = new User();
-			leader.setId(78);
+			leader.setId(3);
 			hr.setLeader(leader);
 			hr.setOperator(operator);
-			*/
 			
 			
 			gate.update(hr);

@@ -72,7 +72,10 @@ public class SummaryReportAction extends ActionExecutor {
 		srPercentAmount.setChargeAmount(totalFreeAmount/(totalChargeAmount + totalFreeAmount) * 100);
 		SummaryRecord sum = new SummaryRecord();
 		sum.setDate("合计:");
-		
+		sum.setChargeAmount(totalChargeAmount);
+		sum.setChargeCount((int)totalChargeCount);
+		sum.setFreeAmount(totalFreeAmount);
+		sum.setFreeCount((int)totalFreeCount);
 		rows.add(sum);
 		rows.add(srTotalCount);
 		rows.add(srTotaAmount);

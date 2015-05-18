@@ -1679,22 +1679,30 @@ function isSumRow(row){
 }
 
 ExpressIM.UIComponent.DataGridFormater.Count = function(val, row) {
-	if (isSumRow(row)) return "-";
+	if (row.date.indexOf("合计") != -1) return row.chargeCount;
+	if (isSumRow(row)) return "";
 	return val;
 };
 
 ExpressIM.UIComponent.DataGridFormater.Money = function(val, row) {
-	if (isSumRow(row)) return "-";
+	if (row.date.indexOf("合计") != -1) return row.freeAmount.formatMoney();
+	if (isSumRow(row)) return "";
+	return val.formatMoney();
+};
+
+ExpressIM.UIComponent.DataGridFormater.Money2 = function(val, row) {
+	if (row.date.indexOf("合计") != -1) return row.chargeAmount.formatMoney();
+	if (isSumRow(row)) return "";
 	return val.formatMoney();
 };
 
 formatter:ExpressIM.UIComponent.DataGridFormater.Sum = function(val, row) {
 	//if (isSumRow(row)) return "x";
-	if (row.date.indexOf("合计") != -1) return "-";
-	if (row.date.indexOf("月出口总流量") != -1) return row.chargeAmount.formatMoney();
-	if (row.date.indexOf("月拆分前") != -1) return row.chargeAmount.formatMoney();
-	if (row.date.indexOf("车辆免缴率") != -1) return  Math.round(row.chargeAmount*100)/100 + "%";
-	if (row.date.indexOf("通行费免征率") != -1) return Math.round(row.chargeAmount*100)/100 + "%";
+	if (row.date.indexOf("合计") != -1) return row.freeCount;
+	if (row.date.indexOf("月出口总流量") != -1) return "";//row.chargeAmount.formatMoney();
+	if (row.date.indexOf("月拆分前") != -1) return "";//row.chargeAmount.formatMoney();
+	if (row.date.indexOf("车辆免缴率") != -1) return  "";//Math.round(row.chargeAmount*100)/100 + "%";
+	if (row.date.indexOf("通行费免征率") != -1) return "";//Math.round(row.chargeAmount*100)/100 + "%";
 	return val;
 };
 
