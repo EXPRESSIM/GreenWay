@@ -64,6 +64,8 @@
 				<Column Name="YEAR" DataType="VARCHAR" ColumnSize="10"/>
 				<Column Name="MONTH" DataType="VARCHAR" ColumnSize="10"/>
 				<Column Name="DAY" DataType="VARCHAR" ColumnSize="10"/>
+				
+				<Column Name="AFFECTATION_DESC" DataType="INT"/>
         	</Columns>
 			<Indexes>
 				<Index Expression="VEHICLE_NUMBER"/>
