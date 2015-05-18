@@ -30,5 +30,6 @@
      <property name="day" column="DAY" type="string"/>
      <many-to-one name="operator" column="OPERATOR_USER_ID" class="com.stardust.express.models.User" fetch="select"/>
      <many-to-one name="leader" column="REVIEWER_USER_ID" class="com.stardust.express.models.User" fetch="select"/>
+     <property name="affectationDesc" column="AFFECTATION_DESC" type="integer"/>
   </class>
 </hibernate-mapping>
