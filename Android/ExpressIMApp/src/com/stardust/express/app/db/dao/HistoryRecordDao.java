@@ -49,6 +49,7 @@ public class HistoryRecordDao extends BaseDao {
                     record.leaderId = cursor.getLong(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.leaderId));
                     record.video = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.video));
                     record.operatorName = cursor.getString(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.operatorName));
+                    record.reason = cursor.getInt(cursor.getColumnIndex(DbConstants.COLUMN_HISTORY_RECORD.reason));
                     result.add(record);
                 }
             }
@@ -84,6 +85,7 @@ public class HistoryRecordDao extends BaseDao {
         values.put(DbConstants.COLUMN_HISTORY_RECORD.leaderId, historyRecordEntity.leaderId);
         values.put(DbConstants.COLUMN_HISTORY_RECORD.video, historyRecordEntity.video);
         values.put(DbConstants.COLUMN_HISTORY_RECORD.operatorName, historyRecordEntity.operatorName);
+        values.put(DbConstants.COLUMN_HISTORY_RECORD.reason, historyRecordEntity.reason);
         database.insert(DbConstants.TABLE.history_record, null, values);
     }
 
@@ -109,10 +111,12 @@ public class HistoryRecordDao extends BaseDao {
         values.put(DbConstants.COLUMN_HISTORY_RECORD.tollCollector, historyRecordEntity.tollCollector);
         values.put(DbConstants.COLUMN_HISTORY_RECORD.operatorId, historyRecordEntity.operatorId);
         values.put(DbConstants.COLUMN_HISTORY_RECORD.leaderId, historyRecordEntity.leaderId);
-        values.put(DbConstants.COLUMN_HISTORY_RECORD.operatorName, historyRecordEntity.operatorName);
         values.put(DbConstants.COLUMN_HISTORY_RECORD.video, historyRecordEntity.video);
-        database.update(DbConstants.TABLE.history_record, values, null, new String[]{
-                DbConstants.COLUMN_HISTORY_RECORD.id + " = " + historyRecordEntity.id});
+        values.put(DbConstants.COLUMN_HISTORY_RECORD.operatorName, historyRecordEntity.operatorName);
+        values.put(DbConstants.COLUMN_HISTORY_RECORD.reason, historyRecordEntity.reason);
+        database.update(DbConstants.TABLE.history_record, values,
+                DbConstants.COLUMN_HISTORY_RECORD.id + " =? ", new String[]{
+                        String.valueOf(historyRecordEntity.id)});
     }
 
     public void clear() {

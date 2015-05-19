@@ -1,11 +1,8 @@
 package com.stardust.express.app.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -214,7 +211,7 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("聂冯"));
         stationList.add(new StationEntity("神木北"));
         stationList.add(new StationEntity("永兴"));
-        stationList.add(new StationEntity("石马"));
+        stationList.add(new StationEntity("石马川"));
         stationList.add(new StationEntity("府谷南"));
         stationList.add(new StationEntity("府谷"));
         stationList.add(new StationEntity("牛家梁"));
@@ -233,14 +230,24 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("陕西佳县"));
         stationList.add(new StationEntity("锦阳湖"));
         stationList.add(new StationEntity("演池"));
+        stationList.add(new StationEntity("铜川北"));
         stationList.add(new StationEntity("招安"));
         stationList.add(new StationEntity("候市"));
+        stationList.add(new StationEntity("志丹东"));
         stationList.add(new StationEntity("志丹"));
-        stationList.add(new StationEntity("志丹南"));
         stationList.add(new StationEntity("吴起"));
-        stationList.add(new StationEntity("阿房宫"));
+        stationList.add(new StationEntity("咸阳北"));
+        stationList.add(new StationEntity("桥底"));
+        stationList.add(new StationEntity("兴隆"));
+        stationList.add(new StationEntity("淳化北"));
+        stationList.add(new StationEntity("十里源"));
+
+
+        stationList.add(new StationEntity("土桥"));
+        stationList.add(new StationEntity("旬邑"));
+        stationList.add(new StationEntity("淳华南"));
         stationList.add(new StationEntity("河池寨"));
-        stationList.add(new StationEntity("西高新"));
+        stationList.add(new StationEntity("高新区"));
         stationList.add(new StationEntity("长安路"));
         stationList.add(new StationEntity("曲江"));
         stationList.add(new StationEntity("纺织城"));
@@ -248,10 +255,9 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("新筑"));
         stationList.add(new StationEntity("杏园"));
         stationList.add(new StationEntity("未央"));
-        stationList.add(new StationEntity("未央(北)"));
+        stationList.add(new StationEntity("未央北"));
         stationList.add(new StationEntity("富平"));
         stationList.add(new StationEntity("荆姚"));
-        stationList.add(new StationEntity("蒲城"));
         stationList.add(new StationEntity("孙镇"));
         stationList.add(new StationEntity("澄城"));
         stationList.add(new StationEntity("合阳"));
@@ -259,18 +265,11 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("韩城"));
         stationList.add(new StationEntity("龙门"));
         stationList.add(new StationEntity("禹门口"));
-        stationList.add(new StationEntity("西禹小计"));
         stationList.add(new StationEntity("高陵"));
         stationList.add(new StationEntity("阎良"));
         stationList.add(new StationEntity("户县"));
         stationList.add(new StationEntity("涝峪"));
         stationList.add(new StationEntity("三星"));
-        stationList.add(new StationEntity("金水"));
-        stationList.add(new StationEntity("大河坝"));
-        stationList.add(new StationEntity("宁陕"));
-        stationList.add(new StationEntity("皇冠"));
-        stationList.add(new StationEntity("朱雀"));
-        stationList.add(new StationEntity("纸坊"));
         stationList.add(new StationEntity("龙亭"));
         stationList.add(new StationEntity("洋县"));
         stationList.add(new StationEntity("城固"));
@@ -281,20 +280,24 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("胡家坝"));
         stationList.add(new StationEntity("韩家坝"));
         stationList.add(new StationEntity("宁强立交"));
+        stationList.add(new StationEntity("金水"));
+        stationList.add(new StationEntity("大河坝"));
+        stationList.add(new StationEntity("宁陕"));
+        stationList.add(new StationEntity("皇冠"));
+        stationList.add(new StationEntity("朱雀"));
+        stationList.add(new StationEntity("纸坊"));
+        stationList.add(new StationEntity("秦岭"));
         stationList.add(new StationEntity("宁强"));
         stationList.add(new StationEntity("铜川"));
-        stationList.add(new StationEntity("黄堡匝道"));
+        stationList.add(new StationEntity("黄堡西匝"));
+        stationList.add(new StationEntity("耀州南"));
+        stationList.add(new StationEntity("耀州北"));
         stationList.add(new StationEntity("西安北"));
-        stationList.add(new StationEntity("铜川开放"));
-        stationList.add(new StationEntity("黄堡开放"));
-        stationList.add(new StationEntity("耀州北开放"));
-        stationList.add(new StationEntity("铜川新区"));
         stationList.add(new StationEntity("川口"));
         stationList.add(new StationEntity("金锁关"));
         stationList.add(new StationEntity("宜君"));
         stationList.add(new StationEntity("黄陵"));
-        stationList.add(new StationEntity("彭镇 "));
-        stationList.add(new StationEntity("铜延小计"));
+        stationList.add(new StationEntity("彭镇"));
         stationList.add(new StationEntity("延安南"));
         stationList.add(new StationEntity("甘泉"));
         stationList.add(new StationEntity("南泥湾"));
@@ -360,11 +363,11 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("白河"));
         stationList.add(new StationEntity("陕西白河"));
         stationList.add(new StationEntity("阎村"));
-        stationList.add(new StationEntity("山阳 "));
+        stationList.add(new StationEntity("山阳"));
         stationList.add(new StationEntity("高坝"));
         stationList.add(new StationEntity("天竺山"));
-        stationList.add(new StationEntity("漫川关匝道 "));
-        stationList.add(new StationEntity("漫川关主线"));
+        stationList.add(new StationEntity("漫川匝道"));
+        stationList.add(new StationEntity("漫川主线"));
         stationList.add(new StationEntity("空工"));
         stationList.add(new StationEntity("白鹿塬"));
         stationList.add(new StationEntity("蓝田东"));
@@ -381,8 +384,9 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("过凤楼"));
         stationList.add(new StationEntity("商南西"));
         stationList.add(new StationEntity("界牌"));
+        stationList.add(new StationEntity("标识站金"));
         stationList.add(new StationEntity("汉城"));
-        stationList.add(new StationEntity("北环路"));
+        stationList.add(new StationEntity("环北路"));
         stationList.add(new StationEntity("马家堡"));
         stationList.add(new StationEntity("机场"));
         stationList.add(new StationEntity("六村堡"));
@@ -391,9 +395,8 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("马庄"));
         stationList.add(new StationEntity("西张堡"));
         stationList.add(new StationEntity("礼泉"));
-        stationList.add(new StationEntity("乾县"));
+        stationList.add(new StationEntity("乾州"));
         stationList.add(new StationEntity("乾陵"));
-        stationList.add(new StationEntity("永寿南"));
         stationList.add(new StationEntity("永寿南"));
         stationList.add(new StationEntity("渡马"));
         stationList.add(new StationEntity("太峪"));
@@ -409,17 +412,20 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("绥德"));
         stationList.add(new StationEntity("中角"));
         stationList.add(new StationEntity("辛家沟"));
-        stationList.add(new StationEntity("吴堡"));
-        stationList.add(new StationEntity("陕晋界"));
+        stationList.add(new StationEntity("吴堡匝道"));
+        stationList.add(new StationEntity("吴堡主线"));
         stationList.add(new StationEntity("陕西壶口"));
         stationList.add(new StationEntity("秋林"));
         stationList.add(new StationEntity("宜川"));
         stationList.add(new StationEntity("瓦子街"));
+        stationList.add(new StationEntity("榆树坪标识"));
         stationList.add(new StationEntity("厢寺川"));
         stationList.add(new StationEntity("富县南"));
         stationList.add(new StationEntity("张村驿"));
         stationList.add(new StationEntity("直罗"));
         stationList.add(new StationEntity("张家湾"));
         stationList.add(new StationEntity("陕西富县"));
+
+
     }
 }

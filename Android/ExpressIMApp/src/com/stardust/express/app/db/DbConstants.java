@@ -37,6 +37,7 @@ public class DbConstants {
         public String tollCollector = "tollCollector";//收费员工号
         public String channelType = "channelType";//放行方式
         public String operatorName = "operatorName";//操作员名称
+        public String reason = "reason";//假冒原因
     }
 
     //创建服务器信息表
@@ -68,6 +69,7 @@ public class DbConstants {
         create_history_record_table.append(COLUMN_HISTORY_RECORD.leaderId).append(" TEXT,");
         create_history_record_table.append(COLUMN_HISTORY_RECORD.channelType).append(" TEXT,");
         create_history_record_table.append(COLUMN_HISTORY_RECORD.tollCollector).append(" TEXT,");
+        create_history_record_table.append(COLUMN_HISTORY_RECORD.reason).append(" INTEGER,");
         create_history_record_table.append(COLUMN_HISTORY_RECORD.operatorName).append(" TEXT");
         create_history_record_table.append(")");
     }

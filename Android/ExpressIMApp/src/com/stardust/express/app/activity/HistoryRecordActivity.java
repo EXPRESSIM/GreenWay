@@ -48,12 +48,23 @@ public class HistoryRecordActivity extends BaseActivity {
 
     @Override
     protected void fillData() {
+
+    }
+
+
+    private void reloadData() {
         List<HistoryRecordEntity> list = historyRecordDao.getRecordList();
         if (list != null) {
             adapter.getData().clear();
             adapter.getData().addAll(list);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reloadData();
     }
 
     @Override

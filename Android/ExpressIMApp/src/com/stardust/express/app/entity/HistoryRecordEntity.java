@@ -30,4 +30,5 @@ public class HistoryRecordEntity implements Serializable {
     public String tollCollector;//收费员工号
     public String channelType;//放行方式
     public String operatorName;//操作员名称
+    public int reason;//假冒原因
 }

@@ -12,6 +12,7 @@ import com.stardust.express.app.entity.HistoryRecordEntity;
 import com.stardust.express.app.http.StringResponseListener;
 import com.stardust.express.app.request.ArchiveRequest;
 import com.stardust.express.app.request.LeaderLogonRequest;
+import com.stardust.express.app.response.ArchiveResponse;
 import com.stardust.express.app.response.LeaderLogonResponse;
 import com.stardust.express.app.utils.*;
 
@@ -39,8 +40,10 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
     private TextView tollCollectorTextView;
     private TextView adjustAmount;
     private TextView channelTypeTextView;
+    private TextView reasonTextView;
     private LinearLayout adjustAmountLayout;
     private LinearLayout goodsNameLayout;
+    private LinearLayout reasonLayout;
     private Button submitButton;
     private HistoryRecordEntity historyRecordEntity;
     private HistoryRecordDao historyRecordDao;
@@ -74,6 +77,8 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
         adjustAmountLayout = (LinearLayout) findViewById(R.id.adjust_amount_layout);
         goodsNameLayout = (LinearLayout) findViewById(R.id.goods_name_layout);
         channelTypeTextView = (TextView) findViewById(R.id.channel_type);
+        reasonTextView = (TextView) findViewById(R.id.reason);
+        reasonLayout = (LinearLayout) findViewById(R.id.reason_layout);
         submitButton = (Button) findViewById(R.id.submit_button);
         submitButton.setOnClickListener(this);
     }
@@ -111,13 +116,16 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
         tollCollectorTextView.setText(historyRecordEntity.tollCollector);
         adjustAmount.setText(historyRecordEntity.adjustAmount);
         channelTypeTextView.setText(historyRecordEntity.channelType);
+        reasonTextView.setText(getResources().getStringArray(R.array.reason_array)[(historyRecordEntity.reason - 1)]);
 
         if (historyRecordEntity.isGreen) {
             adjustAmountLayout.setVisibility(View.GONE);
             goodsNameLayout.setVisibility(View.VISIBLE);
+            reasonLayout.setVisibility(View.GONE);
         } else {
             adjustAmountLayout.setVisibility(View.VISIBLE);
             goodsNameLayout.setVisibility(View.GONE);
+            reasonLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -175,6 +183,7 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
                         alertDialog.dismiss();
                         LeaderLogonResponse logonResponse = new LeaderLogonResponse(response);
                         if (logonResponse.success) {
+                            historyRecordEntity.leaderId = logonResponse.data.id;
                             sendInformation();
                         } else {
                             ToastUtils.showToastAtCenter(ViewInformationActivity.this, logonResponse.message);
@@ -198,15 +207,36 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
                 @Override
                 public void onResponse(String response) {
                     dismissProgressDialog();
-                    historyRecordEntity.isCommit = true;
-                    historyRecordDao.update(historyRecordEntity);
-                    submitButton.setVisibility(View.GONE);
+                    final ArchiveResponse archiveResponse = new ArchiveResponse(response);
+                    if (archiveResponse.success) {
+                        historyRecordEntity.isCommit = true;
+                        historyRecordDao.update(historyRecordEntity);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                submitButton.setVisibility(View.GONE);
+                            }
+                        });
+
+                    }
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            ToastUtils.showToastAtCenter(ViewInformationActivity.this, archiveResponse.message);
+                        }
+                    });
                 }
 
                 @Override
                 public void onError(String errorMessage) {
-                    dismissProgressDialog();
-                    ToastUtils.showToastAtCenter(ViewInformationActivity.this, "网络链接失败，请稍后重试");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dismissProgressDialog();
+                            ToastUtils.showToastAtCenter(ViewInformationActivity.this, "网络链接失败，请稍后重试");
+                        }
+                    });
                 }
             }).execute();
         } else {

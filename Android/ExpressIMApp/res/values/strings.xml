@@ -76,16 +76,18 @@
     </string-array>
 
     <string-array name="station_channel">
-        <item>出口01道</item>
-        <item>出口02道</item>
-        <item>出口03道</item>
-        <item>出口04道</item>
-        <item>出口05道</item>
-        <item>出口06道</item>
-        <item>出口07道</item>
-        <item>出口08道</item>
-        <item>出口09道</item>
-        <item>出口10道</item>
+        <item>出口101道</item>
+        <item>出口102道</item>
+        <item>出口103道</item>
+        <item>出口104道</item>
+        <item>出口105道</item>
+        <item>出口106道</item>
+        <item>出口107道</item>
+        <item>出口108道</item>
+        <item>出口109道</item>
+        <item>出口110道</item>
+        <item>出口111道</item>
+        <item>出口112道</item>
     </string-array>
 
     <string-array name="is_green">
@@ -94,8 +96,8 @@
     </string-array>
 
     <string-array name="channel_type">
-        <item>省绿</item>
         <item>国绿</item>
+        <item>非国绿</item>
     </string-array>
 
     <string-array name="toll_collector">
@@ -136,5 +138,15 @@
         <item>0450103047</item>
         <item>0450103048</item>
         <item>0450103049</item>
+    </string-array>
+
+    <string-array name="reason_array">
+        <item>目录以外</item>
+        <item>载重未达80%以上</item>
+        <item>容积未达80%以上</item>
+        <item>混装农产品20%以上</item>
+        <item>超载5%以上</item>
+        <item>深加工</item>
+        <item>故意混装</item>
     </string-array>
 </resources>

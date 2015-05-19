@@ -62,6 +62,7 @@ public class ArchiveRequest extends Thread {
         params.put("historyRecord.leader.id", String.valueOf(entity.leaderId));
         params.put("historyRecord.tollCollector", String.valueOf(entity.tollCollector));
         params.put("historyRecord.channelType", entity.channelType);
+        params.put("historyRecord.affectationDesc", String.valueOf(entity.reason));
         return params;
     }
 

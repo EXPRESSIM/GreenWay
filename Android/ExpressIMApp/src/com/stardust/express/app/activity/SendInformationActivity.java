@@ -14,10 +14,7 @@ import com.stardust.express.app.R;
 import com.stardust.express.app.activity.widget.DateTimePickerDialog;
 import com.stardust.express.app.db.SQLiteManager;
 import com.stardust.express.app.db.dao.HistoryRecordDao;
-import com.stardust.express.app.entity.GoodsNameEntity;
-import com.stardust.express.app.entity.HistoryRecordEntity;
-import com.stardust.express.app.entity.StationEntity;
-import com.stardust.express.app.entity.UserEntity;
+import com.stardust.express.app.entity.*;
 import com.stardust.express.app.http.StringResponseListener;
 import com.stardust.express.app.request.ArchiveRequest;
 import com.stardust.express.app.request.LeaderLogonRequest;
@@ -55,10 +52,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private TextView videoPath;
     private Spinner isGreenSpinner;
     private Spinner tollCollectorSpinner;
+    private Spinner reasonSpinner;
     private EditText adjustAmount;
     private Spinner channelTypeSpinner;
     private LinearLayout adjustAmountLayout;
     private LinearLayout goodsNameLayout;
+    private LinearLayout reasonLayout;
 
     private static final int TAKE_PICTURE = 400;
     private static final int RECORD_VIDEO = 500;
@@ -68,6 +67,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private String videoFileName;
     private int takePictureIdx;
     private static List<GoodsNameEntity> goodsNameList;
+    private static List<KeyValuePair> reasonList;
 
     private ArrayAdapter<String> provinceAdapter;
     private ArrayAdapter<String> letterAdapter;
@@ -79,6 +79,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private ArrayAdapter<String> channelTypeAdapter;
     private ArrayAdapter<String> tollCollectorAdapter;
     private UserEntity logonOperatorEntity;
+    private ArrayAdapter<KeyValuePair> reasonAdapter;
 
     private HistoryRecordDao historyRecordDao;
 
@@ -121,6 +122,8 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         adjustAmountLayout = (LinearLayout) findViewById(R.id.adjust_amount_layout);
         goodsNameLayout = (LinearLayout) findViewById(R.id.goods_name_layout);
         channelTypeSpinner = (Spinner) findViewById(R.id.channel_type);
+        reasonSpinner = (Spinner) findViewById(R.id.reason);
+        reasonLayout = (LinearLayout) findViewById(R.id.reason_layout);
 
         findViewById(R.id.submit_button).setOnClickListener(this);
         findViewById(R.id.reset_button).setOnClickListener(this);
@@ -134,7 +137,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                     Calendar calendar = Calendar.getInstance();
                     final int year = calendar.get(Calendar.YEAR);
-                    final int monthOfYear = calendar.get(Calendar.MONTH);
+                    final int monthOfYear = calendar.get(Calendar.MONTH) + 1;
                     final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
                     final int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
                     final int minute = calendar.get(Calendar.MINUTE);
@@ -163,9 +166,13 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                 if (item.equals("是")) {
                     adjustAmountLayout.setVisibility(View.GONE);
                     goodsNameLayout.setVisibility(View.VISIBLE);
+                    channelTypeSpinner.setSelection(0);
+                    reasonLayout.setVisibility(View.GONE);
                 } else {
                     adjustAmountLayout.setVisibility(View.VISIBLE);
                     goodsNameLayout.setVisibility(View.GONE);
+                    channelTypeSpinner.setSelection(1);
+                    reasonLayout.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -197,6 +204,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         initIsGreenSpinner();
         initChannelTypeSpinner();
         initTollCollectorSpinner();
+        initReasonSpinner();
+    }
+
+    private void initReasonSpinner() {
+        reasonAdapter = new ArrayAdapter<KeyValuePair>(this, android.R.layout.simple_spinner_dropdown_item, reasonList);
+        reasonSpinner.setAdapter(reasonAdapter);
     }
 
     private void initTollCollectorSpinner() {
@@ -271,6 +284,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                         ToastUtils.showToastAtCenter(SendInformationActivity.this, "网络未链接，提交数据已保存，请在网络恢复后再次提交。");
                         HistoryRecordEntity entity = getHistoryRecordEntity(-1, false);
                         historyRecordDao.save(entity);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                resetComponents();
+                            }
+                        });
                     }
                 }
                 break;
@@ -391,6 +410,13 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         } else {
             entity.isCommit = false;
             historyRecordDao.save(entity);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    resetComponents();
+                    ToastUtils.showToastAtCenter(SendInformationActivity.this, "网络未链接，提交数据已保存，请在网络恢复后再次提交。");
+                }
+            });
         }
     }
 
@@ -418,6 +444,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         entity.tollCollector = tollCollectorSpinner.getSelectedItem().toString();//收费员工号
         entity.channelType = channelTypeSpinner.getSelectedItem().toString();
         entity.operatorName = SharedUtil.getString(this, Constants.SHARED_KEY.name);//操作员名称
+        entity.reason = ((KeyValuePair) reasonSpinner.getSelectedItem()).key;
         return entity;
     }
 
@@ -433,17 +460,17 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         }
 
         if (carBackImage.getTag() == null) {
-            ToastUtils.showToastAtCenter(this, "请添加车尾照片");
-            return false;
-        }
-
-        if (goodsImage.getTag() == null) {
             ToastUtils.showToastAtCenter(this, "请添加货物照片");
             return false;
         }
 
+        if (goodsImage.getTag() == null) {
+            ToastUtils.showToastAtCenter(this, "请添加其他照片");
+            return false;
+        }
+
         if (!StringUtils.isNotNull(dateTime.getText().toString())) {
-            ToastUtils.showToastAtCenter(this, "请输入入站时间");
+            ToastUtils.showToastAtCenter(this, "请输入出站时间");
             return false;
         }
 
@@ -795,5 +822,14 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         eggs.children.add(new GoodsNameEntity(157, "新鲜的家畜肉和家禽肉"));
         eggs.children.add(new GoodsNameEntity(158, "新鲜奶"));
         goodsNameList.add(eggs);
+
+        reasonList = new ArrayList<KeyValuePair>();
+        reasonList.add(new KeyValuePair(1, "目录以外"));
+        reasonList.add(new KeyValuePair(2, "载重未达80%以上"));
+        reasonList.add(new KeyValuePair(3, "容积未达80%以上"));
+        reasonList.add(new KeyValuePair(4, "混装农产品20%以上"));
+        reasonList.add(new KeyValuePair(5, "超载5%以上"));
+        reasonList.add(new KeyValuePair(6, "深加工"));
+        reasonList.add(new KeyValuePair(7, "故意混装"));
     }
 }
