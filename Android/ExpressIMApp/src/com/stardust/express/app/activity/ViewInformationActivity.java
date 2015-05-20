@@ -39,7 +39,7 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
     private TextView isGreenTextView;
     private TextView tollCollectorTextView;
     private TextView adjustAmount;
-    private TextView channelTypeTextView;
+//    private TextView channelTypeTextView;
     private TextView reasonTextView;
     private LinearLayout adjustAmountLayout;
     private LinearLayout goodsNameLayout;
@@ -76,7 +76,7 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
         adjustAmount = (TextView) findViewById(R.id.adjust_amount);
         adjustAmountLayout = (LinearLayout) findViewById(R.id.adjust_amount_layout);
         goodsNameLayout = (LinearLayout) findViewById(R.id.goods_name_layout);
-        channelTypeTextView = (TextView) findViewById(R.id.channel_type);
+//        channelTypeTextView = (TextView) findViewById(R.id.channel_type);
         reasonTextView = (TextView) findViewById(R.id.reason);
         reasonLayout = (LinearLayout) findViewById(R.id.reason_layout);
         submitButton = (Button) findViewById(R.id.submit_button);
@@ -115,7 +115,7 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
         isGreenTextView.setText(historyRecordEntity.isGreen ? "是" : "否");
         tollCollectorTextView.setText(historyRecordEntity.tollCollector);
         adjustAmount.setText(historyRecordEntity.adjustAmount);
-        channelTypeTextView.setText(historyRecordEntity.channelType);
+//        channelTypeTextView.setText(historyRecordEntity.channelType);
         reasonTextView.setText(getResources().getStringArray(R.array.reason_array)[(historyRecordEntity.reason - 1)]);
 
         if (historyRecordEntity.isGreen) {

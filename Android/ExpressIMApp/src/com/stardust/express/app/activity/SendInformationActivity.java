@@ -54,7 +54,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private Spinner tollCollectorSpinner;
     private Spinner reasonSpinner;
     private EditText adjustAmount;
-    private Spinner channelTypeSpinner;
+    //    private Spinner channelTypeSpinner;
     private LinearLayout adjustAmountLayout;
     private LinearLayout goodsNameLayout;
     private LinearLayout reasonLayout;
@@ -76,7 +76,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private ArrayAdapter<GoodsNameEntity> goodsNameAdapter;
     private ArrayAdapter<String> channelAdapter;
     private ArrayAdapter<String> isGreenAdapter;
-    private ArrayAdapter<String> channelTypeAdapter;
+    //    private ArrayAdapter<String> channelTypeAdapter;
     private ArrayAdapter<String> tollCollectorAdapter;
     private UserEntity logonOperatorEntity;
     private ArrayAdapter<KeyValuePair> reasonAdapter;
@@ -121,7 +121,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         adjustAmount = (EditText) findViewById(R.id.adjust_amount);
         adjustAmountLayout = (LinearLayout) findViewById(R.id.adjust_amount_layout);
         goodsNameLayout = (LinearLayout) findViewById(R.id.goods_name_layout);
-        channelTypeSpinner = (Spinner) findViewById(R.id.channel_type);
+//        channelTypeSpinner = (Spinner) findViewById(R.id.channel_type);
         reasonSpinner = (Spinner) findViewById(R.id.reason);
         reasonLayout = (LinearLayout) findViewById(R.id.reason_layout);
 
@@ -166,12 +166,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                 if (item.equals("是")) {
                     adjustAmountLayout.setVisibility(View.GONE);
                     goodsNameLayout.setVisibility(View.VISIBLE);
-                    channelTypeSpinner.setSelection(0);
+//                    channelTypeSpinner.setSelection(0);
                     reasonLayout.setVisibility(View.GONE);
                 } else {
                     adjustAmountLayout.setVisibility(View.VISIBLE);
                     goodsNameLayout.setVisibility(View.GONE);
-                    channelTypeSpinner.setSelection(1);
+//                    channelTypeSpinner.setSelection(1);
                     reasonLayout.setVisibility(View.VISIBLE);
                 }
             }
@@ -202,7 +202,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         initCarTypeSpinner();
         initStationChannelSpinner();
         initIsGreenSpinner();
-        initChannelTypeSpinner();
+//        initChannelTypeSpinner();
         initTollCollectorSpinner();
         initReasonSpinner();
     }
@@ -217,10 +217,10 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         tollCollectorSpinner.setAdapter(tollCollectorAdapter);
     }
 
-    private void initChannelTypeSpinner() {
-        channelTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.channel_type));
-        channelTypeSpinner.setAdapter(channelTypeAdapter);
-    }
+//    private void initChannelTypeSpinner() {
+//        channelTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.channel_type));
+//        channelTypeSpinner.setAdapter(channelTypeAdapter);
+//    }
 
     private void initIsGreenSpinner() {
         isGreenAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.is_green));
@@ -442,9 +442,15 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         entity.operatorId = SharedUtil.getLong(this, Constants.SHARED_KEY.uid);//操作员Id
         entity.leaderId = id;//审核员Id
         entity.tollCollector = tollCollectorSpinner.getSelectedItem().toString();//收费员工号
-        entity.channelType = channelTypeSpinner.getSelectedItem().toString();
+        if (entity.isGreen) {
+            entity.channelType = getResources().getStringArray(R.array.channel_type)[0];
+            entity.reason = 0;
+        } else {
+            entity.channelType = getResources().getStringArray(R.array.channel_type)[1];
+            entity.reason = ((KeyValuePair) reasonSpinner.getSelectedItem()).key;
+        }
+//        = channelTypeSpinner.getSelectedItem().toString();
         entity.operatorName = SharedUtil.getString(this, Constants.SHARED_KEY.name);//操作员名称
-        entity.reason = ((KeyValuePair) reasonSpinner.getSelectedItem()).key;
         return entity;
     }
 
