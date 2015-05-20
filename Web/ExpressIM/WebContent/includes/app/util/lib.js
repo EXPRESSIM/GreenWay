@@ -1697,7 +1697,7 @@ ExpressIM.UIComponent.DataGridFormater.Money2 = function(val, row) {
 };
 
 ExpressIM.UIComponent.DataGridFormater.CommentFull = function(val, row){
-	if (row.affectationDesc != 0) {
+	if (row.affectationDesc != 0 && row.isAffectation) {
 		var result = "";
 		var v = row.affectationDesc;
 		v = v.toString();
