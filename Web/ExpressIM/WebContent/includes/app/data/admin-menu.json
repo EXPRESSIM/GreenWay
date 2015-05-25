@@ -10,7 +10,8 @@
 		{
 		    text: "记录查询",
 		    items: [
-				{ text: "稽查记录查询", view: "History" }
+				{ text: "稽查记录查询", view: "History" },
+				{ text: "稽查记录录入", view: "HistoryMaintenance" }
 			],
 		    isRoot: true
 		},
