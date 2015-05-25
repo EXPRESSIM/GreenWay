@@ -45,6 +45,25 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
             fields: this._fields
         });
     	
+    	
+    	 this.find("isAffectation").combobox({
+             onChange: (function (newValue, oldValue) {
+                 if (newValue.toString() == "false") {
+                	 $('#adjRow').hide();
+                	 $('#reasonRow').hide();
+                	 $('#freeRow').show();
+                	 this._setFieldValue(this.find("adjustAmount"),0);
+                	 this._setFieldValue(this.find("affectationDesc"),1);
+                 } else {
+                	 $('#adjRow').show();
+                	 $('#freeRow').hide();
+                	 $('#reasonRow').show();
+                	 this._setFieldValue(this.find("amount"),0);
+                	 this._setFieldValue(this.find("affectationDesc"),1);
+                 }
+             }).bind(this)
+         });
+    	
     	this._tollCollectorLookup.on("OnPreLookup", this, function (ctx) {
     		 ctx.params.tollCollectorOnly = "true";
     	});
@@ -130,6 +149,8 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
         this.find('maint-btn-cancel').click((function(){
         	this.getTask().terminate();
         }).bind(this));
+        
+        this._setFieldValue(this.find("isAffectation"), "false");
     },
     
     _preCheckForm: function() {

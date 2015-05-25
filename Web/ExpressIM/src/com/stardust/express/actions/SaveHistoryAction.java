@@ -37,6 +37,7 @@ public class SaveHistoryAction extends ActionExecutor{
 		if (context.getSession().get("logon_user") == null) return ERROR;
 		HistoryRecord hr = new HistoryRecord(context);
 		hr.setVehicleNumber(context.getString("district")+context.getString("grp")+context.getString("number"));
+		hr.setChannelType(hr.getIsAffectation() ? "非国绿" : "国绿" );
 		IHistoryRecordGate gate = DataGateFactory.getHistoryRecordGate(context.getString("datasource"));
 		gate.update(hr);
 		if (hr.getId() <= 0) {

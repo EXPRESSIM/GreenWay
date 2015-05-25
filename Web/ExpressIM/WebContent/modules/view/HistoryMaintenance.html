@@ -137,15 +137,40 @@
 	        	</td>
 	        </tr>
 	        <tr>
-	        	<td>放行方式:</td>
+	        	<td>是否绿通:</td>
 	        	<td>
-	        		<select class="easyui-combobox" style="height:20px;width:150px;" data-options="editable:false,required:true" data-index="channelType" data-field="channelType" data-property="channelType" >
-                		    <option value="国绿">国绿</option>
-		                    <option value="非国绿">非国绿</option>
+                	<select class="easyui-combobox" style="height:20px;width:150px;" data-options="editable:false,required:true" data-index="isAffectation" data-field="isAffectation" data-property="isAffectation" >
+                		  <option value="false">是</option>
+		                  <option value="true">否</option>
                 	</select>
 	        	</td>
 	        </tr>
-	        
+	        <tr id="freeRow">
+	        	<td>免缴金额:</td>
+	        	<td>
+	        		<input class="easyui-numberbox"  data-index="amount" data-field="amount" data-property="amount" type="text" min="0" max="99999" precision="2"   style="width:100px;"></input>
+	        	</td>
+	        </tr>
+	        <tr id="adjRow" style="display:none;">
+	        	<td>追缴金额:</td>
+	        	<td>
+	        		<input class="easyui-numberbox"  data-index="adjustAmount" data-field="adjustAmount" data-property="adjustAmount" type="text" min="0" max="99999" precision="2"   style="width:100px;"></input>
+	        	</td>
+	        </tr>
+	        <tr id="reasonRow" style="display:none;">
+	        	<td>原因:</td>
+	        	<td>
+	        		<select class="easyui-combobox" style="height:20px;width:150px;" data-options="editable:false,required:false" data-index="affectationDesc" data-field="affectationDesc" data-property="affectationDesc" >
+                		  <option value="1">目录以外</option>
+		                  <option value="2">载重未达80%以上</option>
+		                  <option value="3">容积未达80%以上</option>
+		                  <option value="4">混装农产品20%以上</option>
+		                  <option value="5">超载5%以上</option>
+		                  <option value="6">深加工</option>
+		                  <option value="7">故意混装</option>
+                	</select>
+	        	</td>
+	        </tr>
 	        <tr>
 	        	<td>备注:</td>
 	        	<td>
