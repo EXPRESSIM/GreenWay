@@ -151,6 +151,7 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
         }).bind(this));
         
         this._setFieldValue(this.find("isAffectation"), "false");
+        this._setFieldValue(this.find("amount"), "0.00");
     },
     
     _preCheckForm: function() {

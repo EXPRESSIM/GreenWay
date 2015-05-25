@@ -905,7 +905,7 @@ ExpressIM.Controller.prototype = Class.extend({
             this.getEventDelegate().parseEvents(this.getTask().taskIdx);
             this.__bindEvents();
             $("textarea[class=richeditor]").cleditor({width:550,height:300});
-            $('input[class="uploadify-box"]').uploadify({'buttonText':"选择文件"});
+            //$('input[class="uploadify-box"]').uploadify({'buttonText':"选择文件"});
             this._reset();
         }).bind(this));
 
