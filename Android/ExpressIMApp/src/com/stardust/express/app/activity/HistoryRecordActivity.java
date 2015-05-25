@@ -12,6 +12,7 @@ import com.stardust.express.app.R;
 import com.stardust.express.app.adapter.HistoryRecordAdapter;
 import com.stardust.express.app.db.dao.HistoryRecordDao;
 import com.stardust.express.app.entity.HistoryRecordEntity;
+import com.stardust.express.app.utils.CacheFileUtils;
 
 import java.util.List;
 
@@ -89,6 +90,7 @@ public class HistoryRecordActivity extends BaseActivity {
                 historyRecordDao.clear();
                 adapter.getData().clear();
                 adapter.notifyDataSetChanged();
+                CacheFileUtils.cleanExternalFiles(this);
                 break;
         }
         return super.onOptionsItemSelected(item);

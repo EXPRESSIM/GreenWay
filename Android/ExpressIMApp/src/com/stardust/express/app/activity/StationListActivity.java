@@ -173,6 +173,7 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("渭南北"));
         stationList.add(new StationEntity("吝店"));
         stationList.add(new StationEntity("卤阳湖"));
+        stationList.add(new StationEntity("蒲城"));
         stationList.add(new StationEntity("蒲城东"));
         stationList.add(new StationEntity("茶镇"));
         stationList.add(new StationEntity("午子山"));
