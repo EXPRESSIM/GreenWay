@@ -74,6 +74,9 @@
         <action name="summaryReport" class="com.stardust.express.actions.SummaryReportAction" method="fetch">
             <result name="success" type="json"></result>
         </action>
+        <action name="uploadsnap" class="com.stardust.express.actions.UploadAction" method="upload">
+            <result name="success" type="json"></result>
+        </action>
     </package>
 
     <package name="web-interface" extends="json-default" namespace="/web-interface">

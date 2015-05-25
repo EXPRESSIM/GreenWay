@@ -77,22 +77,22 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
             dataType: 'text'
         });
     	
-    	this.find("fileBttn").click(
-           (function () {
-               var btn = this.find('fileupload')[0];
-               var url = "test";
-               this.find('fileupload').fileupload(
-                        'option',
-                        'url',
-                        url
-                );
-               btn.click();
+        for (var i = 1; i <= 4; i++) {
+        	this.find("add_img_" + i).click(
+	           (function () {
+	               var btn = this.find('fileupload')[0];
+	               var url = "uploadsnap?imageIdx=" + i;
+	               this.find('fileupload').fileupload(
+	                        'option',
+	                        'url',
+	                        url
+	                );
+	               btn.click();
 
-           }).bind(this)
-        );
-
-
-    	
+	           }).bind(this)
+	        );
+        }
+        
         this.on("OnCreateNew", this, (function (ctx) {
             
         }));
