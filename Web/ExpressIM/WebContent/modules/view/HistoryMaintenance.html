@@ -151,6 +151,13 @@
 	        		<input class="easyui-numberbox"  data-index="amount" data-field="amount" data-property="amount" type="text" min="0" max="99999" precision="2"   style="width:100px;"></input>
 	        	</td>
 	        </tr>
+	        <tr id="goodsRow">
+	        	<td>货物类型:</td>
+	        	<td>
+	        		<select class="easyui-combobox" style="height:20px;width:200px;" data-options="editable:true,required:true,valueField:'value', textField:'text',groupField:'group',url:'includes/app/data/goodsType.json'" data-index="merchandiseType" data-field="merchandiseType" data-property="merchandiseType" >
+                	</select>
+	        	</td>
+	        </tr>
 	        <tr id="adjRow" style="display:none;">
 	        	<td>追缴金额:</td>
 	        	<td>

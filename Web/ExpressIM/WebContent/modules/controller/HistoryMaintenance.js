@@ -52,12 +52,16 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
                 	 $('#adjRow').hide();
                 	 $('#reasonRow').hide();
                 	 $('#freeRow').show();
+                	 $('#goodsRow').show();
                 	 this._setFieldValue(this.find("adjustAmount"),"0.00");
                 	 this._setFieldValue(this.find("affectationDesc"),1);
+                	 this._setFieldValue(this.find("merchandiseType"),"");
                  } else {
                 	 $('#adjRow').show();
                 	 $('#freeRow').hide();
                 	 $('#reasonRow').show();
+                	 $('#goodsRow').hide();
+                	 this._setFieldValue(this.find("merchandiseType"),"");
                 	 this._setFieldValue(this.find("amount"),"0.00");
                 	 this._setFieldValue(this.find("affectationDesc"),1);
                  }
