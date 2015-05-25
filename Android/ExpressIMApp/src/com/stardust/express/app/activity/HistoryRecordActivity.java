@@ -1,5 +1,7 @@
 package com.stardust.express.app.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -87,10 +89,16 @@ public class HistoryRecordActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 0:
-                historyRecordDao.clear();
-                adapter.getData().clear();
-                adapter.notifyDataSetChanged();
-                CacheFileUtils.cleanExternalFiles(this);
+                new AlertDialog.Builder(this).setTitle("提示").setMessage("确认清空所有数据？").setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        historyRecordDao.clear();
+                        adapter.getData().clear();
+                        adapter.notifyDataSetChanged();
+                        CacheFileUtils.cleanExternalFiles(HistoryRecordActivity.this);
+                    }
+                }).setNegativeButton("取消", null).create().show();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
