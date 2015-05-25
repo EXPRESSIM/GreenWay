@@ -48,14 +48,20 @@ public class UploadAction extends  ActionExecutor {
 	public String upload(){
 		String realpath = ServletActionContext.getServletContext().getRealPath("/upload/snapshoot");
         if (file != null) {
-        	filename = new Date().getTime() + "_" + UUID.randomUUID().toString() + this.fileFileName; 
-        	try {
-            File savefile = new File(new File(realpath), filename);
-            if (!savefile.getParentFile().exists())
-                savefile.getParentFile().mkdirs();
-            FileUtils.copyFile(file, savefile);
-        	} catch (Exception e) {
-        		filename = "";
+        	if (this.fileFileName.toLowerCase().endsWith("png")
+        		|| this.fileFileName.toLowerCase().endsWith("jpeg") 
+        		|| this.fileFileName.toLowerCase().endsWith("jpg")
+        		|| this.fileFileName.toLowerCase().endsWith("bmp")
+        		|| this.fileFileName.toLowerCase().endsWith("gif")) {
+	        	filename = new Date().getTime() + "_" + UUID.randomUUID().toString() + this.fileFileName; 
+	        	try {
+	            File savefile = new File(new File(realpath), filename);
+	            if (!savefile.getParentFile().exists())
+	                savefile.getParentFile().mkdirs();
+	            FileUtils.copyFile(file, savefile);
+	        	} catch (Exception e) {
+	        		filename = "";
+	        	}
         	}
         }
 		return SUCCESS;

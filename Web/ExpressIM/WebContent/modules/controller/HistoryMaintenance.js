@@ -79,7 +79,10 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
     	
         for (var i = 1; i <= 4; i++) {
         	this.find("add_img_" + i).click(
-	           (function () {
+	           (function (event) {
+	        	   var target = event.target;
+	        	   this.snapshootIdx = $(target).attr("data-index").split("_")[2];
+	        	   if (!this.snapshootIdx || this.snapshootIdx < 1) return;
 	               var btn = this.find('fileupload')[0];
 	               var url = "uploadsnap?imageIdx=" + i;
 	               this.find('fileupload').fileupload(
@@ -93,13 +96,100 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
 	        );
         }
         
-        this.on("OnCreateNew", this, (function (ctx) {
+        this.find('fileupload').bind('fileuploadstart', (function (event) {
+            this._uploadMsg = new ExpressIM.UIComponent.LoadingMask({});
+            this._uploadMsg.render();
+        }).bind(this)).bind('fileuploaddone', (function (event, data) {
+            this._uploadMsg.destroy();
+            this._uploadMsg = null;
+            data = data.result;
+            try {
+            	var json = eval("(" + data + ")");
+            	if (json.filename.length > 0) {
+                    this._setFieldValue(this.find("snapshoot" + this.snapshootIdx), "upload/snapshoot/" + json.filename);
+                    this.find("add_img_" + this.snapshootIdx).attr("src", "upload/snapshoot/" + json.filename);
+            	} else {
+            		$.messager.alert('错误', "上传失败,上传只支持gif,png,bmp,jpg,jpeg等图片格式", 'error', function(){
+                        
+                    });
+            	}
+                this.snapshootIdx = 0;
+            } catch (e) {
+            	this.snapshootIdx = 0;
+            	 $.messager.alert('错误', "上传失败,上传只支持gif,png,bmp,jpg,jpeg等图片格式", 'error', function(){
+                    
+                 });
+            }
             
-        }));
-
-        this.on("OnReset", this, (function (ctx) {
-          
-        }));
+        }).bind(this));
+        
+        this.find('maint-btn-save').click((function(){
+        	this._save();
+        }).bind(this));
+        
+        this.find('maint-btn-cancel').click((function(){
+        	this.getTask().terminate();
+        }).bind(this));
+    },
+    
+    _preCheckForm: function() {
+        var fields = this.findWithExp("*[data-options*=required\\:true]");
+        for (var i = 0; i < fields.length;i++) {
+             if (this._getFieldValue($(fields[i])) == "") return false;
+        }
+        return true;
+    },
+    
+    _save: function(){
+    	if (this._preCheckForm()) {
+    		var fields = this.findWithExp("*[data-property]");
+    		var data = {};
+    		for (var i = 0; i < fields.length; i++) {
+    			var field = $(fields[i]);
+    			var property = field.attr('data-property');
+    			var value = this._getFieldValue(field);
+    			data[property] = value;
+    		}
+    		
+    		this._msg = new ExpressIM.UIComponent.LoadingMask({});
+            this._msg.render();
+            $.ajax({
+                type: "post",
+                url: "saveHistory",
+                data: data,
+                success: (function (data, textStatus) {
+                   if (data.result == "success") {
+                	   $.messager.alert('信息', "保存成功", 'message', function(){
+                           
+                       });
+                	   this._clearFields();
+                   } else {
+                	   $.messager.alert('错误', "保存失败", 'error', function(){
+                           
+                       });
+                   }
+                }).bind(this),
+                complete: (function (XMLHttpRequest, textStatus) {
+                	 this._msg.destroy();
+                     this._msg = null;
+                }).bind(this)
+            });
+    	} else {
+    		$.messager.alert('错误', "请填写所有必须的字段", 'error', function(){
+                
+            });
+    	}
+    },
+    
+    _clearFields: function(){
+    	var fields = this.findWithExp("*[data-property]");
+		for (var i = 0; i < fields.length; i++) {
+			var field = $(fields[i]);
+			this._setFieldValue(field, "");
+		}
+		for (var j=1;j<=4;j++) {
+			 this.find("add_img_" + j).attr("src", "resource/images/add_image.png");
+		}
     }
 }, ExpressIM.Controller.prototype);
 
