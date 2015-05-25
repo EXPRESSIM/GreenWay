@@ -162,7 +162,7 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
     _preCheckForm: function() {
         var fields = this.findWithExp("*[data-options*=required\\:true]");
         for (var i = 0; i < fields.length;i++) {
-        	 if ($(fields[i]).attr('data-index') == 'merchandiseType' && this._getFieldValue($(fields[i])) == "false") continue;
+        	 if ($(fields[i]).attr('data-index') == 'merchandiseType' && this._getFieldValue(this.find("isAffectation")) == "true") continue;
              if (this._getFieldValue($(fields[i])) == "") return false;
         }
         return true;
