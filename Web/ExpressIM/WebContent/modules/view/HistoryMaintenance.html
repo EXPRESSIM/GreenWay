@@ -1,4 +1,4 @@
-﻿<div style="padding:10px 60px 20px 60px;width:330px;height:320px;">
+﻿<div style="padding:10px 10px 10px 10px;width:430px;height:320px;">
 	<div style="width:100%;height:280px;overflow-y:auto;">
 	
 	    <table cellpadding="5">
@@ -61,6 +61,96 @@
 	            	</tr>
 	            </table>
 	            </td>
+	        </tr>
+	        <tr>
+	        	<td>车牌号:</td>
+	        	<td>
+	        		<select class="easyui-combobox" style="height:20px;width:40px;" data-options="editable:true,required:true,valueField:'value',url:'includes/app/data/districts.json'" data-index="district" data-field="district" data-property="district" >
+                	</select>
+                	<select class="easyui-combobox" style="height:20px;width:40px;" data-options="editable:true,required:true" data-index="grp" data-field="grp" data-property="grp" >
+                		 <option value="A">A</option>
+                		 <option value="B">B</option>
+                		 <option value="C">C</option>
+                		 <option value="D">D</option>
+                		 <option value="E">E</option>
+                		 <option value="F">F</option>
+                		 <option value="G">G</option>
+                		 <option value="H">H</option>
+                		 <option value="I">I</option>
+                		 <option value="J">J</option>
+                		 <option value="K">K</option>
+                		 <option value="L">L</option>
+                		 <option value="M">M</option>
+                		 <option value="N">N</option>
+                		 <option value="O">O</option>
+                		 <option value="P">P</option>
+                		 <option value="Q">Q</option>
+                		 <option value="R">R</option>
+                		 <option value="S">S</option>
+                		 <option value="T">T</option>
+                		 <option value="U">U</option>
+                		 <option value="V">V</option>
+                		 <option value="W">W</option>
+                		 <option value="X">X</option>
+                		 <option value="Y">Y</option>
+                		 <option value="Z">Z</option>
+                	</select>
+                	<input data-index="number" data-property="number"  data-field="number" class="easyui-textbox" style="width:100px" data-options="required:true,missingMessage:'该字段不能为空'">
+                </td>
+	        </tr>
+	        <tr>
+	        	<td>入口站名:</td>
+	        	<td>
+	        		<select class="easyui-combobox" style="height:20px;width:150px;" data-options="editable:true,required:true,valueField:'value',url:'includes/app/data/gate.json'" data-index="entranceGateway" data-field="entranceGateway" data-property="entranceGateway" >
+                	</select>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<td>车抽数:</td>
+	        	<td>
+	        		<select class="easyui-combobox" style="height:20px;width:150px;" data-options="editable:false,required:true" data-index="vehicleType" data-field="vehicleType" data-property="vehicleType" >
+                		  <option value="二轴">二轴</option>
+		                  <option value="三轴">三轴</option>
+		                  <option value="四轴">四轴</option>
+		                  <option value="五轴">五轴</option>
+		                  <option value="六轴">六轴</option>
+                	</select>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<td>通道:</td>
+	        	<td>
+	        		<select class="easyui-combobox" style="height:20px;width:150px;" data-options="editable:false,required:true" data-index="channel" data-field="channel" data-property="channel" >
+                		    <option value="出口101道">出口101道</option>
+		                    <option value="出口102道">出口102道</option>
+		                    <option value="出口103道">出口103道</option>
+		                    <option value="出口104道">出口104道</option>
+		                    <option value="出口105道">出口105道</option>
+		                    <option value="出口106道">出口106道</option>
+		                    <option value="出口107道">出口107道</option>
+		                    <option value="出口108道">出口108道</option>
+		                    <option value="出口109道">出口109道</option>
+		                    <option value="出口110道">出口110道</option>
+		                    <option value="出口111道">出口111道</option>
+		                    <option value="出口112道">出口112道</option>
+                	</select>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<td>放行方式:</td>
+	        	<td>
+	        		<select class="easyui-combobox" style="height:20px;width:150px;" data-options="editable:false,required:true" data-index="channelType" data-field="channelType" data-property="channelType" >
+                		    <option value="国绿">国绿</option>
+		                    <option value="非国绿">非国绿</option>
+                	</select>
+	        	</td>
+	        </tr>
+	        
+	        <tr>
+	        	<td>备注:</td>
+	        	<td>
+	        		<input class="easyui-textbox"  data-index="comment" data-property="comment"  data-field="comment" type="text"  style="width:250px;" data-options="multiline:true,height:100,width:250" ></input>
+	        	</td>
 	        </tr>
 	    </table>
     </div>

@@ -35,6 +35,7 @@ public class SaveHistoryAction extends ActionExecutor{
 	
 	public String save() {
 		HistoryRecord hr = new HistoryRecord(context);
+		hr.setVehicleNumber(context.getString("district")+context.getString("grp")+context.getString("number"));
 		IHistoryRecordGate gate = DataGateFactory.getHistoryRecordGate(context.getString("datasource"));
 		gate.update(hr);
 		if (hr.getId() <= 0) {
