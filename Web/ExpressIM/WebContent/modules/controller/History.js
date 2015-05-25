@@ -62,6 +62,8 @@ ExpressIM.HistoryController.prototype = Class.extend({
             	this.grid.datagrid('reload');
             }).bind(this)
         });
+    	
+    	$('#' + this.getTask().taskIdx).window("maximize");
     },
     
     showDetailForm: function(row){
