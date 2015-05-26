@@ -44,7 +44,7 @@ public class HistoryAction extends ActionExecutor {
 		String channelType = context.getString("channelType");
 		
 		List<Selection> selections = new ArrayList<Selection>();
-		if (startDate != null && !endDate.isEmpty()) {
+		if (startDate != null && !startDate.isEmpty()) {
 			selections.add(new Selection("date", Operator.GEATER_EQUAL, startDate, "startdate"));
 		}
 		
