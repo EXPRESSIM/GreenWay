@@ -71,10 +71,10 @@ ExpressIM.ListReportController.prototype = Class.extend({
     	var timeStart = "00:00:00";
     	var timeEnd = "00:00:00";
     	if (this._getFieldValue(this.find("grp")) == "早班") {
-    		timeStart = "08:00:01";
+    		timeStart = "08:01:00";
     		timeEnd = "20:00:00";
     	} else {
-    		timeStart = "20:00:01";
+    		timeStart = "20:01:00";
     		timeEnd = "08:00:00";
     	}
     	var start = new Date(Date.parse(this._getFieldValue(this.find("theDate"))));

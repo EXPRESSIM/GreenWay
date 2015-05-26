@@ -36,19 +36,19 @@ public class HistoryAction extends ActionExecutor {
 		int pageSize = context.getInt("rows");
 		int start = (context.getInt("page")-1) * pageSize;
 		String sortBy = context.getString("sortBy");
-		Date startDate = context.getDate("startDate", null);
-		Date endDate = context.getDate("endDate", null);
+		String startDate = context.getString("startDate", null);
+		String endDate = context.getString("endDate", null);
 		String vehicleNumber = context.getString("vehicleNumber");
 		String vehicleType = context.getString("vehicleType");
 		String channel = context.getString("channel");
 		String channelType = context.getString("channelType");
 		
 		List<Selection> selections = new ArrayList<Selection>();
-		if (startDate != null) {
+		if (startDate != null && !endDate.isEmpty()) {
 			selections.add(new Selection("date", Operator.GEATER_EQUAL, startDate, "startdate"));
 		}
 		
-		if (endDate != null) {
+		if (endDate != null && !endDate.isEmpty()) {
 			if (selections.size() > 0) {
 				selections.add(new Selection("date", Operator.LESS_EQUAL, endDate, Operand.AND));
 			} else {
