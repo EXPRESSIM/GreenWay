@@ -225,6 +225,8 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
 		this._setFieldValue(this.find("channel"),"出口101道");
 		this._setFieldValue(this.find("isAffectation"),"false");
 		this._setFieldValue(this.find("channel"),"出口101道");
+		this._setFieldValue(this.find("adjustAmount"),"0.00");
+		this._setFieldValue(this.find("amount"),"0.00");
     }
 }, ExpressIM.Controller.prototype);
 
