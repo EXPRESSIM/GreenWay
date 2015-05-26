@@ -26,7 +26,14 @@ ExpressIM.ListReportController.prototype = Class.extend({
     	 this._btnRun = this.find("run");
     	 this._btnRun.linkbutton({
              onClick: (function () {
-            	 this.openNewTagWin('modules/reporting/rptList.html');
+            	 if (this._getFieldValue(this.find("theDate")) != "") {
+            		 this.openNewTagWin('modules/reporting/rptList.html');
+            	 } else {
+            		 $.messager.alert('错误', "请选择日期", 'error', function(){
+                         
+                     });
+            	 }
+            	 
             	 // window.open ('modules/reporting/rptList.html' + this._getParams(), 'newwindow', 'height=510px, width=900px, scrollbars=yes, resizable=yes');
              }).bind(this)
          });
@@ -47,7 +54,6 @@ ExpressIM.ListReportController.prototype = Class.extend({
          this._endTime.datebox("textbox").bind("focus", (function () {
              this._setFieldValue(this.find("endDate"), "");
          }).bind(this)).bind(this);
-
     },
     
     openNewTagWin: function(url) {
@@ -65,10 +71,10 @@ ExpressIM.ListReportController.prototype = Class.extend({
     	var timeStart = "00:00:00";
     	var timeEnd = "00:00:00";
     	if (this._getFieldValue(this.find("grp")) == "早班") {
-    		timeStart = "08:01:00";
+    		timeStart = "08:00:01";
     		timeEnd = "20:00:00";
     	} else {
-    		timeStart = "20:01:00";
+    		timeStart = "20:00:01";
     		timeEnd = "08:00:00";
     	}
     	var start = new Date(Date.parse(this._getFieldValue(this.find("theDate"))));
