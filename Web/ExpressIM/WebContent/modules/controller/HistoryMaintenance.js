@@ -218,6 +218,13 @@ ExpressIM.HistoryMaintenanceController.prototype = Class.extend({
 		for (var j=1;j<=4;j++) {
 			 this.find("add_img_" + j).attr("src", "resource/images/add_image.png");
 		}
+		
+		this._setFieldValue(this.find("district"),"陕");
+		this._setFieldValue(this.find("grp"),"A");
+		this._setFieldValue(this.find("vehicleType"),"二轴");
+		this._setFieldValue(this.find("channel"),"出口101道");
+		this._setFieldValue(this.find("isAffectation"),"false");
+		this._setFieldValue(this.find("channel"),"出口101道");
     }
 }, ExpressIM.Controller.prototype);
 
