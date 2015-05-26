@@ -10,6 +10,19 @@ ExpressIM.ListReportController.prototype = Class.extend({
     },
     
     _bindEvents: function () {
+	   	 this.find("theDate").datebox({
+			 onSelect: (function(){
+				 this.setDateRange();
+			 }).bind(this)
+		 });
+    	
+	   	this.find("grp").combobox({
+            onChange: (function (newValue, oldValue) {
+            	this.setDateRange();
+            }).bind(this)
+	   	});
+            
+	   	 
     	 this._btnRun = this.find("run");
     	 this._btnRun.linkbutton({
              onClick: (function () {
@@ -25,6 +38,7 @@ ExpressIM.ListReportController.prototype = Class.extend({
              }).bind(this)
          });
     	 
+
     	 this._startTime = this.find("startDate");
          this._startTime.datebox("textbox").bind("focus", (function() {
              this._setFieldValue(this.find("startDate"),"");
@@ -33,6 +47,7 @@ ExpressIM.ListReportController.prototype = Class.extend({
          this._endTime.datebox("textbox").bind("focus", (function () {
              this._setFieldValue(this.find("endDate"), "");
          }).bind(this)).bind(this);
+
     },
     
     openNewTagWin: function(url) {
@@ -41,6 +56,28 @@ ExpressIM.ListReportController.prototype = Class.extend({
     	$("#tagWinContainer").html("<form id='hiddenlink' method ='get' action='"+url+"' target='_blank'>" + params + "</form>");
         var s=document.getElementById("hiddenlink");
         s.submit();
+    },
+    
+    setDateRange: function(){
+    	if (this._getFieldValue(this.find("theDate")) == "") {
+    		return;
+    	}
+    	var timeStart = "00:00:00";
+    	var timeEnd = "00:00:00";
+    	if (this._getFieldValue(this.find("grp")) == "早班") {
+    		timeStart = "08:01:00";
+    		timeEnd = "20:00:00";
+    	} else {
+    		timeStart = "20:01:00";
+    		timeEnd = "08:00:00";
+    	}
+    	var start = new Date(Date.parse(this._getFieldValue(this.find("theDate"))));
+    	var end = new Date(Date.parse(this._getFieldValue(this.find("theDate"))));
+    	if (this._getFieldValue(this.find("grp")) == "晚班") {
+    		end = new Date(end.valueOf() + 1*24*60*60*1000);
+    	}
+    	this.find("startDate").datetimebox("setValue", start.format('yyyy-MM-dd') + ' ' + timeStart);
+    	this.find("endDate").datetimebox("setValue", end.format('yyyy-MM-dd') + ' ' + timeEnd);
     }
 }, ExpressIM.Controller.prototype);
 

@@ -1,4 +1,4 @@
-﻿<div style="padding:10px 20px 20px 20px;width:420px;height:50px;">
+﻿<div style="padding:10px 20px 20px 20px;width:420px;height:150px;">
 	<div>
 		<span style="color:red;">统计操作当数据量较大时,建议时间范围不要选择的过大(建议一个月)</span>
 	</div>
@@ -6,22 +6,33 @@
 		<span style="color:red;">注意:不选择区间范围表示统计所有数据,将会十分缓慢</span>
 	</div>
     <table cellpadding="5">
+    	<tr>
+    		<td>日期</td>
+    		<td><input data-index="theDate" class="easyui-datebox" style="width:140px" editable="false" data-options="sharedCalendar:'#ccc'"></td>
+    		<td>班次</td>
+    		<td>
+    			<select class="easyui-combobox" style="height:20px;width:80px;" data-options="" data-index="grp" data-field="grp" data-property="grp" >
+                		 <option value="早班">早班</option>
+                		 <option value="晚班">晚班</option>
+            	</select>
+            </td>
+    	</tr>
         <tr>
         	<td style="width:60px;">
         		时间&nbsp;从: 
         	</td>
             <td>
-				<input data-index="startDate" class="easyui-datebox" style="width:140px" editable="false" data-options="sharedCalendar:'#cc'">
+				<input data-index="startDate" class="easyui-datetimebox" style="width:140px" editable="false" data-options="disabled:true">
 			</td>
 			<td>
 			&nbsp;到:
 			</td>
 			<td>
-			 <input data-index="endDate" class="easyui-datebox" style="width:140px" editable="false" data-options="sharedCalendar:'#cc'">
+			 <input data-index="endDate" class="easyui-datetimebox" style="width:140px" editable="false" data-options="disabled:true">
 			</td>
         </tr>
     </table>
-    <div id="cc" class="easyui-calendar"></div>
+    <div id="ccc" class="easyui-calendar"></div>
 </div>
 <div style="text-align:center;padding-bottom:20px;">
     <a href="javascript:void(0)" data-index="run" iconCls="icon-ok" class="easyui-linkbutton" style="width:100px;">运行</a>

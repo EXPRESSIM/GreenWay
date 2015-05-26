@@ -34,8 +34,8 @@
             nowrap: false,
             autoRowHeight: true,
             onBeforeLoad: function(params){
-                params.startDate = getUrlParam("startDate") != "" ? getUrlParam("startDate")+ " " + "00:00:00" : "";
-                params.endDate = getUrlParam("endDate") !="" ? getUrlParam("endDate")+ " " + "00:00:00" : "";
+                params.startDate = getUrlParam("startDate") != "" ? getUrlParam("startDate").replace('+', ' ') : "";
+                params.endDate = getUrlParam("endDate") !="" ? getUrlParam("endDate").replace('+', ' ') : "";
             },
             onLoadSuccess: function(data){
             	var container = $('.datagrid-body')[1] ? $('.datagrid-body')[1] : $('.datagrid-body')[0];
