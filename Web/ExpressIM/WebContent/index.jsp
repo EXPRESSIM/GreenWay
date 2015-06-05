@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="resource/images/logo.png"/> 
-<title>高速公路绿色通道稽查综合管理系统</title>
+<title>汉宁高速公路绿色通道稽查综合管理系统</title>
 <style type="text/css">
         .app-background 
         {
@@ -78,7 +78,7 @@
 </head>
 <body class="app-background">
 	<%
-		if (session.getAttribute("logon_user") == null) {
+		if (session.getAttribute("logon_username") == null) {
 			response.sendRedirect("logon.jsp");
 		}
 	%>
@@ -109,7 +109,7 @@
                     <div class="app-statusbar-back" style="width:30px;"><div class="app-statusbar-icon"  style="position:relative;top:5px;"></div></div>
                 </td>
                  <td>
-                    <div class="app-statusbar-back" style="width:400px;"><span style="position:relative;top:4px;">高速公路绿色通道稽查综合管理系统</span></div>
+                    <div class="app-statusbar-back" style="width:400px;"><span style="position:relative;top:4px;">汉宁高速公路绿色通道稽查综合管理系统</span></div>
                 </td>
             </tr>
         </table>
