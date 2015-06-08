@@ -24,7 +24,7 @@
 </head>
 <body  style="background-color:rgb(228,239,255)">
 	<%
-		if (session.getAttribute("logon_user") != null) {
+		if (session.getAttribute("logon_username") != null) {
 			response.sendRedirect("logon.jsp");
 		}
 	%>
@@ -47,7 +47,7 @@
 	        if (r != null) return unescape(r[2]); return "";
 	    }
 	</script>
-	<div class="window-shadow" style="z-index: 90; position: absolute; top: 20%; left:30%; height: 405px; width: 657px;">
+	<div class="" style="z-index: 90; position: absolute; top: 20%; left:30%; height: 405px; width: 657px;">
         <div style="position:relative;width:656px;height:401px;z-index:99;" class="logon-window-background "> 
         	<img style="position:absolute;left:500px;top:30px;width:100px;height:100px;" src="resource/images/login_logo_black.png"/>
             <img style="position:relative;left:400px;top:170px;width:160px;height:160px;" src="resource/images/login_icon.png"/>
@@ -62,7 +62,7 @@
                             <td style="font-size:22pt;font-weight:bold;color:#777777;">Expressway IM Administration</td>
                         </tr>
                         <tr>
-                            <td style="font-size:16px;font-weight:bold;font-family:微软雅黑;color:#999999;">汉宁高速公路绿色通道稽查综合管理系统</td>
+                            <td style="font-size:16px;font-weight:bold;color:#999999;">汉宁高速公路绿色通道稽查综合管理系统</td>
                         </tr>
                         <tr style="height:30px;">
                             <td>
