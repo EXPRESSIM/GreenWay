@@ -17,6 +17,9 @@ $(document).ready(function () {
 	$("#snapshoot4").attr('src', "../../" + getUrlParam("snapshoot4"));
 	$("#date").html(getUrlParam("date").replace("T"," "));
 	$("#leader").html(getUrlParam("leader") + ", " +getUrlParam("operator"));
+	if (getUrlParam("seqNo") != "") {
+		$('#seqNo').html("编号:" + getUrlParam("seqNo"));
+	}
 });
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
@@ -28,10 +31,11 @@ function getUrlParam(name) {
 	<div style="width:850px;height:900px;border:0px;" class="datagrid-header">
 		<div>
 			<image width="845" height="170" src="../../resource/images/approve-rpt-header.png"/>
+			<div id='seqNo' style="position:relative;right:-250px;top:-100px;"></div>
 		</div>
 		<br/>
 		<div>
-		 时间: &nbsp;<span id="date"></span> &nbsp; &nbsp; &nbsp; &nbsp;查验人2: &nbsp;<span id="leader"></span>
+		 时间: &nbsp;<span id="date"></span> &nbsp; &nbsp; &nbsp; &nbsp;查验人: &nbsp;<span id="leader"></span>
 		</div>
 		</table>
 		<br/>	<br/>

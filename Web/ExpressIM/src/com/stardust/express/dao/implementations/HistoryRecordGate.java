@@ -1,8 +1,13 @@
 package com.stardust.express.dao.implementations;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import com.stardust.express.dao.abstracts.IHistoryRecordGate;
 import com.stardust.express.models.DataModel;
@@ -43,5 +48,17 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
 		hr.setMonth(month+"");
 		hr.setDay(day+"");
 		return super.update(model);
+	}
+	
+	public void cleanUp(String endDate) {
+		Session session = getSession();
+    	try{
+		   String hql = "delete from " + this.getModelName() + " where date <='" + endDate + "'";
+		   session.createQuery(hql).executeUpdate();
+		}catch (Exception e) {  
+	        e.printStackTrace();  
+	    } finally{
+		    session.close();  
+		}
 	}
 }

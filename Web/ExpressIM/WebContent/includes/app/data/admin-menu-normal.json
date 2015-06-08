@@ -12,7 +12,8 @@
 		    text: "统计",
 		    items: [
 				{ text: "汇总统计", view: "SummaryReport" },
-				{ text: "车辆检验登记表", view: "ListReport" }
+				{ text: "车辆检验登记表", view: "ListReport" },
+				{ text: "存档连续打印", view: "PrintReportSet"}
 			],
 		    isRoot: true
 		},

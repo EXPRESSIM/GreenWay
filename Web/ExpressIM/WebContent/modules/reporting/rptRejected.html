@@ -29,6 +29,9 @@
 		$("#vehicleType").html(getUrlParam("vehicleType"));
 		$("#adjustAmount").html(Number(getUrlParam("adjustAmount")).formatMoney());
 		$("#tollCollector").html(getUrlParam("tollCollector"));
+		if (getUrlParam("seqNo") != "") {
+			$('#seqNo').html( getUrlParam("seqNo"));
+		}
 	});
 	
 	function getDesc(v) {
@@ -70,6 +73,7 @@
 	<div style="width:850px;height:100%;border:0px;" class="datagrid-header">
 	<div>
 		<image width="847" height="170" src="../../resource/images/reject-rpt-header.png"/>
+		<div id='seqNo' style="position:relative;right:-270px;top:-97px;"></div>
 	</div>
 	<table style="width:100%;border:0px;" cellspacing="0" cellpadding="0" class='datagrid-cell'>
 		<tr>

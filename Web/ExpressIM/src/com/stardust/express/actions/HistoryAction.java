@@ -42,6 +42,7 @@ public class HistoryAction extends ActionExecutor {
 		String vehicleType = context.getString("vehicleType");
 		String channel = context.getString("channel");
 		String channelType = context.getString("channelType");
+		String isAffectation = context.getString("isAffectation", null);
 		
 		List<Selection> selections = new ArrayList<Selection>();
 		if (startDate != null && !startDate.isEmpty()) {
@@ -85,6 +86,15 @@ public class HistoryAction extends ActionExecutor {
 				selections.add(new Selection("channelType", Operator.EQUAL, channelType, Operand.AND));
 			} else {
 				selections.add(new Selection("channelType", Operator.EQUAL, channelType));
+			}	
+		}
+		
+		if (isAffectation != null && !isAffectation.isEmpty()) {
+			boolean isAff = (isAffectation.equalsIgnoreCase("Y") ? true : false);
+			if (selections.size() > 0) {
+				selections.add(new Selection("isAffectation", Operator.EQUAL, isAff, Operand.AND));
+			} else {
+				selections.add(new Selection("isAffectation", Operator.EQUAL, isAff));
 			}	
 		}
 		
