@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.stardust.express.dao.abstracts.IHistoryRecordGate;
 import com.stardust.express.models.DataModel;
@@ -51,14 +53,25 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
 	}
 	
 	public void cleanUp(String endDate) {
-		Session session = getSession();
+		Session session = null;
+		Transaction tst = null;
     	try{
-		   String hql = "delete from " + this.getModelName() + " where date <='" + endDate + "'";
-		   session.createQuery(hql).executeUpdate();
+    		session = getSession();
+    		tst = session.beginTransaction();
+    		String hql = "delete from EXPRESSWAY_GATEWAY_HISTORY where REOCRD_DATE <='" + endDate + "'";
+            SQLQuery query = session.createSQLQuery(hql);
+            query.executeUpdate();
+            tst.commit();	
+		   
 		}catch (Exception e) {  
 	        e.printStackTrace();  
+	        if (tst != null) {
+	        	tst.rollback();
+	        }
 	    } finally{
-		    session.close();  
+	    	if (session != null) {
+	    		session.close();  
+	    	}
 		}
 	}
 }
