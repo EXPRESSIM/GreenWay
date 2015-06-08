@@ -30,6 +30,14 @@ public class HistoryAction extends ActionExecutor {
 		return total;
 	}
 	
+	public String clean(){
+		if (!isValidSession()) return ERROR;
+		HistoryRecordBO bo = new HistoryRecordBO(context);
+		String endDate = context.getString("endDate", null);
+		bo.cleanUp(endDate);
+		return SUCCESS;
+	}
+	
 	public String fetch() {
 		if (!isValidSession()) return ERROR;
 		HistoryRecordBO bo = new HistoryRecordBO(context);

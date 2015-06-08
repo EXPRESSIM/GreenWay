@@ -1,6 +1,7 @@
 package com.stardust.express.bo;
 
 import com.stardust.express.dao.abstracts.DataGateFactory;
+import com.stardust.express.dao.abstracts.IHistoryRecordGate;
 import com.stardust.express.models.DataModel;
 import com.stardust.express.models.HistoryRecord;
 import com.stardust.express.tools.IViewContext;
@@ -15,5 +16,9 @@ public class HistoryRecordBO extends AdminBO {
 	@Override
 	protected DataModel _createModel(IViewContext ctx) {
 		return new HistoryRecord(ctx);
+	}
+	
+	public void cleanUp(String endDate) {
+		((IHistoryRecordGate)gate).cleanUp(endDate);
 	}
 }

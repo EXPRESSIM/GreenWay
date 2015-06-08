@@ -71,6 +71,9 @@
         <action name="history" class="com.stardust.express.actions.HistoryAction" method="fetch">
             <result name="success" type="json"></result>
         </action>
+        <action name="cleanUp" class="com.stardust.express.actions.HistoryAction" method="clean">
+            <result name="success" type="json"></result>
+        </action>
         <action name="summaryReport" class="com.stardust.express.actions.SummaryReportAction" method="fetch">
             <result name="success" type="json"></result>
         </action>
