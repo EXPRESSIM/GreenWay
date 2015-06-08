@@ -10,6 +10,7 @@ import com.stardust.express.dao.abstracts.IHistoryRecordGate;
 import com.stardust.express.models.DataModel;
 import com.stardust.express.models.HistoryRecord;
 import com.stardust.express.models.User;
+import com.stardust.express.tools.Cryptor;
 
 
 public class LogonAction extends  ActionExecutor {
@@ -35,6 +36,7 @@ public class LogonAction extends  ActionExecutor {
 			} else {
 				context.getSession().put("logon_user", user);
 				context.getSession().put("logon_username", user.getUsername());
+				context.getSession().put("credential_validate_session", Cryptor.GetMD5Code(user.getUsername()) + Cryptor.GetMD5Code("_bkb_dklaks_0902020202_"));
 				return SUCCESS;
 			}
 		} else {
@@ -44,6 +46,7 @@ public class LogonAction extends  ActionExecutor {
 			} else {
 				context.getSession().put("logon_user", user);
 				context.getSession().put("logon_username", user.getUsername());
+				context.getSession().put("credential_validate_session", Cryptor.GetMD5Code(user.getUsername()) + Cryptor.GetMD5Code("_bkb_dklaks_0902020202_"));
 				return SUCCESS;
 			}
 		}

@@ -34,7 +34,7 @@ public class SaveHistoryAction extends ActionExecutor{
 	}
 	
 	public String save() {
-		if (context.getSession().get("logon_user") == null) return ERROR;
+		if (!isValidSession()) return ERROR;
 		HistoryRecord hr = new HistoryRecord(context);
 		hr.setVehicleNumber(context.getString("district")+context.getString("grp")+context.getString("number"));
 		hr.setChannelType(hr.getIsAffectation() ? "非国绿" : "国绿" );

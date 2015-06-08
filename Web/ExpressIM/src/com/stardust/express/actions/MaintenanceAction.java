@@ -22,7 +22,7 @@ public class MaintenanceAction extends  ActionExecutor {
 	}
 	
 	public String read() {
-		if (context.getSession().get("logon_user") == null) return ERROR;
+		if (!isValidSession()) return ERROR;
 		IAdminBO bo = AdminBOFactory.create(context);
 		String key = StringEscapeUtils.unescapeHtml4(context.getString("key"));
 		model = bo.get(key); 
@@ -30,7 +30,7 @@ public class MaintenanceAction extends  ActionExecutor {
 	}
 	
 	public String delete() {
-		if (context.getSession().get("logon_user") == null) return ERROR;
+		if (!isValidSession()) return ERROR;
 		IAdminBO bo = AdminBOFactory.create(context);
 		long error = bo.remove();
 		if (error == 547) {
@@ -40,7 +40,7 @@ public class MaintenanceAction extends  ActionExecutor {
 	}
 	
 	public String update() {
-		if (context.getSession().get("logon_user") == null) return ERROR;
+		if (!isValidSession()) return ERROR;
 		IAdminBO bo = AdminBOFactory.create(context);
 		model = bo.update();
 		return SUCCESS;

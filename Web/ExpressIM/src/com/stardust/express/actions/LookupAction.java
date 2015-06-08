@@ -29,7 +29,7 @@ public class LookupAction extends ActionExecutor {
 	}
 	
 	public String fetch() {
-		if (context.getSession().get("logon_user") == null) return ERROR;
+		if (!isValidSession()) return ERROR;
 		IAdminBO bo = AdminBOFactory.create(context);
 		int pageSize = context.getInt("rows");
 		int start = (context.getInt("page")-1) * pageSize;

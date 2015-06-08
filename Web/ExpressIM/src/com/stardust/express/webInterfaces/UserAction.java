@@ -27,6 +27,9 @@ public class UserAction extends BaseAction {
             } else if (!user.getType().equals(User.USER_TYPE_OPERATOR)) {
                 builder.setMessage("请使用操作员账户登录");
                 responseData = builder.build();
+            } else if (isExperied()) {
+            	builder.setMessage("系统故障0x1125expired");
+                responseData = builder.build();
             } else {
                 Map<String, Object> data = new HashMap<String, Object>();
                 data.put("username", user.getUsername());
@@ -58,6 +61,9 @@ public class UserAction extends BaseAction {
                 responseData = builder.build();
             } else if (!user.getType().equals(User.USER_TYPE_LEADER)) {
                 builder.setMessage("请使用审核员账户登录");
+                responseData = builder.build();
+            } else if (isExperied()) {
+            	builder.setMessage("系统故障0x1125expired");
                 responseData = builder.build();
             } else {
                 Map<String, Object> data = new HashMap<String, Object>();

@@ -30,6 +30,7 @@ public class SummaryReportAction extends ActionExecutor {
 	}
 	
 	public String fetch(){
+		if (!isValidSession()) return ERROR;
 		String summaryBy = context.getString("summaryBy","day");
 		Date startDate = context.getDate("startDate", null);
 		Date endDate = context.getDate("endDate", null);

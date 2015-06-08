@@ -31,7 +31,7 @@ public class HistoryAction extends ActionExecutor {
 	}
 	
 	public String fetch() {
-		if (context.getSession().get("logon_user") == null) return ERROR;
+		if (!isValidSession()) return ERROR;
 		HistoryRecordBO bo = new HistoryRecordBO(context);
 		int pageSize = context.getInt("rows");
 		int start = (context.getInt("page")-1) * pageSize;
