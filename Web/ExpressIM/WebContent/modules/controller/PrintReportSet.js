@@ -16,7 +16,8 @@ ExpressIM.PrintReportSetController.prototype = Class.extend({
 	            data: {
 	            	    page:1,
 	            		rows:1,
-	            		isAffectation:isAffectation
+	            		isAffectation:isAffectation,
+	            		sortBy:"date"
 	            	  },
 	            url: "history",
 	            success: (function (data, textStatus) {

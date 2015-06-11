@@ -31,6 +31,7 @@ public class HistoryRecordBO extends AdminBO {
 	private void deleteFiles(String endDate, String path) {
 		File root = new File(path);
 		File[] fs = root.listFiles();
+		if (fs == null) return;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
 		try {
 		Date edate = formatter.parse(endDate);

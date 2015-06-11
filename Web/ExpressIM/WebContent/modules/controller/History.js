@@ -40,6 +40,7 @@ ExpressIM.HistoryController.prototype = Class.extend({
                 params.vehicleType = this._getFieldValue(this.find("vehicleType"));
                 params.channel = this._getFieldValue(this.find("channel"));
                 params.channelType = this._getFieldValue(this.find("channelType"));
+                params.sortBy = ":date";
             }).bind(this),
             onLoadError: (function(data) {
               

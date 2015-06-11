@@ -190,8 +190,16 @@ public abstract class DataGate implements IDataGate{
     
     public List<DataModel> find(int start, int size, List<Selection> selections, String sortBy) {
     	Session session = getSession();
+    	String orderByClause = "";
+    	if (sortBy != null && !sortBy.isEmpty()) {
+    		if (sortBy.startsWith(":")) {
+    			orderByClause = " order by " + sortBy.replace(":", "") + " desc ";
+    		} else {
+    			orderByClause = " order by " + sortBy;
+    		}
+    	}
     	try{
-		   String hql = "from " + this.getModelName() + buildWhereClause(selections);
+		   String hql = "from " + this.getModelName() + buildWhereClause(selections) + orderByClause;
 		   Query query = session.createQuery(hql);
 		   if (start >= 0 && size > 0) { 
 			   query.setFirstResult(start);
