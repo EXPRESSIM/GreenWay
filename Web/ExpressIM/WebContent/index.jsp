@@ -74,6 +74,7 @@
     <script language="javascript" src="includes/app/util/fileupload/js/jquery.iframe-transport.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/fileupload/js/jquery.fileupload.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/lib.js" type="text/javascript" ></script>
+    <script language="javascript" src="includes/app/util/cookie.js" type="text/javascript" ></script>
     <script language="javascript" src="modules/model/SimpleModel.js" type="text/javascript" ></script>
 </head>
 <body class="app-background">

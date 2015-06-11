@@ -15,10 +15,10 @@
 	<script>
 	$(document).ready(function () {
 		$("#station").html(ExpressIM.stationName);
-		$("#snapshoot1").attr('src', "../../" + getUrlParam("snapshoot1"));
-		$("#snapshoot2").attr('src', "../../" + getUrlParam("snapshoot2"));
-		$("#snapshoot3").attr('src', "../../" + getUrlParam("snapshoot3"));
-		$("#snapshoot4").attr('src', "../../" + getUrlParam("snapshoot4"));
+		$("#snapshoot1").attr('src', "../../" + getUrlParam("snapshoot1").replace("\\","/"));
+		$("#snapshoot2").attr('src', "../../" + getUrlParam("snapshoot2").replace("\\","/"));
+		$("#snapshoot3").attr('src', "../../" + getUrlParam("snapshoot3").replace("\\","/"));
+		$("#snapshoot4").attr('src', "../../" + getUrlParam("snapshoot4").replace("\\","/"));
 		$("#comment").html(getUrlParam("comment") + "<br/>" + getDesc(getUrlParam("affectationDesc")));
 		$("#date").html(getUrlParam("date").replace("T"," "));
 		$("#leader").html(getUrlParam("leader") + ", " +getUrlParam("operator"));

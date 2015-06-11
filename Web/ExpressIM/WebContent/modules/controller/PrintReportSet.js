@@ -3,7 +3,7 @@ ExpressIM.PrintReportSetController.prototype = Class.extend({
     _initialize: function (options) {
         this._view = "PrintReportSet";
         this._getPages("N");
-        this._recordsCountPerPage = 30;
+        this._recordsCountPerPage = 10;
         this._isAffectation = "N";
     },
     
@@ -22,7 +22,7 @@ ExpressIM.PrintReportSetController.prototype = Class.extend({
 	            success: (function (data, textStatus) {
 	                   msg.destroy();
 	                   var pageData = [];
-	                   var pageCount = data.total / this._recordsCountPerPage;
+	                   var pageCount = parseInt(data.total / this._recordsCountPerPage);
 	                   if (data.total % this._recordsCountPerPage > 0) {
 	                	   pageCount++;
 	                   }
@@ -31,7 +31,18 @@ ExpressIM.PrintReportSetController.prototype = Class.extend({
 	                   }
 	                   this.find("page").combobox("loadData", pageData);
 	                   if (pageData.length > 0) {
-	                	   this.find("page").combobox("setValue", 1);
+	                	   var lastPage = ($.cookie('lastPrint_' + this._isAffectation));
+	                	   if (lastPage && Number(lastPage) > 0) {
+	                		   if (Number(lastPage) < pageCount) {
+	                			   this.find("page").combobox("setValue", Number(lastPage) + 1);
+	                		   } else {
+	                			   this.find("page").combobox("setValue", Number(lastPage));
+	                		   }
+	                		   this.find("lastPrintLabel").html("(上次打印到第" + Number(lastPage) + "页)");
+	                	   } else {
+	                		   this.find("page").combobox("setValue", 1);
+	                		   this.find("lastPrintLabel").html("(尚未打印过)");
+	                	   }
 	                   }
 	            }).bind(this)
 	    });
@@ -42,6 +53,19 @@ ExpressIM.PrintReportSetController.prototype = Class.extend({
     	 this._btnRun.linkbutton({
              onClick: (function () {
             	 this.openNewTagWin('modules/reporting/rptReportSet.html');
+            	 $.messager.confirm('信息', '报告是否已经导出成功？是否保存本次打印记录到本机，以便于下次知道从第几页开始打印？', (function (r) {
+                     if (r) {
+                    	 $.cookie('lastPrint_' + this._isAffectation, this._getFieldValue(this.find("page"))); 
+                    	 this.find("lastPrintLabel").html("(上次打印到第" + this._getFieldValue(this.find("page")) + ")页");
+                    	 var pageCount =  this.find("page").combobox("getData").length;
+                    	 var lastPage = this._getFieldValue(this.find("page"));
+                    	 if (Number(lastPage) < pageCount) {
+              			   this.find("page").combobox("setValue", Number(lastPage) + 1);
+	              		 } else {
+	              		   this.find("page").combobox("setValue", Number(lastPage));
+	              		 }
+                     } 
+                 }).bind(this), "question");
              }).bind(this)
          });
     	 
