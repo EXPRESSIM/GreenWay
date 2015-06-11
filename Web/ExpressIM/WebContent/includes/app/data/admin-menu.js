@@ -27,6 +27,7 @@
 		{
 		    text: "系统",
 		    items: [
+		        { text: "清除历史记录", view: "CleanUp" },    
 				{ text: "退出", view: "Exit" }
 			],
 		    isRoot: true

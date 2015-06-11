@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
+
 
 import com.stardust.express.bo.HistoryRecordBO;
 import com.stardust.express.dao.implementations.Selection;
@@ -34,7 +36,8 @@ public class HistoryAction extends ActionExecutor {
 		if (!isValidSession()) return ERROR;
 		HistoryRecordBO bo = new HistoryRecordBO(context);
 		String endDate = context.getString("endDate", null);
-		bo.cleanUp(endDate);
+		String realpath = ServletActionContext.getServletContext().getRealPath("/upload/");
+		bo.cleanUp(endDate, realpath);
 		return SUCCESS;
 	}
 	

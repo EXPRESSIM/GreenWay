@@ -1,5 +1,9 @@
 package com.stardust.express.bo;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.stardust.express.dao.abstracts.DataGateFactory;
 import com.stardust.express.dao.abstracts.IHistoryRecordGate;
 import com.stardust.express.models.DataModel;
@@ -18,7 +22,27 @@ public class HistoryRecordBO extends AdminBO {
 		return new HistoryRecord(ctx);
 	}
 	
-	public void cleanUp(String endDate) {
+	public void cleanUp(String endDate, String folder) {
 		((IHistoryRecordGate)gate).cleanUp(endDate);
+		deleteFiles(endDate, folder + "\\snapshoot\\");
+		deleteFiles(endDate, folder + "\\video\\");
+	}
+	
+	private void deleteFiles(String endDate, String path) {
+		File root = new File(path);
+		File[] fs = root.listFiles();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); 
+		try {
+		Date edate = formatter.parse(endDate);
+		for (File f : fs) {
+			long time = f.lastModified();  
+	        Date date = new Date(time);
+	        if (date.before(edate)) {
+	        	f.delete();
+	        }
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
