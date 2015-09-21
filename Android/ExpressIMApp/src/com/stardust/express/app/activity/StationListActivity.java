@@ -182,6 +182,11 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("盐井"));
         stationList.add(new StationEntity("铺镇"));
         stationList.add(new StationEntity("汉中北"));
+        stationList.add(new StationEntity("汉中西"));
+        stationList.add(new StationEntity("南郑"));
+        stationList.add(new StationEntity("南湖"));
+        stationList.add(new StationEntity("喜神坝"));
+
         stationList.add(new StationEntity("褒城"));
         stationList.add(new StationEntity("新街子"));
         stationList.add(new StationEntity("勉县北"));
