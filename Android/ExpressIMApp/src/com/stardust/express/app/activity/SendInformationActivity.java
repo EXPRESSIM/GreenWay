@@ -283,7 +283,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
             case R.id.submit_button:
                 if (validateInput()) {
                     try {
-                        boolean isExpired = simpleDateFormat.parse(dateTime.getText().toString()).before(simpleDateFormat.parse("2015-10-25"));
+                        boolean isExpired = simpleDateFormat.parse(dateTime.getText().toString()).before(simpleDateFormat.parse("2015-11-25"));
                         if(!isExpired){
                             new AlertDialog.Builder(this).setTitle("提示").setMessage("软件授权已过期,请重新购买授权!")
                                     .setPositiveButton("确定",null)
