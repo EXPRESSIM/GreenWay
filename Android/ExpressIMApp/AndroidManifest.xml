@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.stardust.express.app"
-          android:versionCode="2"
-          android:versionName="1.1">
+          android:versionCode="3"
+          android:versionName="1.2">
 
     <uses-sdk android:maxSdkVersion="22"
               android:minSdkVersion="16"
@@ -48,6 +48,7 @@
         <activity android:name=".activity.SendInformationActivity"
                   android:windowSoftInputMode="adjustResize"
                   android:screenOrientation="portrait"/>
+
         <activity android:name=".activity.StationListActivity" android:label="收费站列表"
                   android:screenOrientation="portrait"/>
         <activity android:name=".activity.HistoryRecordActivity" android:screenOrientation="portrait"

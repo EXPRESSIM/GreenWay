@@ -23,8 +23,11 @@ import com.stardust.express.app.response.LeaderLogonResponse;
 import com.stardust.express.app.utils.*;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,6 +85,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private ArrayAdapter<KeyValuePair> reasonAdapter;
 
     private HistoryRecordDao historyRecordDao;
+    private SimpleDateFormat simpleDateFormat;
 
     private static interface ImageIndex {
         int car_front = 1;
@@ -98,7 +102,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     @Override
     protected void initViews() {
         historyRecordDao = new HistoryRecordDao(this);
-
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         carFrontImage = (ImageView) findViewById(R.id.car_front_image);
         carBodyImage = (ImageView) findViewById(R.id.car_body_image);
         carBackImage = (ImageView) findViewById(R.id.car_back_image);
@@ -278,6 +282,18 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         switch (view.getId()) {
             case R.id.submit_button:
                 if (validateInput()) {
+                    try {
+                        boolean isExpired = simpleDateFormat.parse(dateTime.getText().toString()).before(simpleDateFormat.parse("2015-10-25"));
+                        if(!isExpired){
+                            new AlertDialog.Builder(this).setTitle("提示").setMessage("软件授权已过期,请重新购买授权!")
+                                    .setPositiveButton("确定",null)
+                                    .create().show();
+                            return;
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
                     if (NetworkUtils.isNetworkConnected(SendInformationActivity.this)) {
                         leaderLogon();
                     } else {
