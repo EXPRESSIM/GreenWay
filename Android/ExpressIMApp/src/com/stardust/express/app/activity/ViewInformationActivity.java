@@ -116,8 +116,6 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
         tollCollectorTextView.setText(historyRecordEntity.tollCollector);
         adjustAmount.setText(historyRecordEntity.adjustAmount);
 //        channelTypeTextView.setText(historyRecordEntity.channelType);
-        reasonTextView.setText(getResources().getStringArray(R.array.reason_array)[(historyRecordEntity.reason - 1)]);
-
         if (historyRecordEntity.isGreen) {
             adjustAmountLayout.setVisibility(View.GONE);
             goodsNameLayout.setVisibility(View.VISIBLE);
@@ -126,6 +124,7 @@ public class ViewInformationActivity extends BaseActivity implements View.OnClic
             adjustAmountLayout.setVisibility(View.VISIBLE);
             goodsNameLayout.setVisibility(View.GONE);
             reasonLayout.setVisibility(View.VISIBLE);
+            reasonTextView.setText(getResources().getStringArray(R.array.reason_array)[(historyRecordEntity.reason - 1)]);
         }
     }
 
