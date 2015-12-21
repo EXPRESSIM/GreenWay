@@ -84,6 +84,7 @@
 		}
 	%>
   <script  language="javascript" type="text/javascript">
+  	var session = ('<%=session.getAttribute("logon_username")%>');
   	$(document).ready(function () {
   		var username = ('<%=session.getAttribute("logon_username")%>');
   		var menuname = "";

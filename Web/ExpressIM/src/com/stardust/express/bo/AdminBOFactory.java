@@ -23,6 +23,9 @@ public class AdminBOFactory {
 		if (modelName.equals("user")) {
 			return new UserAdminBO(context);
 		}
+		if (modelName.equals("history")) {
+			return new HistoryRecordBO(context);
+		}
 		return null;
 		/*
 		if (boMap.containsKey(modelName)) {

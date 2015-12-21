@@ -24,10 +24,11 @@ public class BaseAction extends ActionExecutor {
     }
     
 	protected boolean isExperied() {
+		/*
 		try {
 			Date current = new Date();
 			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-			Date experied = sd.parse("2015-11-25");
+			Date experied = sd.parse("2015-12-26");
 			if (current.after(experied)) {
 				return true;
 			} else {
@@ -36,5 +37,7 @@ public class BaseAction extends ActionExecutor {
 		} catch (Exception e) {
 			return true;
 		}
+		*/
+		return false;
 	}
 }

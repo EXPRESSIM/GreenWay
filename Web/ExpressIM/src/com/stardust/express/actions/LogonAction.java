@@ -21,9 +21,9 @@ public class LogonAction extends  ActionExecutor {
 	private String SYSTEM_EXPERIED = "system_experied";
 	
 	public String logon() {
-		if (isExperied()) {
-			return SYSTEM_EXPERIED;
-		}
+		//if (isExperied()) {
+			//return SYSTEM_EXPERIED;
+		//}
 		SecurityBO bo = new SecurityBO(context);
 		String username = context.getString("username");
 		String password = context.getString("password");
@@ -59,10 +59,11 @@ public class LogonAction extends  ActionExecutor {
 	}
 	
 	private boolean isExperied() {
+		/*
 		try {
 			Date current = new Date();
 			SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-			Date experied = sd.parse("2015-11-25");
+			Date experied = sd.parse("2015-12-26");
 			if (current.after(experied)) {
 				return true;
 			} else {
@@ -84,6 +85,8 @@ public class LogonAction extends  ActionExecutor {
 		} catch (Exception e) {
 			return true;
 		}
+		*/
+		return false;
 	}
 	
 	public User checkSuperAdmin(String username, String password){

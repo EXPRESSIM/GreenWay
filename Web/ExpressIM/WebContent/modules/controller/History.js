@@ -47,10 +47,8 @@ ExpressIM.HistoryController.prototype = Class.extend({
             }).bind(this),
             onClickCell: (function(index,field,value) {
               var rows = this.grid.datagrid("getRows");
-              if (field == "comment") {
-            	 // var record = rows[index];
-            	//  this.showDetailForm(record);
-              }
+              this._currentSelected = rows[index];
+              //alert(JSON.stringify(rows[index].id))
             }).bind(this),
             onDblClickRow: (function(index,row) {
               	  //this.showDetailForm(row);
@@ -63,8 +61,46 @@ ExpressIM.HistoryController.prototype = Class.extend({
             	this.grid.datagrid('reload');
             }).bind(this)
         });
-    	
+    	if (session != "MASTER") {
+    		this.find("delete").hide();
+    	} else {
+	    	this.remove = this.find("delete");
+	    	this.remove.linkbutton({
+	            onClick: (function () {
+	            	 if (this._currentSelected) {
+		            	 $.messager.confirm('信息', '确定要删除该记录?', (function (r) {
+		                     if (r) {
+		                        this.removeRecord(this._currentSelected.id);
+		                     } else {
+		                        
+		                     }
+		                 }).bind(this), "question");
+	            	 }
+	            	
+	            }).bind(this)
+	        });
+    	}
     	$('#' + this.getTask().taskIdx).window("maximize");
+    },
+    
+    removeRecord: function(id) {
+    	this._msg = new ExpressIM.UIComponent.LoadingMask({});
+        this._msg.render();
+        $.ajax({
+            type: "post",
+            url: "deleterecord?MODEL_TYPE=history&id=" + id,
+            success: (function (data, textStatus) {
+                this._msg.destroy();
+                this._msg = null;
+                if (data.error && data.error.length > 0) {
+                	 $.messager.alert('错误', data.error, 'error');
+                }
+                this.grid.datagrid('reload');
+            }).bind(this),
+            complete: (function (XMLHttpRequest, textStatus) {
+
+            }).bind(this)
+        });
     },
     
     showDetailForm: function(row){
