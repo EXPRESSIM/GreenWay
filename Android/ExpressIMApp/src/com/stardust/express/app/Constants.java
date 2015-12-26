@@ -13,6 +13,8 @@ public class Constants {
 
     public static String ARCHIVE_URL = MAIN_URL + "archive";
 
+    public static String TOLL_COLLECTOR_URL = "/ExpressIM/toll.json";
+
     public static interface SHARED_KEY {
         String uid = "uid";
         String name = "name";

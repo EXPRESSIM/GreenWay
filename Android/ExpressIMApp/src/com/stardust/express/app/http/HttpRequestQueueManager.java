@@ -38,6 +38,7 @@ public class HttpRequestQueueManager {
 
     public void stringRequest(int method, String url, final Map<String, String> params, final StringResponseListener listener) {
         if (requestQueue == null) return;
+        requestQueue.getCache().clear();
         StringRequest request = new StringRequest(method, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String s) {

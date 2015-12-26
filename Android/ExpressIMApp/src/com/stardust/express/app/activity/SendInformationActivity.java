@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.stardust.express.app.BaseActivity;
@@ -18,16 +19,17 @@ import com.stardust.express.app.entity.*;
 import com.stardust.express.app.http.StringResponseListener;
 import com.stardust.express.app.request.ArchiveRequest;
 import com.stardust.express.app.request.LeaderLogonRequest;
+import com.stardust.express.app.request.TollCollectorListRequest;
 import com.stardust.express.app.response.ArchiveResponse;
 import com.stardust.express.app.response.LeaderLogonResponse;
 import com.stardust.express.app.utils.*;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -217,8 +219,38 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     }
 
     private void initTollCollectorSpinner() {
-        tollCollectorAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.toll_collector));
-        tollCollectorSpinner.setAdapter(tollCollectorAdapter);
+        showProgressDialog("正在初始化收费员信息");
+        new TollCollectorListRequest(this, new StringResponseListener() {
+            @Override
+            public void onResponse(String response) {
+                dismissProgressDialog();
+                Log.e("TAG", response);
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    if (jsonArray.length() == 0) {
+                        ToastUtils.showToastAtCenter(SendInformationActivity.this, "收费员信息初始化失败,请检查服务器配置信息是否正确");
+                    } else {
+                        List<String> datasource = new ArrayList<String>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            datasource.add(jsonArray.optString(i));
+                        }
+                        tollCollectorAdapter = new ArrayAdapter<String>(SendInformationActivity.this,
+                                android.R.layout.simple_spinner_dropdown_item, datasource);
+                        tollCollectorSpinner.setAdapter(tollCollectorAdapter);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    ToastUtils.showToastAtCenter(SendInformationActivity.this, "收费员信息初始化失败,请检查服务器配置信息是否正确");
+                }
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Log.e("TAG", errorMessage + "");
+                dismissProgressDialog();
+                ToastUtils.showToastAtCenter(SendInformationActivity.this, "收费员信息初始化失败,请检查网络");
+            }
+        }).execute();
     }
 
 //    private void initChannelTypeSpinner() {
@@ -282,17 +314,17 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         switch (view.getId()) {
             case R.id.submit_button:
                 if (validateInput()) {
-                    try {
-                        boolean isExpired = simpleDateFormat.parse(dateTime.getText().toString()).before(simpleDateFormat.parse("2015-12-26"));
-                        if(!isExpired){
-                            new AlertDialog.Builder(this).setTitle("提示").setMessage("软件授权已过期,请重新购买授权!")
-                                    .setPositiveButton("确定",null)
-                                    .create().show();
-                            return;
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        boolean isExpired = simpleDateFormat.parse(dateTime.getText().toString()).before(simpleDateFormat.parse("2015-12-26"));
+//                        if(!isExpired){
+//                            new AlertDialog.Builder(this).setTitle("提示").setMessage("软件授权已过期,请重新购买授权!")
+//                                    .setPositiveButton("确定",null)
+//                                    .create().show();
+//                            return;
+//                        }
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
 
                     if (NetworkUtils.isNetworkConnected(SendInformationActivity.this)) {
                         leaderLogon();
