@@ -1,5 +1,6 @@
 package com.stardust.express.app.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,19 +8,12 @@ import java.util.List;
  */
 public class GoodsNameEntity {
 
-    public int id;
     public String name;
     public List<GoodsNameEntity> children;
 
-    public GoodsNameEntity(int id, String name) {
-        this.id = id;
+    public GoodsNameEntity(String name) {
         this.name = name;
-    }
-
-    public GoodsNameEntity(int id, String name, List<GoodsNameEntity> children) {
-        this.id = id;
-        this.name = name;
-        this.children = children;
+        this.children = new ArrayList<GoodsNameEntity>();
     }
 
     public GoodsNameEntity() {

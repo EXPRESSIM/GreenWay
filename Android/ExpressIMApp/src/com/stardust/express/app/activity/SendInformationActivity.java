@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.stardust.express.app.BaseActivity;
@@ -19,12 +18,11 @@ import com.stardust.express.app.entity.*;
 import com.stardust.express.app.http.StringResponseListener;
 import com.stardust.express.app.request.ArchiveRequest;
 import com.stardust.express.app.request.LeaderLogonRequest;
-import com.stardust.express.app.request.TollCollectorListRequest;
 import com.stardust.express.app.response.ArchiveResponse;
 import com.stardust.express.app.response.LeaderLogonResponse;
 import com.stardust.express.app.utils.*;
 import org.json.JSONArray;
-import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -89,7 +87,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private HistoryRecordDao historyRecordDao;
     private SimpleDateFormat simpleDateFormat;
 
-    private static interface ImageIndex {
+    private interface ImageIndex {
         int car_front = 1;
         int car_back = 2;
         int car_body = 3;
@@ -191,9 +189,9 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void fillData() {
-        logonOperatorEntity = (UserEntity) getIntent().getSerializableExtra("Operator");
-        operator.setText(logonOperatorEntity.name);
-        setTitle(SharedUtil.getString(this, "StationName") + "－" + SharedUtil.getString(this, "DeviceNO"));
+//        logonOperatorEntity = (UserEntity) getIntent().getSerializableExtra("Operator");
+//        operator.setText(logonOperatorEntity.name);
+//        setTitle(SharedUtil.getString(this, "StationName") + "－" + SharedUtil.getString(this, "DeviceNO"));
 
         File dir = getExternalFilesDir("/");
         if (dir != null) {
@@ -219,38 +217,20 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     }
 
     private void initTollCollectorSpinner() {
-        showProgressDialog("正在初始化收费员信息");
-        new TollCollectorListRequest(this, new StringResponseListener() {
-            @Override
-            public void onResponse(String response) {
-                dismissProgressDialog();
-                Log.e("TAG", response);
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    if (jsonArray.length() == 0) {
-                        ToastUtils.showToastAtCenter(SendInformationActivity.this, "收费员信息初始化失败,请检查服务器配置信息是否正确");
-                    } else {
-                        List<String> datasource = new ArrayList<String>();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            datasource.add(jsonArray.optString(i));
-                        }
-                        tollCollectorAdapter = new ArrayAdapter<String>(SendInformationActivity.this,
-                                android.R.layout.simple_spinner_dropdown_item, datasource);
-                        tollCollectorSpinner.setAdapter(tollCollectorAdapter);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    ToastUtils.showToastAtCenter(SendInformationActivity.this, "收费员信息初始化失败,请检查服务器配置信息是否正确");
-                }
+        try {
+            String json = SharedUtil.getString(this, "TollCollector");
+            List<String> datasource = new ArrayList<String>();
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                datasource.add(jsonArray.optString(i));
             }
-
-            @Override
-            public void onError(String errorMessage) {
-                Log.e("TAG", errorMessage + "");
-                dismissProgressDialog();
-                ToastUtils.showToastAtCenter(SendInformationActivity.this, "收费员信息初始化失败,请检查网络");
-            }
-        }).execute();
+            tollCollectorAdapter = new ArrayAdapter<String>(SendInformationActivity.this,
+                    android.R.layout.simple_spinner_dropdown_item, datasource);
+            tollCollectorSpinner.setAdapter(tollCollectorAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastUtils.showToastAtCenter(SendInformationActivity.this, "收费员信息加载失败,请重新新初始化基础数据");
+        }
     }
 
 //    private void initChannelTypeSpinner() {
@@ -284,28 +264,45 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     }
 
     private void initGoodsNames() {
-        goodsCategoryAdapter = new ArrayAdapter<GoodsNameEntity>(this, android.R.layout.simple_spinner_dropdown_item, goodsNameList);
-        goodsCategory.setAdapter(goodsCategoryAdapter);
-
-        goodsNameAdapter = new ArrayAdapter<GoodsNameEntity>(this, android.R.layout.simple_spinner_dropdown_item);
-        goodsName.setAdapter(goodsNameAdapter);
-
-        goodsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                goodsNameAdapter.clear();
-                GoodsNameEntity category = (GoodsNameEntity) adapterView.getItemAtPosition(i);
-                if (category.children != null && category.children.size() > 0) {
-                    goodsNameAdapter.addAll(category.children);
+        try {
+            goodsNameList = new ArrayList<GoodsNameEntity>();
+            String json = SharedUtil.getString(this, "Cargo");
+            JSONArray array = new JSONArray(json);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject object = array.optJSONObject(i);
+                GoodsNameEntity entity = new GoodsNameEntity(object.optString("parent"));
+                JSONArray children = object.optJSONArray("children");
+                for (int j = 0; j < children.length(); j++) {
+                    entity.children.add(new GoodsNameEntity(children.optString(j)));
                 }
-                goodsNameAdapter.notifyDataSetChanged();
+                goodsNameList.add(entity);
             }
+            goodsCategoryAdapter = new ArrayAdapter<GoodsNameEntity>(this, android.R.layout.simple_spinner_dropdown_item, goodsNameList);
+            goodsCategory.setAdapter(goodsCategoryAdapter);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            goodsNameAdapter = new ArrayAdapter<GoodsNameEntity>(this, android.R.layout.simple_spinner_dropdown_item);
+            goodsName.setAdapter(goodsNameAdapter);
 
-            }
-        });
+            goodsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    goodsNameAdapter.clear();
+                    GoodsNameEntity category = (GoodsNameEntity) adapterView.getItemAtPosition(i);
+                    if (category.children != null && category.children.size() > 0) {
+                        goodsNameAdapter.addAll(category.children);
+                    }
+                    goodsNameAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastUtils.showToastAtCenter(SendInformationActivity.this, "货物信息加载失败,请重新新初始化基础数据");
+        }
     }
 
 
@@ -669,213 +666,213 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     //初始化产品名称
     static {
-        goodsNameList = new ArrayList<GoodsNameEntity>();
-
-        GoodsNameEntity typeChineseCabbage = new GoodsNameEntity(1, "白菜类", new ArrayList<GoodsNameEntity>());
-        typeChineseCabbage.children.add(new GoodsNameEntity(2, "大白菜"));
-        typeChineseCabbage.children.add(new GoodsNameEntity(3, "普通白菜(油菜，小青菜)"));
-        typeChineseCabbage.children.add(new GoodsNameEntity(4, "菜薹"));
-        goodsNameList.add(typeChineseCabbage);
-
-        GoodsNameEntity typeCabbage = new GoodsNameEntity(5, "甘蓝类", new ArrayList<GoodsNameEntity>());
-        typeCabbage.children.add(new GoodsNameEntity(6, "菜花"));
-        typeCabbage.children.add(new GoodsNameEntity(7, "芥蓝"));
-        typeCabbage.children.add(new GoodsNameEntity(8, "西兰花"));
-        typeCabbage.children.add(new GoodsNameEntity(9, "结球甘蓝"));
-        goodsNameList.add(typeCabbage);
-
-        GoodsNameEntity rootVegetables = new GoodsNameEntity(10, "根菜类", new ArrayList<GoodsNameEntity>());
-        rootVegetables.children.add(new GoodsNameEntity(11, "萝卜"));
-        rootVegetables.children.add(new GoodsNameEntity(12, "胡萝卜"));
-        rootVegetables.children.add(new GoodsNameEntity(13, "芜菁"));
-        goodsNameList.add(rootVegetables);
-
-        GoodsNameEntity greenLeafyVegetables = new GoodsNameEntity(14, "绿叶菜类", new ArrayList<GoodsNameEntity>());
-        greenLeafyVegetables.children.add(new GoodsNameEntity(15, "芹菜"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(16, "菠菜"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(17, "莴笋"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(18, "生菜"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(19, "空心菜"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(20, "香菜"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(21, "茼蒿"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(22, "茴香"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(23, "苋菜"));
-        greenLeafyVegetables.children.add(new GoodsNameEntity(24, "木耳菜"));
-        goodsNameList.add(greenLeafyVegetables);
-
-        GoodsNameEntity onionAndGarlic = new GoodsNameEntity(25, "葱蒜类", new ArrayList<GoodsNameEntity>());
-        onionAndGarlic.children.add(new GoodsNameEntity(26, "洋葱"));
-        onionAndGarlic.children.add(new GoodsNameEntity(27, "大葱"));
-        onionAndGarlic.children.add(new GoodsNameEntity(28, "香葱"));
-        onionAndGarlic.children.add(new GoodsNameEntity(29, "蒜苗"));
-        onionAndGarlic.children.add(new GoodsNameEntity(30, "蒜苔"));
-        onionAndGarlic.children.add(new GoodsNameEntity(31, "韭菜"));
-        onionAndGarlic.children.add(new GoodsNameEntity(32, "大蒜"));
-        onionAndGarlic.children.add(new GoodsNameEntity(33, "生姜"));
-        goodsNameList.add(onionAndGarlic);
-
-        GoodsNameEntity solanaceousFruit = new GoodsNameEntity(34, "茄果类", new ArrayList<GoodsNameEntity>());
-        solanaceousFruit.children.add(new GoodsNameEntity(35, "茄子"));
-        solanaceousFruit.children.add(new GoodsNameEntity(36, "青椒"));
-        solanaceousFruit.children.add(new GoodsNameEntity(37, "辣椒"));
-        solanaceousFruit.children.add(new GoodsNameEntity(38, "西红柿"));
-        goodsNameList.add(solanaceousFruit);
-
-        GoodsNameEntity beans = new GoodsNameEntity(39, "豆类", new ArrayList<GoodsNameEntity>());
-        beans.children.add(new GoodsNameEntity(40, "扁豆"));
-        beans.children.add(new GoodsNameEntity(41, "荚豆"));
-        beans.children.add(new GoodsNameEntity(42, "豇豆"));
-        beans.children.add(new GoodsNameEntity(43, "豌豆"));
-        beans.children.add(new GoodsNameEntity(44, "四季豆"));
-        beans.children.add(new GoodsNameEntity(45, "毛豆"));
-        beans.children.add(new GoodsNameEntity(46, "蚕豆"));
-        beans.children.add(new GoodsNameEntity(47, "豆芽"));
-        beans.children.add(new GoodsNameEntity(48, "豌豆苗"));
-        beans.children.add(new GoodsNameEntity(49, "四棱豆"));
-        goodsNameList.add(beans);
-
-        GoodsNameEntity melons = new GoodsNameEntity(50, "瓜类", new ArrayList<GoodsNameEntity>());
-        melons.children.add(new GoodsNameEntity(51, "黄瓜"));
-        melons.children.add(new GoodsNameEntity(52, "丝瓜"));
-        melons.children.add(new GoodsNameEntity(53, "冬瓜"));
-        melons.children.add(new GoodsNameEntity(54, "西葫芦"));
-        melons.children.add(new GoodsNameEntity(55, "苦瓜"));
-        melons.children.add(new GoodsNameEntity(56, "南瓜"));
-        melons.children.add(new GoodsNameEntity(57, "佛手瓜"));
-        melons.children.add(new GoodsNameEntity(58, "蛇瓜"));
-        melons.children.add(new GoodsNameEntity(59, "节瓜"));
-        melons.children.add(new GoodsNameEntity(60, "瓠瓜"));
-        goodsNameList.add(melons);
-
-        GoodsNameEntity aquaticVegetables = new GoodsNameEntity(61, "水生蔬菜", new ArrayList<GoodsNameEntity>());
-        aquaticVegetables.children.add(new GoodsNameEntity(62, "莲藕"));
-        aquaticVegetables.children.add(new GoodsNameEntity(63, "荸荠"));
-        aquaticVegetables.children.add(new GoodsNameEntity(64, "水芹"));
-        aquaticVegetables.children.add(new GoodsNameEntity(65, "茭白"));
-        goodsNameList.add(aquaticVegetables);
-
-        GoodsNameEntity freshFungus = new GoodsNameEntity(66, "新鲜食用菌", new ArrayList<GoodsNameEntity>());
-        freshFungus.children.add(new GoodsNameEntity(67, "平菇"));
-        freshFungus.children.add(new GoodsNameEntity(68, "原菇"));
-        freshFungus.children.add(new GoodsNameEntity(69, "金针菇"));
-        freshFungus.children.add(new GoodsNameEntity(70, "滑菇"));
-        freshFungus.children.add(new GoodsNameEntity(71, "蘑菇"));
-        freshFungus.children.add(new GoodsNameEntity(72, "木耳(不含干木耳)"));
-        goodsNameList.add(freshFungus);
-
-        GoodsNameEntity mixedVegetables = new GoodsNameEntity(73, "多年生和杂类蔬菜", new ArrayList<GoodsNameEntity>());
-        mixedVegetables.children.add(new GoodsNameEntity(74, "竹笋"));
-        mixedVegetables.children.add(new GoodsNameEntity(75, "芦笋"));
-        mixedVegetables.children.add(new GoodsNameEntity(76, "金针菜(黄花菜)"));
-        mixedVegetables.children.add(new GoodsNameEntity(77, "香椿"));
-        goodsNameList.add(mixedVegetables);
-
-        GoodsNameEntity benevolenceFruits = new GoodsNameEntity(78, "仁果类", new ArrayList<GoodsNameEntity>());
-        benevolenceFruits.children.add(new GoodsNameEntity(79, "苹果"));
-        benevolenceFruits.children.add(new GoodsNameEntity(80, "梨"));
-        benevolenceFruits.children.add(new GoodsNameEntity(81, "海棠"));
-        benevolenceFruits.children.add(new GoodsNameEntity(82, "山楂"));
-        goodsNameList.add(benevolenceFruits);
-
-        GoodsNameEntity drupe = new GoodsNameEntity(83, "核果类", new ArrayList<GoodsNameEntity>());
-        drupe.children.add(new GoodsNameEntity(84, "桃"));
-        drupe.children.add(new GoodsNameEntity(85, "李"));
-        drupe.children.add(new GoodsNameEntity(86, "杏"));
-        drupe.children.add(new GoodsNameEntity(87, "杨梅"));
-        drupe.children.add(new GoodsNameEntity(88, "樱桃"));
-        goodsNameList.add(drupe);
-
-        GoodsNameEntity berries = new GoodsNameEntity(89, "浆果类", new ArrayList<GoodsNameEntity>());
-        berries.children.add(new GoodsNameEntity(90, "葡萄"));
-        berries.children.add(new GoodsNameEntity(91, "提子"));
-        berries.children.add(new GoodsNameEntity(92, "草莓"));
-        berries.children.add(new GoodsNameEntity(93, "猕猴桃"));
-        berries.children.add(new GoodsNameEntity(94, "石榴"));
-        berries.children.add(new GoodsNameEntity(95, "桑葚"));
-        goodsNameList.add(berries);
-
-        GoodsNameEntity citrus = new GoodsNameEntity(96, "柑橘类", new ArrayList<GoodsNameEntity>());
-        citrus.children.add(new GoodsNameEntity(97, "橙"));
-        citrus.children.add(new GoodsNameEntity(98, "桔"));
-        citrus.children.add(new GoodsNameEntity(99, "柑"));
-        citrus.children.add(new GoodsNameEntity(100, "柚"));
-        citrus.children.add(new GoodsNameEntity(101, "柠檬"));
-        goodsNameList.add(citrus);
-
-        GoodsNameEntity fruit = new GoodsNameEntity(102, "热带及亚热带水果", new ArrayList<GoodsNameEntity>());
-        fruit.children.add(new GoodsNameEntity(103, "香蕉"));
-        fruit.children.add(new GoodsNameEntity(104, "菠萝"));
-        fruit.children.add(new GoodsNameEntity(105, "龙眼"));
-        fruit.children.add(new GoodsNameEntity(106, "荔枝"));
-        fruit.children.add(new GoodsNameEntity(107, "橄榄"));
-        fruit.children.add(new GoodsNameEntity(108, "枇杷"));
-        fruit.children.add(new GoodsNameEntity(109, "椰子"));
-        fruit.children.add(new GoodsNameEntity(110, "芒果"));
-        fruit.children.add(new GoodsNameEntity(111, "杨桃"));
-        fruit.children.add(new GoodsNameEntity(112, "木瓜"));
-        fruit.children.add(new GoodsNameEntity(113, "火龙果"));
-        fruit.children.add(new GoodsNameEntity(114, "番石榴"));
-        fruit.children.add(new GoodsNameEntity(115, "莲雾"));
-        goodsNameList.add(fruit);
-
-        GoodsNameEntity assortedMelon = new GoodsNameEntity(116, "什果类", new ArrayList<GoodsNameEntity>());
-        assortedMelon.children.add(new GoodsNameEntity(117, "枣"));
-        assortedMelon.children.add(new GoodsNameEntity(118, "柿子"));
-        assortedMelon.children.add(new GoodsNameEntity(119, "无花果"));
-        goodsNameList.add(assortedMelon);
-
-        GoodsNameEntity melonAndFruit = new GoodsNameEntity(120, "瓜果类", new ArrayList<GoodsNameEntity>());
-        melonAndFruit.children.add(new GoodsNameEntity(121, "西瓜"));
-        melonAndFruit.children.add(new GoodsNameEntity(122, "甜瓜"));
-        melonAndFruit.children.add(new GoodsNameEntity(123, "哈密瓜"));
-        melonAndFruit.children.add(new GoodsNameEntity(124, "香瓜"));
-        melonAndFruit.children.add(new GoodsNameEntity(125, "伊丽莎白瓜"));
-        melonAndFruit.children.add(new GoodsNameEntity(126, "华莱士瓜"));
-        goodsNameList.add(melonAndFruit);
-
-        GoodsNameEntity freshAquaticProducts = new GoodsNameEntity(127, "鲜活水产品", new ArrayList<GoodsNameEntity>());
-        freshAquaticProducts.children.add(new GoodsNameEntity(128, "鱼类"));
-        freshAquaticProducts.children.add(new GoodsNameEntity(129, "虾类"));
-        freshAquaticProducts.children.add(new GoodsNameEntity(130, "贝类"));
-        freshAquaticProducts.children.add(new GoodsNameEntity(131, "蟹类"));
-        goodsNameList.add(freshAquaticProducts);
-
-        GoodsNameEntity otherAquaticProducts = new GoodsNameEntity(132, "其它水产品", new ArrayList<GoodsNameEntity>());
-        otherAquaticProducts.children.add(new GoodsNameEntity(133, "海带"));
-        otherAquaticProducts.children.add(new GoodsNameEntity(134, "紫菜"));
-        otherAquaticProducts.children.add(new GoodsNameEntity(135, "海蜇"));
-        otherAquaticProducts.children.add(new GoodsNameEntity(136, "海参"));
-        goodsNameList.add(otherAquaticProducts);
-
-        GoodsNameEntity livestock = new GoodsNameEntity(137, "家畜", new ArrayList<GoodsNameEntity>());
-        livestock.children.add(new GoodsNameEntity(138, "猪"));
-        livestock.children.add(new GoodsNameEntity(139, "牛"));
-        livestock.children.add(new GoodsNameEntity(140, "羊"));
-        livestock.children.add(new GoodsNameEntity(141, "马"));
-        livestock.children.add(new GoodsNameEntity(142, "驴(骡)"));
-        goodsNameList.add(livestock);
-
-        GoodsNameEntity poultry = new GoodsNameEntity(143, "家禽", new ArrayList<GoodsNameEntity>());
-        poultry.children.add(new GoodsNameEntity(144, "鸡"));
-        poultry.children.add(new GoodsNameEntity(145, "鸭"));
-        poultry.children.add(new GoodsNameEntity(146, "鹅"));
-        poultry.children.add(new GoodsNameEntity(147, "家兔"));
-        poultry.children.add(new GoodsNameEntity(148, "食用蛙类"));
-        goodsNameList.add(poultry);
-
-        GoodsNameEntity other = new GoodsNameEntity(149, "其他", new ArrayList<GoodsNameEntity>());
-        other.children.add(new GoodsNameEntity(150, "蜜蜂(转地放蜂)"));
-        other.children.add(new GoodsNameEntity(151, "其他"));
-        goodsNameList.add(other);
-
-        GoodsNameEntity eggs = new GoodsNameEntity(152, "新鲜的肉、蛋、奶", new ArrayList<GoodsNameEntity>());
-        eggs.children.add(new GoodsNameEntity(153, "新鲜的鸡蛋"));
-        eggs.children.add(new GoodsNameEntity(154, "鸭蛋"));
-        eggs.children.add(new GoodsNameEntity(155, "鹅蛋"));
-        eggs.children.add(new GoodsNameEntity(156, "鹌鹑蛋"));
-        eggs.children.add(new GoodsNameEntity(157, "新鲜的家畜肉和家禽肉"));
-        eggs.children.add(new GoodsNameEntity(158, "新鲜奶"));
-        goodsNameList.add(eggs);
+//        goodsNameList = new ArrayList<GoodsNameEntity>();
+//
+//        GoodsNameEntity typeChineseCabbage = new GoodsNameEntity(1, "白菜类", new ArrayList<GoodsNameEntity>());
+//        typeChineseCabbage.children.add(new GoodsNameEntity(2, "大白菜"));
+//        typeChineseCabbage.children.add(new GoodsNameEntity(3, "普通白菜(油菜，小青菜)"));
+//        typeChineseCabbage.children.add(new GoodsNameEntity(4, "菜薹"));
+//        goodsNameList.add(typeChineseCabbage);
+//
+//        GoodsNameEntity typeCabbage = new GoodsNameEntity(5, "甘蓝类", new ArrayList<GoodsNameEntity>());
+//        typeCabbage.children.add(new GoodsNameEntity(6, "菜花"));
+//        typeCabbage.children.add(new GoodsNameEntity(7, "芥蓝"));
+//        typeCabbage.children.add(new GoodsNameEntity(8, "西兰花"));
+//        typeCabbage.children.add(new GoodsNameEntity(9, "结球甘蓝"));
+//        goodsNameList.add(typeCabbage);
+//
+//        GoodsNameEntity rootVegetables = new GoodsNameEntity(10, "根菜类", new ArrayList<GoodsNameEntity>());
+//        rootVegetables.children.add(new GoodsNameEntity(11, "萝卜"));
+//        rootVegetables.children.add(new GoodsNameEntity(12, "胡萝卜"));
+//        rootVegetables.children.add(new GoodsNameEntity(13, "芜菁"));
+//        goodsNameList.add(rootVegetables);
+//
+//        GoodsNameEntity greenLeafyVegetables = new GoodsNameEntity(14, "绿叶菜类", new ArrayList<GoodsNameEntity>());
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(15, "芹菜"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(16, "菠菜"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(17, "莴笋"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(18, "生菜"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(19, "空心菜"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(20, "香菜"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(21, "茼蒿"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(22, "茴香"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(23, "苋菜"));
+//        greenLeafyVegetables.children.add(new GoodsNameEntity(24, "木耳菜"));
+//        goodsNameList.add(greenLeafyVegetables);
+//
+//        GoodsNameEntity onionAndGarlic = new GoodsNameEntity(25, "葱蒜类", new ArrayList<GoodsNameEntity>());
+//        onionAndGarlic.children.add(new GoodsNameEntity(26, "洋葱"));
+//        onionAndGarlic.children.add(new GoodsNameEntity(27, "大葱"));
+//        onionAndGarlic.children.add(new GoodsNameEntity(28, "香葱"));
+//        onionAndGarlic.children.add(new GoodsNameEntity(29, "蒜苗"));
+//        onionAndGarlic.children.add(new GoodsNameEntity(30, "蒜苔"));
+//        onionAndGarlic.children.add(new GoodsNameEntity(31, "韭菜"));
+//        onionAndGarlic.children.add(new GoodsNameEntity(32, "大蒜"));
+//        onionAndGarlic.children.add(new GoodsNameEntity(33, "生姜"));
+//        goodsNameList.add(onionAndGarlic);
+//
+//        GoodsNameEntity solanaceousFruit = new GoodsNameEntity(34, "茄果类", new ArrayList<GoodsNameEntity>());
+//        solanaceousFruit.children.add(new GoodsNameEntity(35, "茄子"));
+//        solanaceousFruit.children.add(new GoodsNameEntity(36, "青椒"));
+//        solanaceousFruit.children.add(new GoodsNameEntity(37, "辣椒"));
+//        solanaceousFruit.children.add(new GoodsNameEntity(38, "西红柿"));
+//        goodsNameList.add(solanaceousFruit);
+//
+//        GoodsNameEntity beans = new GoodsNameEntity(39, "豆类", new ArrayList<GoodsNameEntity>());
+//        beans.children.add(new GoodsNameEntity(40, "扁豆"));
+//        beans.children.add(new GoodsNameEntity(41, "荚豆"));
+//        beans.children.add(new GoodsNameEntity(42, "豇豆"));
+//        beans.children.add(new GoodsNameEntity(43, "豌豆"));
+//        beans.children.add(new GoodsNameEntity(44, "四季豆"));
+//        beans.children.add(new GoodsNameEntity(45, "毛豆"));
+//        beans.children.add(new GoodsNameEntity(46, "蚕豆"));
+//        beans.children.add(new GoodsNameEntity(47, "豆芽"));
+//        beans.children.add(new GoodsNameEntity(48, "豌豆苗"));
+//        beans.children.add(new GoodsNameEntity(49, "四棱豆"));
+//        goodsNameList.add(beans);
+//
+//        GoodsNameEntity melons = new GoodsNameEntity(50, "瓜类", new ArrayList<GoodsNameEntity>());
+//        melons.children.add(new GoodsNameEntity(51, "黄瓜"));
+//        melons.children.add(new GoodsNameEntity(52, "丝瓜"));
+//        melons.children.add(new GoodsNameEntity(53, "冬瓜"));
+//        melons.children.add(new GoodsNameEntity(54, "西葫芦"));
+//        melons.children.add(new GoodsNameEntity(55, "苦瓜"));
+//        melons.children.add(new GoodsNameEntity(56, "南瓜"));
+//        melons.children.add(new GoodsNameEntity(57, "佛手瓜"));
+//        melons.children.add(new GoodsNameEntity(58, "蛇瓜"));
+//        melons.children.add(new GoodsNameEntity(59, "节瓜"));
+//        melons.children.add(new GoodsNameEntity(60, "瓠瓜"));
+//        goodsNameList.add(melons);
+//
+//        GoodsNameEntity aquaticVegetables = new GoodsNameEntity(61, "水生蔬菜", new ArrayList<GoodsNameEntity>());
+//        aquaticVegetables.children.add(new GoodsNameEntity(62, "莲藕"));
+//        aquaticVegetables.children.add(new GoodsNameEntity(63, "荸荠"));
+//        aquaticVegetables.children.add(new GoodsNameEntity(64, "水芹"));
+//        aquaticVegetables.children.add(new GoodsNameEntity(65, "茭白"));
+//        goodsNameList.add(aquaticVegetables);
+//
+//        GoodsNameEntity freshFungus = new GoodsNameEntity(66, "新鲜食用菌", new ArrayList<GoodsNameEntity>());
+//        freshFungus.children.add(new GoodsNameEntity(67, "平菇"));
+//        freshFungus.children.add(new GoodsNameEntity(68, "原菇"));
+//        freshFungus.children.add(new GoodsNameEntity(69, "金针菇"));
+//        freshFungus.children.add(new GoodsNameEntity(70, "滑菇"));
+//        freshFungus.children.add(new GoodsNameEntity(71, "蘑菇"));
+//        freshFungus.children.add(new GoodsNameEntity(72, "木耳(不含干木耳)"));
+//        goodsNameList.add(freshFungus);
+//
+//        GoodsNameEntity mixedVegetables = new GoodsNameEntity(73, "多年生和杂类蔬菜", new ArrayList<GoodsNameEntity>());
+//        mixedVegetables.children.add(new GoodsNameEntity(74, "竹笋"));
+//        mixedVegetables.children.add(new GoodsNameEntity(75, "芦笋"));
+//        mixedVegetables.children.add(new GoodsNameEntity(76, "金针菜(黄花菜)"));
+//        mixedVegetables.children.add(new GoodsNameEntity(77, "香椿"));
+//        goodsNameList.add(mixedVegetables);
+//
+//        GoodsNameEntity benevolenceFruits = new GoodsNameEntity(78, "仁果类", new ArrayList<GoodsNameEntity>());
+//        benevolenceFruits.children.add(new GoodsNameEntity(79, "苹果"));
+//        benevolenceFruits.children.add(new GoodsNameEntity(80, "梨"));
+//        benevolenceFruits.children.add(new GoodsNameEntity(81, "海棠"));
+//        benevolenceFruits.children.add(new GoodsNameEntity(82, "山楂"));
+//        goodsNameList.add(benevolenceFruits);
+//
+//        GoodsNameEntity drupe = new GoodsNameEntity(83, "核果类", new ArrayList<GoodsNameEntity>());
+//        drupe.children.add(new GoodsNameEntity(84, "桃"));
+//        drupe.children.add(new GoodsNameEntity(85, "李"));
+//        drupe.children.add(new GoodsNameEntity(86, "杏"));
+//        drupe.children.add(new GoodsNameEntity(87, "杨梅"));
+//        drupe.children.add(new GoodsNameEntity(88, "樱桃"));
+//        goodsNameList.add(drupe);
+//
+//        GoodsNameEntity berries = new GoodsNameEntity(89, "浆果类", new ArrayList<GoodsNameEntity>());
+//        berries.children.add(new GoodsNameEntity(90, "葡萄"));
+//        berries.children.add(new GoodsNameEntity(91, "提子"));
+//        berries.children.add(new GoodsNameEntity(92, "草莓"));
+//        berries.children.add(new GoodsNameEntity(93, "猕猴桃"));
+//        berries.children.add(new GoodsNameEntity(94, "石榴"));
+//        berries.children.add(new GoodsNameEntity(95, "桑葚"));
+//        goodsNameList.add(berries);
+//
+//        GoodsNameEntity citrus = new GoodsNameEntity(96, "柑橘类", new ArrayList<GoodsNameEntity>());
+//        citrus.children.add(new GoodsNameEntity(97, "橙"));
+//        citrus.children.add(new GoodsNameEntity(98, "桔"));
+//        citrus.children.add(new GoodsNameEntity(99, "柑"));
+//        citrus.children.add(new GoodsNameEntity(100, "柚"));
+//        citrus.children.add(new GoodsNameEntity(101, "柠檬"));
+//        goodsNameList.add(citrus);
+//
+//        GoodsNameEntity fruit = new GoodsNameEntity(102, "热带及亚热带水果", new ArrayList<GoodsNameEntity>());
+//        fruit.children.add(new GoodsNameEntity(103, "香蕉"));
+//        fruit.children.add(new GoodsNameEntity(104, "菠萝"));
+//        fruit.children.add(new GoodsNameEntity(105, "龙眼"));
+//        fruit.children.add(new GoodsNameEntity(106, "荔枝"));
+//        fruit.children.add(new GoodsNameEntity(107, "橄榄"));
+//        fruit.children.add(new GoodsNameEntity(108, "枇杷"));
+//        fruit.children.add(new GoodsNameEntity(109, "椰子"));
+//        fruit.children.add(new GoodsNameEntity(110, "芒果"));
+//        fruit.children.add(new GoodsNameEntity(111, "杨桃"));
+//        fruit.children.add(new GoodsNameEntity(112, "木瓜"));
+//        fruit.children.add(new GoodsNameEntity(113, "火龙果"));
+//        fruit.children.add(new GoodsNameEntity(114, "番石榴"));
+//        fruit.children.add(new GoodsNameEntity(115, "莲雾"));
+//        goodsNameList.add(fruit);
+//
+//        GoodsNameEntity assortedMelon = new GoodsNameEntity(116, "什果类", new ArrayList<GoodsNameEntity>());
+//        assortedMelon.children.add(new GoodsNameEntity(117, "枣"));
+//        assortedMelon.children.add(new GoodsNameEntity(118, "柿子"));
+//        assortedMelon.children.add(new GoodsNameEntity(119, "无花果"));
+//        goodsNameList.add(assortedMelon);
+//
+//        GoodsNameEntity melonAndFruit = new GoodsNameEntity(120, "瓜果类", new ArrayList<GoodsNameEntity>());
+//        melonAndFruit.children.add(new GoodsNameEntity(121, "西瓜"));
+//        melonAndFruit.children.add(new GoodsNameEntity(122, "甜瓜"));
+//        melonAndFruit.children.add(new GoodsNameEntity(123, "哈密瓜"));
+//        melonAndFruit.children.add(new GoodsNameEntity(124, "香瓜"));
+//        melonAndFruit.children.add(new GoodsNameEntity(125, "伊丽莎白瓜"));
+//        melonAndFruit.children.add(new GoodsNameEntity(126, "华莱士瓜"));
+//        goodsNameList.add(melonAndFruit);
+//
+//        GoodsNameEntity freshAquaticProducts = new GoodsNameEntity(127, "鲜活水产品", new ArrayList<GoodsNameEntity>());
+//        freshAquaticProducts.children.add(new GoodsNameEntity(128, "鱼类"));
+//        freshAquaticProducts.children.add(new GoodsNameEntity(129, "虾类"));
+//        freshAquaticProducts.children.add(new GoodsNameEntity(130, "贝类"));
+//        freshAquaticProducts.children.add(new GoodsNameEntity(131, "蟹类"));
+//        goodsNameList.add(freshAquaticProducts);
+//
+//        GoodsNameEntity otherAquaticProducts = new GoodsNameEntity(132, "其它水产品", new ArrayList<GoodsNameEntity>());
+//        otherAquaticProducts.children.add(new GoodsNameEntity(133, "海带"));
+//        otherAquaticProducts.children.add(new GoodsNameEntity(134, "紫菜"));
+//        otherAquaticProducts.children.add(new GoodsNameEntity(135, "海蜇"));
+//        otherAquaticProducts.children.add(new GoodsNameEntity(136, "海参"));
+//        goodsNameList.add(otherAquaticProducts);
+//
+//        GoodsNameEntity livestock = new GoodsNameEntity(137, "家畜", new ArrayList<GoodsNameEntity>());
+//        livestock.children.add(new GoodsNameEntity(138, "猪"));
+//        livestock.children.add(new GoodsNameEntity(139, "牛"));
+//        livestock.children.add(new GoodsNameEntity(140, "羊"));
+//        livestock.children.add(new GoodsNameEntity(141, "马"));
+//        livestock.children.add(new GoodsNameEntity(142, "驴(骡)"));
+//        goodsNameList.add(livestock);
+//
+//        GoodsNameEntity poultry = new GoodsNameEntity(143, "家禽", new ArrayList<GoodsNameEntity>());
+//        poultry.children.add(new GoodsNameEntity(144, "鸡"));
+//        poultry.children.add(new GoodsNameEntity(145, "鸭"));
+//        poultry.children.add(new GoodsNameEntity(146, "鹅"));
+//        poultry.children.add(new GoodsNameEntity(147, "家兔"));
+//        poultry.children.add(new GoodsNameEntity(148, "食用蛙类"));
+//        goodsNameList.add(poultry);
+//
+//        GoodsNameEntity other = new GoodsNameEntity(149, "其他", new ArrayList<GoodsNameEntity>());
+//        other.children.add(new GoodsNameEntity(150, "蜜蜂(转地放蜂)"));
+//        other.children.add(new GoodsNameEntity(151, "其他"));
+//        goodsNameList.add(other);
+//
+//        GoodsNameEntity eggs = new GoodsNameEntity(152, "新鲜的肉、蛋、奶", new ArrayList<GoodsNameEntity>());
+//        eggs.children.add(new GoodsNameEntity(153, "新鲜的鸡蛋"));
+//        eggs.children.add(new GoodsNameEntity(154, "鸭蛋"));
+//        eggs.children.add(new GoodsNameEntity(155, "鹅蛋"));
+//        eggs.children.add(new GoodsNameEntity(156, "鹌鹑蛋"));
+//        eggs.children.add(new GoodsNameEntity(157, "新鲜的家畜肉和家禽肉"));
+//        eggs.children.add(new GoodsNameEntity(158, "新鲜奶"));
+//        goodsNameList.add(eggs);
 
         reasonList = new ArrayList<KeyValuePair>();
         reasonList.add(new KeyValuePair(1, "目录以外"));

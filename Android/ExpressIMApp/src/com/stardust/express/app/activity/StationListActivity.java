@@ -14,8 +14,10 @@ import com.stardust.express.app.BaseActivity;
 import com.stardust.express.app.R;
 import com.stardust.express.app.adapter.StationListAdapter;
 import com.stardust.express.app.entity.StationEntity;
+import com.stardust.express.app.utils.SharedUtil;
 import com.stardust.express.app.utils.StringUtils;
 import com.stardust.express.app.utils.ToastUtils;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,9 +89,19 @@ public class StationListActivity extends BaseActivity {
 
     @Override
     protected void fillData() {
-        initDataSource();
-        adapter.getData().addAll(stationList);
-        adapter.notifyDataSetChanged();
+        try {
+            String json = SharedUtil.getString(this, "Station");
+            JSONArray array = new JSONArray(json);
+            stationList = new ArrayList<StationEntity>();
+            for (int i = 0; i < array.length(); i++) {
+                stationList.add(new StationEntity(array.optString(i)));
+            }
+            adapter.getData().addAll(stationList);
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+            ToastUtils.showToastAtCenter(StationListActivity.this, "收费站信息加载失败,请重新新初始化基础数据");
+        }
     }
 
     @Override
@@ -431,6 +443,15 @@ public class StationListActivity extends BaseActivity {
         stationList.add(new StationEntity("直罗"));
         stationList.add(new StationEntity("张家湾"));
         stationList.add(new StationEntity("陕西富县"));
+        stationList.add(new StationEntity("零口"));
+        stationList.add(new StationEntity("新寺"));
+        stationList.add(new StationEntity("高陵西"));
+        stationList.add(new StationEntity("永乐东"));
+        stationList.add(new StationEntity("泾阳北"));
+        stationList.add(new StationEntity("太平"));
+        stationList.add(new StationEntity("店张"));
+        stationList.add(new StationEntity("茂陵"));
+        stationList.add(new StationEntity("大王"));
 
 
     }

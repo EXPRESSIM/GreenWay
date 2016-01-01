@@ -15,6 +15,10 @@ public class Constants {
 
     public static String TOLL_COLLECTOR_URL = "/ExpressIM/toll.json";
 
+    public static String TOLL_STATION_URL = "/ExpressIM/station.json";
+
+    public static String CARGO_URL = "/ExpressIM/cargo.json";
+
     public static interface SHARED_KEY {
         String uid = "uid";
         String name = "name";

@@ -2,6 +2,8 @@ package com.stardust.express.app.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -9,11 +11,18 @@ import com.stardust.express.app.BaseActivity;
 import com.stardust.express.app.Constants;
 import com.stardust.express.app.R;
 import com.stardust.express.app.http.StringResponseListener;
+import com.stardust.express.app.request.CargoListRequest;
 import com.stardust.express.app.request.OperatorLogonRequest;
+import com.stardust.express.app.request.StationListRequest;
+import com.stardust.express.app.request.TollCollectorListRequest;
 import com.stardust.express.app.response.OperatorLogonResponse;
 import com.stardust.express.app.utils.SharedUtil;
 import com.stardust.express.app.utils.StringUtils;
 import com.stardust.express.app.utils.ToastUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.concurrent.CountDownLatch;
 
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -130,11 +139,158 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         SharedUtil.putString(LoginActivity.this, "Host", strHost);
                         SharedUtil.putString(LoginActivity.this, "DeviceNO", strDeviceNo);
                         alertDialog.dismiss();
+
+                        new Thread(new InitBasicDataRunnable()).start();
+
                     }
                 });
                 break;
             default:
                 break;
+        }
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    showProgressDialog("正在初始化基础数据");
+                    break;
+                case 2:
+                    dismissProgressDialog();
+                    ToastUtils.showToast(LoginActivity.this, "基础数据初始化成功");
+                    break;
+                case 3:
+                    dismissProgressDialog();
+                    ToastUtils.showToast(LoginActivity.this, "基础数据初始化失败,错误原因\r\n" + msg.obj.toString());
+                    break;
+                case 4:
+                    dismissProgressDialog();
+                    ToastUtils.showToast(LoginActivity.this, "基础数据初始化失败");
+                    break;
+            }
+        }
+    };
+
+
+    private class InitBasicDataRunnable implements Runnable {
+
+        private CountDownLatch latch;
+        private Throwable[] throwables;
+
+        public InitBasicDataRunnable() {
+            latch = new CountDownLatch(3);
+            throwables = new Throwable[3];
+        }
+
+        @Override
+        public void run() {
+            try {
+                handler.sendEmptyMessage(1);
+                fetchTollerData(latch);
+                fetchStationData(latch);
+                fetchCargoData(latch);
+                latch.await();
+
+                StringBuilder errorMsg = new StringBuilder();
+                for (Throwable throwable : throwables) {
+                    if (throwable != null) {
+                        errorMsg.append(throwable.getMessage());
+                    }
+                }
+                errorMsg.trimToSize();
+                if (errorMsg.length() == 0) {
+                    handler.sendEmptyMessage(2);
+                } else {
+                    handler.sendMessage(handler.obtainMessage(3, errorMsg.toString()));
+
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                handler.sendEmptyMessage(4);
+            }
+        }
+
+        private void fetchCargoData(final CountDownLatch latch) {
+            new CargoListRequest(LoginActivity.this, new StringResponseListener() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        if (jsonArray.length() == 0) {
+                            throwables[2] = new Throwable("货物信息初始化失败,请检查服务器配置信息是否正确");
+                        } else {
+                            SharedUtil.putString(LoginActivity.this, "Cargo", response);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throwables[2] = new Throwable("货物信息初始化失败,请检查服务器配置信息是否正确");
+                    } finally {
+                        latch.countDown();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    latch.countDown();
+                    throwables[2] = new Throwable("货物信息初始化失败,请检查网络");
+                }
+            }).execute();
+        }
+
+        private void fetchStationData(final CountDownLatch latch) {
+            new StationListRequest(LoginActivity.this, new StringResponseListener() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        if (jsonArray.length() == 0) {
+                            throwables[1] = new Throwable("收费站信息初始化失败,请检查服务器配置信息是否正确\r\n");
+                        } else {
+                            SharedUtil.putString(LoginActivity.this, "Station", response);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throwables[1] = new Throwable("收费站信息初始化失败,请检查服务器配置信息是否正确\r\n");
+                    } finally {
+                        latch.countDown();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    latch.countDown();
+                    throwables[1] = new Throwable("收费站信息初始化失败,请检查网络\r\n");
+                }
+            }).execute();
+        }
+
+        private void fetchTollerData(final CountDownLatch latch) {
+            new TollCollectorListRequest(LoginActivity.this, new StringResponseListener() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        if (jsonArray.length() == 0) {
+                            throwables[0] = new Throwable("收费员信息初始化失败,请检查服务器配置信息是否正确\r\n");
+                        } else {
+                            SharedUtil.putString(LoginActivity.this, "TollCollector", response);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        throwables[0] = new Throwable("收费员信息初始化失败,请检查服务器配置信息是否正确]\r\n");
+                    } finally {
+                        latch.countDown();
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    latch.countDown();
+                    throwables[0] = new Throwable("收费员信息初始化失败,请检查网络\r\n");
+                }
+            }).execute();
         }
     }
 
