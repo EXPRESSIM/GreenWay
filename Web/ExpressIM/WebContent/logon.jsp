@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="resource/images/logo.png"/> 
-<title>汉宁高速公路绿色通道稽查综合管理系统</title>
+<title>汉宁高速绿色通道信息管理系统</title>
 <link href="includes/easyui/themes/default/easyui.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/icon.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/color.css" rel="stylesheet"   type="text/css"/>
@@ -40,6 +40,7 @@
 			} else if (error.indexOf("system_experied") != -1) {
 				$("#error").html("试用期已到,请联系软件提供商来继续使用本软件");
 			}
+			$('#site-name').html(ExpressIM.stationName);
 		});
 		function getUrlParam(name) {
 	        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
@@ -62,7 +63,7 @@
                             <td style="font-size:22pt;font-weight:bold;color:#777777;">Expressway IM Administration</td>
                         </tr>
                         <tr>
-                            <td style="font-size:16px;font-weight:bold;color:#999999;">汉宁高速公路绿色通道稽查综合管理系统</td>
+                            <td style="font-size:16px;font-weight:bold;color:#999999;">汉宁高速绿色通道信息管理系统<br><span id="site-name"></span></td>
                         </tr>
                         <tr style="height:30px;">
                             <td>

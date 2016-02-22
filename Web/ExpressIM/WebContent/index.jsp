@@ -95,6 +95,7 @@
   		}
   		var menu = new ExpressIM.Menu({menuType:menuname});
         menu.render($('#menuContainer'));
+        $('#c_site_name').html(ExpressIM.stationName);
     });
   </script>
   <div style="position:absolute;left:80px;top:20px;">
@@ -111,7 +112,7 @@
                     <div class="app-statusbar-back" style="width:30px;"><div class="app-statusbar-icon"  style="position:relative;top:5px;"></div></div>
                 </td>
                  <td>
-                    <div class="app-statusbar-back" style="width:400px;"><span style="position:relative;top:4px;">汉宁高速公路绿色通道稽查综合管理系统</span></div>
+                    <div class="app-statusbar-back" style="width:400px;"><span style="position:relative;top:4px;">汉宁高速绿色通道信息管理系统 - <span id='c_site_name'></span></span></span></div>
                 </td>
             </tr>
         </table>
