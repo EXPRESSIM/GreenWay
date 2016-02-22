@@ -10,7 +10,6 @@ import com.stardust.express.dao.abstracts.IHistoryRecordGate;
 import com.stardust.express.models.DataModel;
 import com.stardust.express.models.HistoryRecord;
 import com.stardust.express.tools.ResponseObject;
-
 /**
  * Created by Sylar on 15/5/13.
  */
