@@ -5,7 +5,7 @@ ExpressIM.SummaryReportController.prototype = Class.extend({
     },
 
     _getParams: function(){
-    	var p = "?startDate=" + this._getFieldValue(this.find("startDate")) + "&endDate=" + this._getFieldValue(this.find("endDate"));
+    	var p = "?startDate=" + this._getFieldValue(this.find("startDate")) + "&endDate=" + this._getFieldValue(this.find("endDate")) + "&vCount=" + this._getFieldValue(this.find("vCount")) + "&vAmount=" + this._getFieldValue(this.find("vAmount"));
     	return p;
     },
     
@@ -37,9 +37,11 @@ ExpressIM.SummaryReportController.prototype = Class.extend({
     
     openNewTagWin: function(url) {
     	var params = "<input type='hidden' name='startDate' value='" + this._getFieldValue(this.find("startDate")) + "'/>"
-    				+ "<input type='hidden' name='endDate' value='" + this._getFieldValue(this.find("endDate")) + "'/>";
+    				+ "<input type='hidden' name='endDate' value='" + this._getFieldValue(this.find("endDate")) + "'/>"
+			    	+ "<input type='hidden' name='vCount' value='" + this._getFieldValue(this.find("vCount")) + "'/>"
+			    	+ "<input type='hidden' name='vAmount' value='" + this._getFieldValue(this.find("vAmount")) + "'/>";
     	$("#tagWinContainer").html("<form id='hiddenlink' method ='get' action='"+url+"' target='_blank'>" + params + "</form>");
-        var s=document.getElementById("hiddenlink");
+    	var s=document.getElementById("hiddenlink");
         s.submit();
     }
 }, ExpressIM.ReportController.prototype);

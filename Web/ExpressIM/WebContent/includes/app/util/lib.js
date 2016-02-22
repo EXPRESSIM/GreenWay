@@ -1734,10 +1734,10 @@ ExpressIM.UIComponent.DataGridFormater.CommentFull = function(val, row){
 ExpressIM.UIComponent.DataGridFormater.Sum = function(val, row) {
 	//if (isSumRow(row)) return "x";
 	if (row.date.indexOf("合计") != -1) return row.freeCount;
-	if (row.date.indexOf("月出口总流量") != -1) return "";//row.chargeAmount.formatMoney();
-	if (row.date.indexOf("月拆分前") != -1) return "";//row.chargeAmount.formatMoney();
-	if (row.date.indexOf("车辆免缴率") != -1) return  "";//Math.round(row.chargeAmount*100)/100 + "%";
-	if (row.date.indexOf("通行费免征率") != -1) return "";//Math.round(row.chargeAmount*100)/100 + "%";
+	if (row.date.indexOf("月出口总流量") != -1) return row.freeCount;//row.chargeAmount.formatMoney();
+	if (row.date.indexOf("月拆分前") != -1) return row.freeAmount.formatMoney();//row.chargeAmount.formatMoney();
+	if (row.date.indexOf("车辆免缴率") != -1) return  row.freeAmount + "%";//Math.round(row.chargeAmount*100)/100 + "%";
+	if (row.date.indexOf("通行费免征率") != -1) return row.freeAmount + "%";//Math.round(row.chargeAmount*100)/100 + "%";
 	return val;
 };
 

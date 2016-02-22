@@ -61,9 +61,11 @@ public class SummaryReportAction extends ActionExecutor {
 		
 		SummaryRecord srTotalCount = new SummaryRecord();
 		srTotalCount.setDate("月出口总流量(辆)");
+		srTotalCount.setFreeCount(context.getInt("vCount"));
 		srTotalCount.setChargeAmount(totalChargeCount + totalFreeCount);
 		SummaryRecord srTotaAmount = new SummaryRecord();
 		srTotaAmount.setDate("月拆分前<br/>应收总金额(元))");
+		srTotaAmount.setFreeAmount(context.getDouble("vAmount"));
 		srTotaAmount.setChargeAmount(totalChargeAmount + totalFreeAmount);
 		SummaryRecord srPercentCount = new SummaryRecord();
 		srPercentCount.setDate("车辆免缴率(%)");
@@ -77,6 +79,8 @@ public class SummaryReportAction extends ActionExecutor {
 		sum.setChargeCount((int)totalChargeCount);
 		sum.setFreeAmount(totalFreeAmount);
 		sum.setFreeCount((int)totalFreeCount);
+		srPercentCount.setFreeAmount((totalFreeCount/context.getDouble("vCount")) * 100);
+		srPercentAmount.setFreeAmount((totalFreeAmount/context.getDouble("vAmount")) * 100);
 		rows.add(sum);
 		rows.add(srTotalCount);
 		rows.add(srTotaAmount);
