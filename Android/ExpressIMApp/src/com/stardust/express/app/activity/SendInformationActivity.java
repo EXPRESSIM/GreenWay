@@ -25,6 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,6 +89,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     private HistoryRecordDao historyRecordDao;
     private SimpleDateFormat simpleDateFormat;
+    private File tempFile;
 
     private interface ImageIndex {
         int car_front = 1;
@@ -198,6 +202,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
             if (!dir.exists())
                 dir.mkdirs();
             storeFileDirPath = dir.getAbsolutePath();
+            tempFile = new File(storeFileDirPath + File.separator + "temp.jpg");
         }
 
         initGoodsNames();
@@ -558,17 +563,40 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
     private void readyToTakePicture(int index) {
         takePictureIdx = index;
-        captureFileName = storeFileDirPath + File.separator + "IMG_" + Calendar.getInstance().getTimeInMillis() + ".jpg";
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(captureFileName)));
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
         startActivityForResult(intent, TAKE_PICTURE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
+
             switch (requestCode) {
                 case TAKE_PICTURE:
+
+                    FileOutputStream outStream = null;
+                    captureFileName = storeFileDirPath + File.separator + "IMG_" + Calendar.getInstance().getTimeInMillis() + ".jpg";
+                    try {
+                        outStream = new FileOutputStream(captureFileName);
+                        byte[] bytes = BitmapUtils.compressImage(tempFile.getAbsolutePath(), 2.0 * 1000 * 1000);
+                        outStream.write(bytes);
+                        tempFile.delete();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (outStream != null) {
+                            try {
+                                outStream.flush();
+                                outStream.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
                     Bitmap captureImage = BitmapUtils.getBitmapWithNewSize(captureFileName, ScreenUtils.dp2px(this, 70),
                             ScreenUtils.dp2px(this, 70));
                     switch (takePictureIdx) {

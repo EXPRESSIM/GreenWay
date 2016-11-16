@@ -81,6 +81,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                     ).execute();
                 }
+
+                //Test code
+//                Intent intent = new Intent(LoginActivity.this, SendInformationActivity.class);
+//                startActivity(intent);
+//                finish();
+                //TEST CODE END
+
                 break;
             case R.id.logo:
                 final View dialogView = LayoutInflater.from(LoginActivity.this).inflate(R.layout.dialog_init_host, null);

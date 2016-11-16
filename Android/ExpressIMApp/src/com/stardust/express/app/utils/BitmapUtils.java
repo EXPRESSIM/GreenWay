@@ -22,17 +22,31 @@ public class BitmapUtils {
         return BitmapFactory.decodeFile(path, options);
     }
 
-    public static byte[] compressImage(String file) {
+    public static byte[] compressImage(String file, double maxSize) {
         Bitmap bitmap = BitmapFactory.decodeFile(file);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         int options = 100;
-        while (baos.toByteArray().length / 1024 > 100) {
-            options -= 10;
-            if (options <= 0) break;
+        while (baos.toByteArray().length > maxSize) {
             baos.reset();
             bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
+            options -= 10;
+            if (options <= 0) {
+                break;
+            }
+        }
+        if (!bitmap.isRecycled()) {
+            bitmap.recycle();
         }
         return baos.toByteArray();
+    }
+
+
+    public static ByteArrayOutputStream compressImage(String file) {
+        Bitmap bitmap = BitmapFactory.decodeFile(file);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int options = 20;
+        bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
+        return baos;
     }
 }
