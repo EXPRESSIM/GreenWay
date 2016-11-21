@@ -54,6 +54,7 @@
         <activity android:name=".activity.HistoryRecordActivity" android:screenOrientation="portrait"
                   android:label="历史记录"/>
         <activity android:name=".activity.ViewInformationActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ProductSelectActivity"/>
 
         <receiver android:name=".receiver.BootCompleteReceiver"
                   android:enabled="true"

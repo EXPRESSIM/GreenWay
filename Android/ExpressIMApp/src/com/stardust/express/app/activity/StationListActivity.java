@@ -40,6 +40,7 @@ public class StationListActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
         stationListView = (ListView) findViewById(R.id.station_list);
         adapter = new StationListAdapter(this);
         stationListView.setAdapter(adapter);
@@ -65,7 +66,8 @@ public class StationListActivity extends BaseActivity {
 
                 List<StationEntity> result = new ArrayList<StationEntity>();
                 for (StationEntity stationEntity : stationList) {
-                    if (stationEntity.name.contains(editable.toString())) {
+                    if (stationEntity.name.contains(editable.toString())
+                            || stationEntity.pinyin.contains(editable.toString())) {
                         result.add(stationEntity);
                     }
                 }
@@ -94,7 +96,7 @@ public class StationListActivity extends BaseActivity {
             JSONArray array = new JSONArray(json);
             stationList = new ArrayList<StationEntity>();
             for (int i = 0; i < array.length(); i++) {
-                stationList.add(new StationEntity(array.optString(i)));
+                stationList.add(new StationEntity(array.optString(i), StringUtils.getPinYin(array.optString(i))));
             }
             adapter.getData().addAll(stationList);
             adapter.notifyDataSetChanged();
@@ -106,7 +108,8 @@ public class StationListActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 0, 0, "完成");
+        MenuItem item = menu.add(0, 0, 0, "完成");
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
 

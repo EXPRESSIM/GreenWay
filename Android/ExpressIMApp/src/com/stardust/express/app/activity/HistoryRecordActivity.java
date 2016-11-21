@@ -81,7 +81,8 @@ public class HistoryRecordActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, 0, 0, "清空所有数据");
+        MenuItem item = menu.add(0, 0, 0, "清空数据");
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
     }
 

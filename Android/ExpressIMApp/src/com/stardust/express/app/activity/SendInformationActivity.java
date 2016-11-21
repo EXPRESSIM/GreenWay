@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.*;
 import com.stardust.express.app.BaseActivity;
 import com.stardust.express.app.Constants;
 import com.stardust.express.app.R;
-import com.stardust.express.app.activity.widget.DateTimePickerDialog;
 import com.stardust.express.app.db.SQLiteManager;
 import com.stardust.express.app.db.dao.HistoryRecordDao;
 import com.stardust.express.app.entity.*;
@@ -22,7 +24,6 @@ import com.stardust.express.app.response.ArchiveResponse;
 import com.stardust.express.app.response.LeaderLogonResponse;
 import com.stardust.express.app.utils.*;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,6 +32,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,15 +46,15 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private ImageView goodsImage;
 
     private EditText stationName;
-    private EditText dateTime;
+    //    private EditText dateTime;
     private Spinner provinceSpinner;
     private Spinner letterSpinner;
     private EditText carNumber;
     private Spinner carType;
     private EditText totalAmount;
     private Spinner stationChannel;
-    private Spinner goodsCategory;
-    private Spinner goodsName;
+    //    private Spinner goodsCategory;
+//    private Spinner goodsName;
     private EditText comment;
     private TextView operator;
     private TextView videoPath;
@@ -64,10 +66,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private LinearLayout adjustAmountLayout;
     private LinearLayout goodsNameLayout;
     private LinearLayout reasonLayout;
+    private TextView productName;
 
     private static final int TAKE_PICTURE = 400;
     private static final int RECORD_VIDEO = 500;
     private static final int SELECT_STATION = 600;
+    private static final int PRODUCT_SELECT = 700;
     private String storeFileDirPath;
     private String captureFileName;
     private String videoFileName;
@@ -78,8 +82,8 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private ArrayAdapter<String> provinceAdapter;
     private ArrayAdapter<String> letterAdapter;
     private ArrayAdapter<String> carTypeAdapter;
-    private ArrayAdapter<GoodsNameEntity> goodsCategoryAdapter;
-    private ArrayAdapter<GoodsNameEntity> goodsNameAdapter;
+    //    private ArrayAdapter<GoodsNameEntity> goodsCategoryAdapter;
+//    private ArrayAdapter<GoodsNameEntity> goodsNameAdapter;
     private ArrayAdapter<String> channelAdapter;
     private ArrayAdapter<String> isGreenAdapter;
     //    private ArrayAdapter<String> channelTypeAdapter;
@@ -90,6 +94,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private HistoryRecordDao historyRecordDao;
     private SimpleDateFormat simpleDateFormat;
     private File tempFile;
+    private GoodsNameEntity selectProduct;
 
     private interface ImageIndex {
         int car_front = 1;
@@ -106,19 +111,20 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     @Override
     protected void initViews() {
         historyRecordDao = new HistoryRecordDao(this);
-        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         carFrontImage = (ImageView) findViewById(R.id.car_front_image);
         carBodyImage = (ImageView) findViewById(R.id.car_body_image);
         carBackImage = (ImageView) findViewById(R.id.car_back_image);
         goodsImage = (ImageView) findViewById(R.id.goods_image);
         stationName = (EditText) findViewById(R.id.station_name);
-        dateTime = (EditText) findViewById(R.id.date_time);
+//        dateTime = (EditText) findViewById(R.id.date_time);
         carNumber = (EditText) findViewById(R.id.car_number);
         carType = (Spinner) findViewById(R.id.car_type);
         totalAmount = (EditText) findViewById(R.id.total_amount);
         stationChannel = (Spinner) findViewById(R.id.station_channel);
-        goodsCategory = (Spinner) findViewById(R.id.goods_category);
-        goodsName = (Spinner) findViewById(R.id.goods_name);
+//        goodsCategory = (Spinner) findViewById(R.id.goods_category);
+//        goodsName = (Spinner) findViewById(R.id.goods_name);
+        productName = (TextView) findViewById(R.id.product_name);
         comment = (EditText) findViewById(R.id.comment);
         operator = (TextView) findViewById(R.id.operator);
         provinceSpinner = (Spinner) findViewById(R.id.province_spinner);
@@ -139,24 +145,25 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         carBodyImage.setOnClickListener(this);
         carBackImage.setOnClickListener(this);
         goodsImage.setOnClickListener(this);
-        dateTime.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    Calendar calendar = Calendar.getInstance();
-                    final int year = calendar.get(Calendar.YEAR);
-                    final int monthOfYear = calendar.get(Calendar.MONTH) + 1;
-                    final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-                    final int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-                    final int minute = calendar.get(Calendar.MINUTE);
-                    String startDateTime = year + "年" + monthOfYear + "月" + dayOfMonth + "日 " + hourOfDay + ":" + minute;
-                    DateTimePickerDialog dateTimePicKDialog = new DateTimePickerDialog(
-                            SendInformationActivity.this, startDateTime);
-                    dateTimePicKDialog.dateTimePicKDialog(dateTime);
-                }
-                return true;
-            }
-        });
+        productName.setOnClickListener(this);
+//        dateTime.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+//                    Calendar calendar = Calendar.getInstance();
+//                    final int year = calendar.get(Calendar.YEAR);
+//                    final int monthOfYear = calendar.get(Calendar.MONTH) + 1;
+//                    final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+//                    final int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+//                    final int minute = calendar.get(Calendar.MINUTE);
+//                    String startDateTime = year + "年" + monthOfYear + "月" + dayOfMonth + "日 " + hourOfDay + ":" + minute;
+//                    DateTimePickerDialog dateTimePicKDialog = new DateTimePickerDialog(
+//                            SendInformationActivity.this, startDateTime);
+//                    dateTimePicKDialog.dateTimePicKDialog(dateTime);
+//                }
+//                return true;
+//            }
+//        });
 
         stationName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,7 +212,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
             tempFile = new File(storeFileDirPath + File.separator + "temp.jpg");
         }
 
-        initGoodsNames();
+//        initGoodsNames();
         initProvinceSpinner();
         initLetterSpinner();
         initCarTypeSpinner();
@@ -268,47 +275,47 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         provinceSpinner.setAdapter(provinceAdapter);
     }
 
-    private void initGoodsNames() {
-        try {
-            goodsNameList = new ArrayList<GoodsNameEntity>();
-            String json = SharedUtil.getString(this, "Cargo");
-            JSONArray array = new JSONArray(json);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject object = array.optJSONObject(i);
-                GoodsNameEntity entity = new GoodsNameEntity(object.optString("parent"));
-                JSONArray children = object.optJSONArray("children");
-                for (int j = 0; j < children.length(); j++) {
-                    entity.children.add(new GoodsNameEntity(children.optString(j)));
-                }
-                goodsNameList.add(entity);
-            }
-            goodsCategoryAdapter = new ArrayAdapter<GoodsNameEntity>(this, android.R.layout.simple_spinner_dropdown_item, goodsNameList);
-            goodsCategory.setAdapter(goodsCategoryAdapter);
-
-            goodsNameAdapter = new ArrayAdapter<GoodsNameEntity>(this, android.R.layout.simple_spinner_dropdown_item);
-            goodsName.setAdapter(goodsNameAdapter);
-
-            goodsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    goodsNameAdapter.clear();
-                    GoodsNameEntity category = (GoodsNameEntity) adapterView.getItemAtPosition(i);
-                    if (category.children != null && category.children.size() > 0) {
-                        goodsNameAdapter.addAll(category.children);
-                    }
-                    goodsNameAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            ToastUtils.showToastAtCenter(SendInformationActivity.this, "货物信息加载失败,请重新新初始化基础数据");
-        }
-    }
+//    private void initGoodsNames() {
+//        try {
+//            goodsNameList = new ArrayList<GoodsNameEntity>();
+//            String json = SharedUtil.getString(this, "Cargo");
+//            JSONArray array = new JSONArray(json);
+//            for (int i = 0; i < array.length(); i++) {
+//                JSONObject object = array.optJSONObject(i);
+//                GoodsNameEntity entity = new GoodsNameEntity(object.optString("parent"));
+//                JSONArray children = object.optJSONArray("children");
+//                for (int j = 0; j < children.length(); j++) {
+//                    entity.children.add(new GoodsNameEntity(children.optString(j)));
+//                }
+//                goodsNameList.add(entity);
+//            }
+//            goodsCategoryAdapter = new ArrayAdapter<GoodsNameEntity>(this, android.R.layout.simple_spinner_dropdown_item, goodsNameList);
+//            goodsCategory.setAdapter(goodsCategoryAdapter);
+//
+//            goodsNameAdapter = new ArrayAdapter<GoodsNameEntity>(this, android.R.layout.simple_spinner_dropdown_item);
+//            goodsName.setAdapter(goodsNameAdapter);
+//
+//            goodsCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                @Override
+//                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                    goodsNameAdapter.clear();
+//                    GoodsNameEntity category = (GoodsNameEntity) adapterView.getItemAtPosition(i);
+//                    if (category.children != null && category.children.size() > 0) {
+//                        goodsNameAdapter.addAll(category.children);
+//                    }
+//                    goodsNameAdapter.notifyDataSetChanged();
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            ToastUtils.showToastAtCenter(SendInformationActivity.this, "货物信息加载失败,请重新新初始化基础数据");
+//        }
+//    }
 
 
     @Override
@@ -365,6 +372,9 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.video:
                 readyToVideo();
+                break;
+            case R.id.product_name:
+                startActivityForResult(new Intent(SendInformationActivity.this, ProductSelectActivity.class), PRODUCT_SELECT);
                 break;
         }
     }
@@ -475,10 +485,11 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         entity.vehicleNumber = provinceSpinner.getSelectedItem().toString() + letterSpinner.getSelectedItem().toString() + carNumber.getText().toString();
         entity.entranceName = stationName.getText().toString();//入站名称
         entity.exitName = SharedUtil.getString(this, "StationName");//出站名称
-        entity.recordDate = dateTime.getText().toString();//记录时间
+//        entity.recordDate = dateTime.getText().toString();//记录时间
+        entity.recordDate = simpleDateFormat.format(new Date());
         entity.amount = totalAmount.getText().toString();//价格
         entity.comment = comment.getText().toString();//备注
-        entity.merchandiseType = ((GoodsNameEntity) goodsName.getSelectedItem()).name;//货物类别
+        entity.merchandiseType = productName != null ? productName.getText().toString() : "";//货物类别
         entity.vehicleType = carType.getSelectedItem().toString();//车型
         entity.channelNumber = stationChannel.getSelectedItem().toString();//车道
         entity.carBodyImage = (String) carBodyImage.getTag();//车身照片
@@ -525,10 +536,10 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
             return false;
         }
 
-        if (!StringUtils.isNotNull(dateTime.getText().toString())) {
-            ToastUtils.showToastAtCenter(this, "请输入出站时间");
-            return false;
-        }
+//        if (!StringUtils.isNotNull(dateTime.getText().toString())) {
+//            ToastUtils.showToastAtCenter(this, "请输入出站时间");
+//            return false;
+//        }
 
         if (!StringUtils.isNotNull(carNumber.getText().toString())) {
             ToastUtils.showToastAtCenter(this, "请输入车牌号码");
@@ -571,7 +582,6 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-
             switch (requestCode) {
                 case TAKE_PICTURE:
 
@@ -627,6 +637,12 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                         stationName.setText(stationEntity.name);
                     }
                     break;
+                case PRODUCT_SELECT:
+                    selectProduct = (GoodsNameEntity) data.getSerializableExtra("data");
+                    if (selectProduct != null) {
+                        productName.setText(selectProduct.name);
+                    }
+                    break;
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -650,7 +666,8 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
 
         videoPath.setText(null);
         stationName.setText(null);
-        dateTime.setText(null);
+        selectProduct = null;
+//        dateTime.setText(null);
         carNumber.setText(null);
         totalAmount.setText(null);
         adjustAmount.setText(null);
@@ -658,12 +675,13 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         goodsNameLayout.setVisibility(View.VISIBLE);
         isGreenSpinner.setSelection(0);
         carType.setSelection(0);
-        stationChannel.setSelection(0);
+//        stationChannel.setSelection(0);
         provinceSpinner.setSelection(0);
         letterSpinner.setSelection(0);
-        goodsCategory.setSelection(0);
-        goodsName.setSelection(0);
-        tollCollectorSpinner.setSelection(0);
+//        goodsCategory.setSelection(0);
+//        goodsName.setSelection(0);
+        productName.setText("请选择货物");
+//        tollCollectorSpinner.setSelection(0);
         comment.setText(null);
     }
 

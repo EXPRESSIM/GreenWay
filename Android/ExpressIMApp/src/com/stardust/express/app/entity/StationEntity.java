@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class StationEntity implements Serializable {
     public String name;
+    public String pinyin;
     public boolean checked;
 
 
@@ -14,7 +15,11 @@ public class StationEntity implements Serializable {
     }
 
     public StationEntity(String name) {
+    }
+
+    public StationEntity(String name, String pinyin) {
         this.name = name;
+        this.pinyin = pinyin;
         this.checked = false;
     }
 }
