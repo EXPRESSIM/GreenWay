@@ -391,8 +391,8 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String strUserName = userName.getText().toString();
-                String strPassword = password.getText().toString();
+                final String strUserName = userName.getText().toString();
+                final String strPassword = password.getText().toString();
                 if (!StringUtils.isNotNull(strUserName)) {
                     ToastUtils.showToastAtCenter(SendInformationActivity.this, "用户名不能为空!");
                     return;
@@ -413,6 +413,7 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
                         if (logonResponse.success) {
                             HistoryRecordEntity entity = getHistoryRecordEntity(logonResponse.data.id, false);
                             sendInformation(entity);
+                            SharedUtil.putString(SendInformationActivity.this, Constants.SHARED_KEY.leader_account, strUserName);
                         } else {
                             ToastUtils.showToastAtCenter(SendInformationActivity.this, logonResponse.message);
                         }
