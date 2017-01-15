@@ -382,6 +382,8 @@ public class SendInformationActivity extends BaseActivity implements View.OnClic
     private void leaderLogon() {
         final View dialogView = LayoutInflater.from(SendInformationActivity.this).inflate(R.layout.dialog_validate, null);
         final EditText userName = (EditText) dialogView.findViewById(R.id.username);
+        String cachedUserName = SharedUtil.getString(SendInformationActivity.this, Constants.SHARED_KEY.leader_account);
+        userName.setText(cachedUserName);
         final EditText password = (EditText) dialogView.findViewById(R.id.password);
         final AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle("提交验证")
                 .setPositiveButton("验证", null).setNegativeButton("取消", null)
