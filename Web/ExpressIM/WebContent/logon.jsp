@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="shortcut icon" href="resource/images/logo.png"/> 
-<title>汉宁高速绿色通道信息管理系统</title>
+<title>高速绿色通道信息管理系统</title>
 <link href="includes/easyui/themes/default/easyui.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/icon.css" rel="stylesheet"   type="text/css"/>
     <link href="includes/easyui/themes/color.css" rel="stylesheet"   type="text/css"/>
