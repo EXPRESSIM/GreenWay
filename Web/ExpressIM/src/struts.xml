@@ -83,6 +83,9 @@
         <action name="saveHistory" class="com.stardust.express.actions.SaveHistoryAction" method="save">
             <result name="success" type="json"></result>
         </action>
+        <action name="ChartExpress" class="com.stardust.express.actions.ChartAction" method="chartIM">
+            <result name="success" type="json"></result>
+        </action>
     </package>
 
     <package name="web-interface" extends="json-default" namespace="/web-interface">
@@ -103,5 +106,7 @@
                 <param name="root">responseData</param>
             </result>
         </action>
+
+
     </package>
 </struts>
