@@ -83,7 +83,7 @@
         <action name="saveHistory" class="com.stardust.express.actions.SaveHistoryAction" method="save">
             <result name="success" type="json"></result>
         </action>
-        <action name="ChartExpress" class="com.stardust.express.actions.ChartAction" method="chartIM">
+        <action name="ChartExpress" class="com.stardust.express.actions.ChartAction" method="chartImport">
             <result name="success" type="json"></result>
         </action>
     </package>

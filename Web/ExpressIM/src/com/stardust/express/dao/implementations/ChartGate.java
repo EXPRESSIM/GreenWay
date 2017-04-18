@@ -12,9 +12,7 @@ import java.sql.Connection;
 /**
  * Created by Administrator on 2017/4/14.
  */
-public class ChartGate extends DataGate implements IChartExpress {
-
-
+public class ChartGate  implements IChartExpress {
 
 
     public ChartGate() {
@@ -32,18 +30,18 @@ public class ChartGate extends DataGate implements IChartExpress {
 
         Session session = null;
         Transaction tst = null;
+        PreparedStatement pst = null;
 
         try{
             session = getSession();
             tst =session.beginTransaction();
-            System.out.print("hello1");
             String hql = "SELECT SUM(amount) as everMonth,YEAR ,MONTH  FROM dbo.EXPRESSWAY_GATEWAY_HISTORY WHERE REOCRD_DATE>='"+starDate+"' and REOCRD_DATE<='"+endDate+"' group by YEAR ,MONTH ";
-
             SQLQuery query = session.createSQLQuery(hql);
+
             query.executeUpdate();
             query.setResultSetMapping(hql);
             tst.commit();
-            System.out.print("hello2");
+
             System.out.print(query);
         }catch (Exception e){
             e.printStackTrace();

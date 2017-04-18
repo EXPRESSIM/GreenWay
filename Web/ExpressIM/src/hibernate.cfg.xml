@@ -15,7 +15,6 @@
     <mapping resource="com/stardust/express/models/User.hbm.xml"/>
     <mapping resource="com/stardust/express/models/Datasource.hbm.xml"/>
     <mapping resource="com/stardust/express/models/HistoryRecord.hbm.xml"/>
-    <mapping resource="com/stardust/express/models/ChartExpress.hbm.xml"/>
 
     </session-factory>  
 </hibernate-configuration>  
