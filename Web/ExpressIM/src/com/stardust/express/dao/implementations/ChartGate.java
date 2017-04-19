@@ -1,68 +1,47 @@
 package com.stardust.express.dao.implementations;
 
-import com.opensymphony.xwork2.util.KeyProperty;
-import com.stardust.express.dao.abstracts.IChartExpress;
-import com.stardust.express.models.ChartExpress;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import java.sql.Connection;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/4/14.
  */
-public class ChartGate  implements IChartExpress {
+public class ChartGate extends HistoryRecordGate {
 
+	public void chartDay(String starDate, String endDate) {
 
-    public ChartGate() {
-        super();
-        keyProperty = "";
-    }
+		Connection conn = null;
 
-    public ChartGate(String datesource) {
-        super(datesource);
-        keyProperty = "";
-    }
+		try {
+			String sql = "select DATEPART(HOUR,REOCRD_DATE) as everytime,COUNT(*) as count from EXPRESSWAY_GATEWAY_HISTORY where '"
+					+ starDate + "'<=REOCRD_DATE and  '" + endDate
+					+ "'>=REOCRD_DATE Group by DATEPART(HOUR,REOCRD_DATE)";
 
-    @Override
-    public void dateHorizon(String starDate,String endDate) {
+			PreparedStatement pst = conn.prepareStatement(sql);
 
-        Session session = null;
-        Transaction tst = null;
-        PreparedStatement pst = null;
+			for (int everytime = 0; everytime <= 23; everytime++) {
 
-        try{
-            session = getSession();
-            tst =session.beginTransaction();
-            String hql = "SELECT SUM(amount) as everMonth,YEAR ,MONTH  FROM dbo.EXPRESSWAY_GATEWAY_HISTORY WHERE REOCRD_DATE>='"+starDate+"' and REOCRD_DATE<='"+endDate+"' group by YEAR ,MONTH ";
-            SQLQuery query = session.createSQLQuery(hql);
+				int count = 0;
 
-            query.executeUpdate();
-            query.setResultSetMapping(hql);
-            tst.commit();
+				Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 
-            System.out.print(query);
-        }catch (Exception e){
-            e.printStackTrace();
-            if (tst!=null){
-                tst.rollback();
-            }
-        }finally {
-            if (session!=null){
-                session.close();
-            }
-        }
+				map.put(everytime, count);
 
-    }
+			}
+			return;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
-    @Override
-    protected Class<?> getModelClass() {
-        return ChartExpress.class;
-    }
+	}
 
-    @Override
-    protected String getModelName() {
-        return "ChartExpress";
-    }
 }
