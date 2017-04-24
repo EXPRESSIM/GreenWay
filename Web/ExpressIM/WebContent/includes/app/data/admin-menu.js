@@ -24,6 +24,13 @@
 			],
 		    isRoot: true
 		},
+        {
+            text: "分析图表",
+            items: [
+                { text: "按时间分布统计", view: "CheckChart" }
+            ],
+            isRoot: true
+        },
 		{
 		    text: "系统",
 		    items: [  

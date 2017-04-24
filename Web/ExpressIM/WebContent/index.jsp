@@ -69,6 +69,7 @@
     <script language="javascript" src="includes/easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <script language="javascript" src="includes/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
     <script language="javascript" src="includes/app/util/checkbox/icheck.js" type="text/javascript" ></script>
+    <script language="javascript" src="includes/app/util/Echarts/echarts.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/richeditor/jquery.cleditor.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/fileupload/js/vendor/jquery.ui.widget.js" type="text/javascript" ></script>
     <script language="javascript" src="includes/app/util/fileupload/js/jquery.iframe-transport.js" type="text/javascript" ></script>

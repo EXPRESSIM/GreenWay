@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+
+.gw-chart-container {
+    width: 50%;
+    height: 600px;
+    margin:0 auto;
+}
+
+.gw-chart-header {
+    width: 100%;
+    text-align: center;
+    padding: 30px 30px 30px 30px;
+    font-size: 40px;
+    font-weight: bold;
+    vertical-align: middle;
+    display:table-cell;
+}
+
+.gw-chart-header-logo {
+    width: 120px;
+    height: 141px;
+    background-image: url("../../../resource/images/login_small.png");
+    display: -moz-inline-box;
+    display: inline-block;
+    vertical-align:middle;
+}
+
