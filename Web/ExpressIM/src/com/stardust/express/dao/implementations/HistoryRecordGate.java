@@ -74,4 +74,46 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
 	    	}
 		}
 	}
+	
+	@Override
+	public List getPeriodSummaryData(Date startDate, Date endDate, PeriodSummaryType summaryType) {
+
+		String sumSatement = "";
+		String range = "";
+		Session session = null;
+
+		try {
+			session = getSession();
+			if (summaryType.equals(PeriodSummaryType.BY_DAY)) {
+				sumSatement = "COUNT(*) as amount ,DATEPART(HOUR,REOCRD_DATE) as hour ";
+				range = "DATEPART(HOUR,REOCRD_DATE)";
+			} else if (summaryType.equals(PeriodSummaryType.BY_MONTH)) {
+				sumSatement = "sum(amount) as totalPerMonth,YEAR,MONTH,DAY";
+				range = " YEAR,MONTH,DAY";
+			} else {
+				sumSatement = "sum(amount) as totalPerMonth,YEAR,MONTH";
+				range = " YEAR,MONTH";
+			}
+
+			SQLQuery query = session.createSQLQuery("select " + sumSatement
+					+ " from dbo.EXPRESSWAY_GATEWAY_HISTORY where ? <=REOCRD_DATE and ? >=REOCRD_DATE group by "
+					+ range + "");
+			query.setParameter(0, startDate);
+			query.setParameter(1, endDate);
+
+			List dateList = query.list();
+			//System.out.println("数据层执行的结果" + dateList);
+			return dateList;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return null;
+
+	}
 }
