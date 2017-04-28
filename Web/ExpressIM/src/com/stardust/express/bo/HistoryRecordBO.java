@@ -48,16 +48,18 @@ public class HistoryRecordBO extends AdminBO {
         }
     }
 
-    public void getPeriodSummaryMap(Date starDate, Date endDate, PeriodSummaryType summaryType) {
-        List summarylist = (ArrayList<Object>) ((IHistoryRecordGate) gate).getPeriodSummaryData(starDate, endDate, summaryType);
-        Map<String, Double> summarymap = new HashMap<String, Double>();
+    public void getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
 
-        StringBuffer key = new StringBuffer();
-        for (int i = 0; i <= summarylist.size(); i++) {
-            Object[] element = (Object[]) summarylist.get(i);
-            key.append(element[i]);
-            summarymap.put(key.toString(), new Double(element[0].toString()));
-            key.delete(0, key.length());
+        List<Object[]> summaryList = ((IHistoryRecordGate) gate).getPeriodSummaryData(startDate, endDate, summaryType);
+        Map<String, Object> summarymap = new HashMap<>();
+        String key = "";
+        for (Object[] obj : summaryList) {
+            String keyList = "";
+            for (int j = 1; j < obj.length; j++) {
+                keyList += obj[j];
+            }
+            key = keyList;
+            summarymap.put(key, obj[0]);
         }
     }
 }

@@ -78,23 +78,28 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
         String sumSatement = "";
         String range = "";
         Session session = null;
+
+
         try {
             session = getSession();
-            if (summaryType.equals(PeriodSummaryType.hour)) {
-                sumSatement = "COUNT(*) as amount ,DATEPART(HOUR,REOCRD_DATE) as hour ";
+            if (summaryType.equals(PeriodSummaryType.HOUR)) {
+                sumSatement = "COUNT(0) as amount ,DATEPART(HOUR,REOCRD_DATE) as hour ";
                 range = "DATEPART(HOUR,REOCRD_DATE)";
-            } else if (summaryType.equals(PeriodSummaryType.day)) {
-                sumSatement = "sum(amount) as totalPerMonth,YEAR,MONTH,DAY";
+            } else if (summaryType.equals(PeriodSummaryType.DAY)) {
+                sumSatement = "COUNT(0) as totalPerMonth,YEAR,MONTH,DAY";
                 range = " YEAR,MONTH,DAY";
             } else {
-                sumSatement = "sum(amount) as totalPerMonth,YEAR,MONTH";
+                sumSatement = "COUNT(0) as totalPerMonth,YEAR,MONTH";
                 range = " YEAR,MONTH";
             }
             SQLQuery query = session.createSQLQuery("select " + sumSatement
                     + " from dbo.EXPRESSWAY_GATEWAY_HISTORY where ? <=REOCRD_DATE and ? >=REOCRD_DATE group by "
                     + range);
-            query.setParameter(0, startDate);
-            query.setParameter(1, endDate);
+            query.setDate(0,startDate);
+            query.setDate(1,endDate);
+            //query.setParameter(0,startDate);
+            //query.setParameter(1,endDate);
+
             return query.list();
 
         } catch (Exception e) {

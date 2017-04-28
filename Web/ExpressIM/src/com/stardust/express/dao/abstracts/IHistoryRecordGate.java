@@ -7,7 +7,7 @@ public interface IHistoryRecordGate extends IDataGate {
     public void cleanUp(String endDate);
 
     public enum PeriodSummaryType {
-        hour, day, month;
+        HOUR, DAY, MONTH;
     }
 
     public List getPeriodSummaryData(Date startDate, Date endDate, PeriodSummaryType summaryType);
