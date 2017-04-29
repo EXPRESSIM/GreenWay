@@ -97,9 +97,6 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
                     + range);
             query.setDate(0,startDate);
             query.setDate(1,endDate);
-            //query.setParameter(0,startDate);
-            //query.setParameter(1,endDate);
-
             return query.list();
 
         } catch (Exception e) {

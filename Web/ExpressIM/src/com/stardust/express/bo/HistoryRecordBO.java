@@ -52,14 +52,12 @@ public class HistoryRecordBO extends AdminBO {
 
         List<Object[]> summaryList = ((IHistoryRecordGate) gate).getPeriodSummaryData(startDate, endDate, summaryType);
         Map<String, Object> summarymap = new HashMap<>();
-        String key = "";
         for (Object[] obj : summaryList) {
             String keyList = "";
             for (int j = 1; j < obj.length; j++) {
                 keyList += obj[j];
             }
-            key = keyList;
-            summarymap.put(key, obj[0]);
+            summarymap.put(keyList, obj[0]);
         }
         return summarymap;
     }
