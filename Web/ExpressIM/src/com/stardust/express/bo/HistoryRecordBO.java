@@ -48,7 +48,7 @@ public class HistoryRecordBO extends AdminBO {
         }
     }
 
-    public void getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
+    public Map<String, Object> getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
 
         List<Object[]> summaryList = ((IHistoryRecordGate) gate).getPeriodSummaryData(startDate, endDate, summaryType);
         Map<String, Object> summarymap = new HashMap<>();
@@ -61,6 +61,7 @@ public class HistoryRecordBO extends AdminBO {
             key = keyList;
             summarymap.put(key, obj[0]);
         }
+        return summarymap;
     }
 }
 
