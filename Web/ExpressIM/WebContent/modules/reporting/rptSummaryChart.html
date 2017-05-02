@@ -19,10 +19,10 @@
             <span class="gw-chart-header-title">每日过往绿通车统计图表</span>
         </div>
         <div class="gw-chart-container"></div>
-        <div>
-            <div>工作建议：</div>
-            <div>根据当前时间显示，建议在？-？增加外勤工作人员。</div>
-        </div>
+        <!--<div>-->
+            <!--<div>工作建议：</div>-->
+            <!--<div>根据当前时间显示，建议在？-？增加外勤工作人员。</div>-->
+        <!--</div>-->
     </div>
 <script>
     $(document).ready(function () {
@@ -35,8 +35,8 @@
 
         var model = new ExpressIM.ChartModel({
             columns: [
-                {"name": "month", "type": "string"},
-                {"name": "amount", "type": "number"}
+                {"name": "time", "type": "string"},
+                {"name": "count", "type": "number"}
             ]
         });
         new ExpressIM.BarChartView({

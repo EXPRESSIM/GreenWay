@@ -17,7 +17,7 @@ ExpressIM.ChartView.prototype = Class.extend({
                 text: this._options.titleText ? this._options.titleText : '绿通统计图表',
                 x: 'center',
                 textStyle: {
-                    fontSize: 18,
+                    fontSize: 25,
                     fontWeight: 'bold'
                 }
             }
@@ -48,7 +48,19 @@ ExpressIM.BarChartView.prototype = Class.extend({
             }
         });
         var series = this._options.series.map(function (name) {
-            return {"name": name, "type": "bar", "data": seriesData};
+            return {"name": name, "type": "bar", "data": seriesData,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name : '平均值'}
+                    ]
+                }
+            };
         });
         var legendData = series.map(function (item) {
             return item.name;
@@ -59,9 +71,12 @@ ExpressIM.BarChartView.prototype = Class.extend({
                 feature: {
                     mark: {show: true},
                     magicType: {show: true, type: ['line', 'bar']},
+                    dataView : {show: true, readOnly: true},
                     saveAsImage: {show: true}
                 }
             },
+            calculable : true,
+            tooltip : { },
             legend: { data: legendData, x: "left" },
             series: series,
             xAxis: [
