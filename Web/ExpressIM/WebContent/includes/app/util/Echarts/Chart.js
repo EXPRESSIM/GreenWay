@@ -42,9 +42,9 @@ ExpressIM.BarChartView.prototype = Class.extend({
         var xAxisData = [];
         var seriesData = [];
         data.forEach(function (v) {
-            if (v.month) {
-                xAxisData.push(v.month);
-                seriesData.push(v.amount);
+            for(time in v){
+                xAxisData.push(time);
+                seriesData.push(v[time]);
             }
         });
         var series = this._options.series.map(function (name) {
