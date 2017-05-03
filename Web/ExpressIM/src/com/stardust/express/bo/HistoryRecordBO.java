@@ -48,10 +48,23 @@ public class HistoryRecordBO extends AdminBO {
         }
     }
 
+    public Map<String, Object> everyDatetime() {
+        Map<String, Object> everyDatet = new HashMap<String, Object>();
+        for (int i = 0; i < 24; i++) {
+            everyDatet.put(String.valueOf(i), "0");
+        }
+        return everyDatet;
+    }
+
+
     public Map<String, Object> getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
 
         List<Object[]> summaryList = ((IHistoryRecordGate) gate).getPeriodSummaryData(startDate, endDate, summaryType);
+        if (summaryType.equals(PeriodSummaryType.DAY)) {
+            Map<String, Object> summarymap = everyDatetime();
+        }
         Map<String, Object> summarymap = new HashMap<>();
+
         for (Object[] obj : summaryList) {
             String keyList = "";
             for (int j = 1; j < obj.length; j++) {
