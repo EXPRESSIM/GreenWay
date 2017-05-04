@@ -76,23 +76,19 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
     public List getPeriodSummaryData(Date startDate, Date endDate, PeriodSummaryType summaryType) {
 
         String sumSatement = "";
-        String range = "";
         Session session = null;
         try {
             session = getSession();
             if (summaryType.equals(PeriodSummaryType.HOUR)) {
-                sumSatement = "COUNT(0) as amount ,DATEPART(HOUR,REOCRD_DATE) as hour ";
-                range = "DATEPART(HOUR,REOCRD_DATE)";
+                sumSatement = "DATEPART(HOUR,REOCRD_DATE) ";
             } else if (summaryType.equals(PeriodSummaryType.DAY)) {
-                sumSatement = "COUNT(0) grade,convert(varchar(10),REOCRD_DATE,120)";
-                range = " convert(varchar(10),REOCRD_DATE,120)";
+                sumSatement = "convert(varchar(10),REOCRD_DATE,120)";
             } else {
-                sumSatement = "COUNT(0) grade,convert(varchar(7),REOCRD_DATE,120)";
-                range = " convert(varchar(7),REOCRD_DATE,120)";
+                sumSatement = "convert(varchar(7),REOCRD_DATE,120)";
             }
-            SQLQuery query = session.createSQLQuery("select " + sumSatement
+            SQLQuery query = session.createSQLQuery("select COUNT(0) count," + sumSatement
                     + " from dbo.EXPRESSWAY_GATEWAY_HISTORY where ? <=REOCRD_DATE and ? >=REOCRD_DATE group by "
-                    + range);
+                    + sumSatement);
             query.setDate(0,startDate);
             query.setDate(1,endDate);
             return query.list();

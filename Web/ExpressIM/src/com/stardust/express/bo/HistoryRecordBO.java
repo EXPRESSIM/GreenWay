@@ -49,23 +49,20 @@ public class HistoryRecordBO extends AdminBO {
     }
 
     public Map<String, Integer> getEmptyMapForDay() {
-        Map<String, Integer> getEmptyMapForDay = new HashMap<String, Integer>();
+        Map<String, Integer> EmptyMapForDay = new HashMap<String, Integer>();
         for (int i = 0; i < 24; i++) {
-            getEmptyMapForDay.put(String.valueOf(i), 0);
+            EmptyMapForDay.put(String.valueOf(i), 0);
         }
-        return getEmptyMapForDay;
+        return EmptyMapForDay;
     }
 
     public Map<String, Integer> getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
 
         List<Object[]> summaryList = ((IHistoryRecordGate) gate).getPeriodSummaryData(startDate, endDate, summaryType);
-        Map<String, Integer> summaryMap = new HashMap<>();
-        if (summaryType.equals(PeriodSummaryType.HOUR)) {
-            summaryMap = getEmptyMapForDay();
-        }
+        Map<String, Integer> summaryMap = summaryType.equals(PeriodSummaryType.HOUR) ? getEmptyMapForDay() : new HashMap<>();
 
         for (Object[] obj : summaryList) {
-            summaryMap.put(obj[1].toString(),new Integer(obj[0].toString()));
+            summaryMap.put(obj[1].toString(), new Integer(obj[0].toString()));
         }
         return summaryMap;
     }
