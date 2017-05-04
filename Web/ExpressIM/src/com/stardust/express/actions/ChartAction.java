@@ -13,11 +13,11 @@ import static com.opensymphony.xwork2.Action.SUCCESS;
 /**
  * Created by Administrator on 2017/4/26 0026.
  */
-public class ChartAction extends ActionExecutor {
+public class ChartAction extends HistoryAction {
 
-    private Map<String, Object> summaryResponse;
+    private Map<String, Integer> summaryResponse;
 
-    public Map<String, Object> getResult() {
+    public Map<String, Integer> getResult() {
         return summaryResponse;
     }
 
