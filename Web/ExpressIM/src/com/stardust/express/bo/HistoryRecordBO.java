@@ -59,17 +59,15 @@ public class HistoryRecordBO extends AdminBO {
     public Map<String, Integer> getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
 
         List<Object[]> summaryList = ((IHistoryRecordGate) gate).getPeriodSummaryData(startDate, endDate, summaryType);
-        Map<String, Integer> summarymap = new HashMap<>();
+        Map<String, Integer> summaryMap = new HashMap<>();
         if (summaryType.equals(PeriodSummaryType.HOUR)) {
-            summarymap = getEmptyMapForDay();
-        }else{
-
+            summaryMap = getEmptyMapForDay();
         }
 
         for (Object[] obj : summaryList) {
-            summarymap.put((String)obj[1], (Integer)obj[0]);
+            summaryMap.put(obj[1].toString(),new Integer(obj[0].toString()));
         }
-        return summarymap;
+        return summaryMap;
     }
 }
 

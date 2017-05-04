@@ -87,8 +87,8 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
                 sumSatement = "COUNT(0) grade,convert(varchar(10),REOCRD_DATE,120)";
                 range = " convert(varchar(10),REOCRD_DATE,120)";
             } else {
-                sumSatement = "COUNT(0) grade,convert(varchar(10),REOCRD_DATE,120)";
-                range = " convert(varchar(10),REOCRD_DATE,120)";
+                sumSatement = "COUNT(0) grade,convert(varchar(7),REOCRD_DATE,120)";
+                range = " convert(varchar(7),REOCRD_DATE,120)";
             }
             SQLQuery query = session.createSQLQuery("select " + sumSatement
                     + " from dbo.EXPRESSWAY_GATEWAY_HISTORY where ? <=REOCRD_DATE and ? >=REOCRD_DATE group by "
