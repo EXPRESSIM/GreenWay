@@ -49,11 +49,11 @@ public class HistoryRecordBO extends AdminBO {
     }
 
     public Map<String, Integer> getEmptyMapForDay() {
-        Map<String, Integer> EmptyMapForDay = new HashMap<String, Integer>();
+        Map<String, Integer> emptyMapForDay = new HashMap<String, Integer>();
         for (int i = 0; i < 24; i++) {
-            EmptyMapForDay.put(String.valueOf(i), 0);
+            emptyMapForDay.put(String.valueOf(i), 0);
         }
-        return EmptyMapForDay;
+        return emptyMapForDay;
     }
 
     public Date getFirstDayOfMonth(Date date) {
