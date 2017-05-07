@@ -78,25 +78,23 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
         String sumSatement = "";
         String range = "";
         Session session = null;
-
-
         try {
             session = getSession();
             if (summaryType.equals(PeriodSummaryType.HOUR)) {
-                sumSatement = "COUNT(0) as amount ,DATEPART(HOUR,REOCRD_DATE) as hour ";
+                sumSatement = "DATEPART(HOUR,REOCRD_DATE)  ";
                 range = "DATEPART(HOUR,REOCRD_DATE)";
             } else if (summaryType.equals(PeriodSummaryType.DAY)) {
-                sumSatement = "COUNT(0) as totalPerMonth,YEAR,MONTH,DAY";
+                sumSatement = " YEAR + '-' + MONTH + '-' + DAY as period ";
                 range = " YEAR,MONTH,DAY";
             } else {
-                sumSatement = "COUNT(0) as totalPerMonth,YEAR,MONTH";
+                sumSatement = "YEAR + '-' + MONTH as period";
                 range = " YEAR,MONTH";
             }
-            SQLQuery query = session.createSQLQuery("select " + sumSatement
+            SQLQuery query = session.createSQLQuery("select COUNT(0) count," + sumSatement
                     + " from dbo.EXPRESSWAY_GATEWAY_HISTORY where ? <=REOCRD_DATE and ? >=REOCRD_DATE group by "
                     + range);
-            query.setDate(0,startDate);
-            query.setDate(1,endDate);
+            query.setDate(0, startDate);
+            query.setDate(1, endDate);
             return query.list();
 
         } catch (Exception e) {

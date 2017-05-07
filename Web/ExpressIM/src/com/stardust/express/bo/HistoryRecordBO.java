@@ -48,18 +48,35 @@ public class HistoryRecordBO extends AdminBO {
         }
     }
 
-    public Map<String, Object> getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
+    public Map<String, Integer> getEmptyMapForDay() {
+        Map<String, Integer> emptyMapForDay = new HashMap<String, Integer>();
+        for (int i = 0; i < 24; i++) {
+            emptyMapForDay.put(String.valueOf(i), 0);
+        }
+        return emptyMapForDay;
+    }
+
+    public Date getFirstDayOfMonth(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        return calendar.getTime();
+    }
+
+    public Map<String, Integer> getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
+
+        if(summaryType.equals(PeriodSummaryType.MONTH)){
+            startDate = getFirstDayOfMonth(startDate);
+            endDate = getFirstDayOfMonth(endDate);
+        }
 
         List<Object[]> summaryList = ((IHistoryRecordGate) gate).getPeriodSummaryData(startDate, endDate, summaryType);
-        Map<String, Object> summarymap = new HashMap<>();
+        Map<String, Integer> summaryMap = summaryType.equals(PeriodSummaryType.HOUR) ? getEmptyMapForDay() : new HashMap<>();
+
         for (Object[] obj : summaryList) {
-            String keyList = "";
-            for (int j = 1; j < obj.length; j++) {
-                keyList += obj[j];
-            }
-            summarymap.put(keyList, obj[0]);
+            summaryMap.put(obj[1].toString(), new Integer(obj[0].toString()));
         }
-        return summarymap;
+        return summaryMap;
     }
 }
 
