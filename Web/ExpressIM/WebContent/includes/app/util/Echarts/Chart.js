@@ -17,7 +17,7 @@ ExpressIM.ChartView.prototype = Class.extend({
                 text: this._options.titleText ? this._options.titleText : '绿通统计图表',
                 x: 'center',
                 textStyle: {
-                    fontSize: 18,
+                    fontSize: 25,
                     fontWeight: 'bold'
                 }
             }
@@ -29,7 +29,7 @@ ExpressIM.ChartView.prototype = Class.extend({
         this._chartComponent = echarts.init(this._container);
         this._chartComponent.setOption(settings);
     },
-    
+
     _getChartSettings: function (data) {
         return {};
     }
@@ -42,13 +42,26 @@ ExpressIM.BarChartView.prototype = Class.extend({
         var xAxisData = [];
         var seriesData = [];
         data.forEach(function (v) {
-            for(time in v){
-                xAxisData.push(time);
-                seriesData.push(v[time]);
-            }
+                if (v.time) {
+                    xAxisData.push(v.time);
+                    seriesData.push(v.count);
+                }
         });
         var series = this._options.series.map(function (name) {
-            return {"name": name, "type": "bar", "data": seriesData};
+            return {"name": name, "type": "bar", "data": seriesData,
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                markLine : {
+                    data : [
+                        {type : 'average', name: '平均值'}
+                    ]
+                }
+            };
+
         });
         var legendData = series.map(function (item) {
             return item.name;
@@ -58,10 +71,14 @@ ExpressIM.BarChartView.prototype = Class.extend({
                 show: true,
                 feature: {
                     mark: {show: true},
+                    dataView : {show: true, readOnly: true},
                     magicType: {show: true, type: ['line', 'bar']},
+                    restore : {show: true},
                     saveAsImage: {show: true}
                 }
             },
+            tooltip : { },
+            calculable : true,
             legend: { data: legendData, x: "left" },
             series: series,
             xAxis: [
@@ -73,3 +90,4 @@ ExpressIM.BarChartView.prototype = Class.extend({
         };
     }
 }, ExpressIM.ChartView.prototype);
+

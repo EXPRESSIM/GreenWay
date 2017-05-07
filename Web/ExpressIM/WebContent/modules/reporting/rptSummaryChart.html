@@ -21,7 +21,7 @@
         <div class="gw-chart-container"></div>
         <div>
             <div>工作建议：</div>
-            <div>根据当前时间显示，建议在？-？增加外勤工作人员。</div>
+            <div>建议在图表显示的峰值时段加派外勤工作人员，以保证高效工作。</div>
         </div>
     </div>
 <script>
@@ -35,8 +35,8 @@
 
         var model = new ExpressIM.ChartModel({
             columns: [
-                {"name": "month", "type": "string"},
-                {"name": "amount", "type": "number"}
+                {"name": "time", "type": "string"},
+                {"name": "count", "type": "number"}
             ]
         });
         new ExpressIM.BarChartView({

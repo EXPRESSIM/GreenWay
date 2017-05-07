@@ -8,7 +8,12 @@ ExpressIM.ChartModel.prototype = Class.extend({
                 dataType: 'json',
                 cache: false,
                 success: (function (data) {
-                    this.data = data;
+                    var obj =data.result;
+                    var arry = [];
+                    $.each(obj, function(key, val) {
+                        arry.push({"time":key,"count":val})
+                    });
+                    this.data = arry;
                     this.RecordNumber = this.data.length;
                     this.notifyObserver("post_load_data",this.data);
                 }.bind(this))
