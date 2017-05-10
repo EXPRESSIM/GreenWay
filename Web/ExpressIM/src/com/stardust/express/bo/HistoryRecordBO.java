@@ -63,34 +63,33 @@ public class HistoryRecordBO extends AdminBO {
         return calendar.getTime();
     }
 
-    public class MapKeyComparator implements Comparator<String> {
-        @Override
-        public int compare(String stringFistDate, String stringSecondDate) {
-            Long longFistDate = new Long(stringFistDate.replaceAll("[^\\d]+", ""));
-            Long longSecondDate = new Long(stringSecondDate.replaceAll("[^\\d]+", ""));
-
-            return longFistDate.compareTo(longSecondDate);
-        }
-    }
-
     public Map<String, Integer> getPeriodSummaryMap(Date startDate, Date endDate, PeriodSummaryType summaryType) {
 
         if (summaryType.equals(PeriodSummaryType.MONTH)) {
             startDate = getFirstDayOfMonth(startDate);
             endDate = getFirstDayOfMonth(endDate);
         }
-
         List<Object[]> summaryList = ((IHistoryRecordGate) gate).getPeriodSummaryData(startDate, endDate, summaryType);
         Map<String, Integer> summaryMap = summaryType.equals(PeriodSummaryType.HOUR) ? getEmptyMapForDay() : new HashMap<>();
 
         for (Object[] obj : summaryList) {
             summaryMap.put(obj[1].toString(), new Integer(obj[0].toString()));
         }
+        TreeMap treeSummaryMap = new TreeMap<String, Integer>(new Comparator<String>(){
 
-        TreeMap treeSummaryMap = new TreeMap<String, Integer>(new MapKeyComparator());
+            @Override
+            public int compare(String stringFistDate, String stringSecondDate) {
+                Long longFistDate = new Long(stringFistDate.replaceAll("[^\\d]+", ""));
+                Long longSecondDate = new Long(stringSecondDate.replaceAll("[^\\d]+", ""));
+                return longFistDate.compareTo(longSecondDate);
+            }
+        } );
+
         treeSummaryMap.putAll(summaryMap);
 
         return treeSummaryMap;
     }
 }
+
+
 
