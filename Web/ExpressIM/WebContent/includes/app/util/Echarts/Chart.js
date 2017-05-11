@@ -1,8 +1,9 @@
 ExpressIM.ChartView = Class.create();
 ExpressIM.ChartView.prototype = Class.extend({
     initialize: function (options) {
-        this._options = options
+        this._options = options;
         this._container = options.container;
+        this._titleText=options.titleText;
         this._model = options.model;
         this._model.addObserver("refresh", this, this.render);
         this._model.addObserver("post_load_data", this, this.render);
@@ -12,6 +13,7 @@ ExpressIM.ChartView.prototype = Class.extend({
     },
 
     _getDefaultCommonChartSettings: function () {
+
         return {
             title: {
                 text: this._options.titleText ? this._options.titleText : '绿通统计图表',
