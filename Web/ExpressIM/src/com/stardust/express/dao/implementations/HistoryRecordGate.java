@@ -81,14 +81,14 @@ public class HistoryRecordGate extends DataGate implements IHistoryRecordGate {
         try {
             session = getSession();
             if (summaryType.equals(PeriodSummaryType.HOUR)) {
-                sumSatement = "DATEPART(HOUR,REOCRD_DATE)  ";
+                sumSatement = "DATEPART(HOUR,REOCRD_DATE) as period ";
                 range = "DATEPART(HOUR,REOCRD_DATE)";
             } else if (summaryType.equals(PeriodSummaryType.DAY)) {
                 sumSatement = " YEAR + '-' + MONTH + '-' + DAY as period ";
-                range = " YEAR,MONTH,DAY";
+                range = " YEAR,MONTH,DAY ";
             } else {
                 sumSatement = "YEAR + '-' + MONTH as period";
-                range = " YEAR,MONTH";
+                range = " YEAR,MONTH ";
             }
             SQLQuery query = session.createSQLQuery("select COUNT(0) count," + sumSatement
                     + " from dbo.EXPRESSWAY_GATEWAY_HISTORY where ? <=REOCRD_DATE and ? >=REOCRD_DATE group by "
