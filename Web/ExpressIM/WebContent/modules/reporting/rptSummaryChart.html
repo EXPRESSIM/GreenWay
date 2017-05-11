@@ -16,7 +16,8 @@
     <div align="center">
         <div class="gw-chart-header">
             <span class="gw-chart-header-logo"></span>
-            <span class="gw-chart-header-title">每日过往绿通车统计图表</span>
+            <span id="station"></span>
+            <span class="gw-chart-header-title">绿通车辆统计分析图</span>
         </div>
         <div class="gw-chart-container"></div>
         <div>
@@ -26,6 +27,7 @@
     </div>
 <script>
     $(document).ready(function () {
+        $("#station").html(ExpressIM.stationName);
         function getUrlParam(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
             var r = window.location.search.substr(1).match(reg);
@@ -40,6 +42,7 @@
             ]
         });
         new ExpressIM.BarChartView({
+            titleText :"当前查询时间:"+getUrlParam("startDate")+"至"+getUrlParam("endDate"),
             container: $('.gw-chart-container')[0],
             model: model,
             series: ["绿通车数量"]
