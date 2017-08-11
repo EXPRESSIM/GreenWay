@@ -17,6 +17,11 @@ $(document).ready(function () {
 	$("#snapshoot4").attr('src', "../../" + getUrlParam("snapshoot4").replace("\\","/"));
 	$("#date").html(getUrlParam("date").replace("T"," "));
 	$("#leader").html(getUrlParam("leader") + ", " +getUrlParam("operator"));
+    $("#vehicleNumber").html(getUrlParam("vehicleNumber"));
+    $("#vehicleType").html(getUrlParam("vehicleType"));
+    $("#amount").html(getUrlParam("amount"));
+    $("#merchandiseType").html(getUrlParam("merchandiseType"));
+    $("#comment").html(getUrlParam("comment"));
 	if (getUrlParam("seqNo") != "") {
 		$('#seqNo').html("编号:" + getUrlParam("seqNo"));
 	}
@@ -28,37 +33,38 @@ function getUrlParam(name) {
 }
 </script>
 <div style="width:100%;font-size:12px;" align="center">
-	<div style="width:850px;height:900px;border:0px;" class="datagrid-header">
+	<div style="width:850px;height:610px;border:0px;" class="datagrid-header">
 		<div>
-			<image width="845" height="170" src="../../resource/images/approve-rpt-header.png"/>
-			<div id='seqNo' style="position:relative;right:-250px;top:-100px;"></div>
+			<image width="845" height="190" src="../../resource/images/approve-rpt-header.png"/>
 		</div>
 		<br/>
-		<div>
-		 时间: &nbsp;<span id="date"></span> &nbsp; &nbsp; &nbsp; &nbsp;查验人: &nbsp;<span id="leader"></span>
+		<div style="background:url(../../resource/images/approveBackground.jpg) no-repeat 0 0;">
+			<div>
+			<span id='seqNo'></span>&nbsp; &nbsp; &nbsp; &nbsp;时间: &nbsp;<span id="date"></span> &nbsp; &nbsp; &nbsp; &nbsp;查验人: &nbsp;<span id="leader"></span>
 		</div>
-		</table>
-		<br/>	<br/>
-		<table style="width:100%;font-weight:bold;border:0px;" cellspacing="0" cellpadding="0" class='datagrid-cell'>
+			</table>
+			<br/>	<br/>
+			<table style="width:100%;font-weight:bold;border:0px;" cellspacing="0" cellpadding="0" class='datagrid-cell'>
 			<tr>
 				<td align="center" style="border-width:0px;">
 					<div><image id="snapshoot1" width="200" height="300"/></div>
-					<div>〔车牌号〕</div>
+					车牌号:&nbsp;<span id ="vehicleNumber"></span>
 				</td>
 				<td align="center" style="border-width:0px;">
 					<div><image id="snapshoot2" width="200" height="300"/></div>
-					<div>〔车型〕</div>
+					<div>车型:&nbsp;<span id ="vehicleType"></span></div>
 				</td>
 				<td align="center" style="border-width:0px;">
 					<div><image id="snapshoot3" width="200" height="300"/></div>
-					<div>〔货物〕</div>
+					<div>货物-金额:&nbsp;<span id ="merchandiseType"></span>&nbsp;-&nbsp;<span id ="amount"></span>元</div>
 				</td>
 				<td align="center" style="border-width:0px;">
 					<div><image id="snapshoot4" width="200" height="300"/></div>
-					<div>〔车尾〕</div>
+					<div>车尾照片\吨位：<span id="comment"></span>(吨)</div>
 				</td>
 			</tr>
 		</table>
+		</div>
 	</div>
 </div>
 </body >
