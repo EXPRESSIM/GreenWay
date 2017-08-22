@@ -21,7 +21,6 @@ var ExpressIM = {
     reportserver: "reportserver",
     menuType: "menu",
     stationName: "勉县收费站",
-    //stationOwner: "张飞"
 };
 
 ExpressIM.UIComponent = {};
@@ -1647,7 +1646,6 @@ ExpressIM.UIComponent.DataGridFormater.Leader = function(val,row) {
 
 ExpressIM.UIComponent.DataGridFormater.stationOwner = function(val, row) {
     return row.stationOwner;
-    //return ExpressIM.stationOwner;
 };
 
 ExpressIM.UIComponent.DataGridFormater.DateTime = function(val, row) {
