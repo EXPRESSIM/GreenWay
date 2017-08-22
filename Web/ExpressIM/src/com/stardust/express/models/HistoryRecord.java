@@ -29,6 +29,8 @@ public class HistoryRecord  extends DataModel {
 	private String month = "";
 	private String day = "";
 	private int affectationDesc = 0;
+	private String stationOwner = "";
+	private String remarks = "";
 	public HistoryRecord(){
 		
 	}
@@ -53,6 +55,8 @@ public class HistoryRecord  extends DataModel {
 		tollCollector = ctx.getString("tollCollector");
 		channelType = ctx.getString("channelType");
 		affectationDesc = ctx.getInt("affectationDesc");
+		stationOwner = ctx.getString("stationOwner");
+		remarks = ctx.getString("remarks");
 		if (ctx.getLong("operatorId") > 0) {
 			User opt = new User();
 			opt.setId(ctx.getLong("operatorId"));
@@ -253,5 +257,21 @@ public class HistoryRecord  extends DataModel {
 	
 	public void setAffectationDesc(int desc){
 		 affectationDesc = desc;
+	}
+
+	public String getStationOwner() {
+		return stationOwner;
+	}
+
+	public void setStationOwner(String stationOwner) {
+		this.stationOwner = stationOwner;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 }

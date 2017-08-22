@@ -54,6 +54,8 @@ public class HistoryAction extends ActionExecutor {
 		String channel = context.getString("channel");
 		String channelType = context.getString("channelType");
 		String isAffectation = context.getString("isAffectation", null);
+		String stationOwner = context.getString("stationOwner");
+		String remarks = context.getString("remarks");
 
 		List<Selection> selections = new ArrayList<Selection>();
 		if (startDate != null && !startDate.isEmpty()) {
@@ -108,7 +110,26 @@ public class HistoryAction extends ActionExecutor {
 				selections.add(new Selection("isAffectation", Operator.EQUAL, isAff));
 			}	
 		}
-		
+
+		if (stationOwner != null && !stationOwner.isEmpty()){
+			boolean station = (stationOwner.equalsIgnoreCase("Y")? true : false);
+			if (selections.size()>0){
+				selections.add(new Selection("stationOwner",Operator.EQUAL,station,Operand.AND));
+			}else{
+				selections.add(new Selection("stationOwner",Operator.EQUAL,station));
+			}
+		}
+
+		/*if (remarks != null && !remarks.isEmpty()){
+			boolean station = (remarks.equalsIgnoreCase("Y")? true : false);
+			if (selections.size()>0){
+				selections.add(new Selection("remarks",Operator.EQUAL,station,Operand.AND));
+			}else{
+				selections.add(new Selection("remarks",Operator.EQUAL,station));
+			}
+		}
+*/
+
 		rows = bo.filter(selections, sortBy, pageSize, start);
 		total = bo.count(selections);
 		if (rows == null) {

@@ -21,7 +21,7 @@ var ExpressIM = {
     reportserver: "reportserver",
     menuType: "menu",
     stationName: "勉县收费站",
-    stationOwner: "周俊华"
+    //stationOwner: "张飞"
 };
 
 ExpressIM.UIComponent = {};
@@ -1645,13 +1645,15 @@ ExpressIM.UIComponent.DataGridFormater.Leader = function(val,row) {
     return row.operator.name + ", " + row.leader.name;
 } ;
 
+ExpressIM.UIComponent.DataGridFormater.stationOwner = function(val, row) {
+    return row.stationOwner;
+    //return ExpressIM.stationOwner;
+};
+
 ExpressIM.UIComponent.DataGridFormater.DateTime = function(val, row) {
 	return val.replace("T"," ");
 };
 
-ExpressIM.UIComponent.DataGridFormater.stationOwner = function(val, row) {
-	return ExpressIM.stationOwner;
-};
 
 ExpressIM.UIComponent.DataGridFormater.HistoryAmount = function(val, row) {
 	if (row.isAffectation) {
