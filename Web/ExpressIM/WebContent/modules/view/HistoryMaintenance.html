@@ -6,6 +6,13 @@
 	            <td>收费员工号:</td>
 	            <td><input class="easyui-textbox"  data-index="tollCollector" data-property="tollCollector"  data-field="tollCollector" type="text"  style="width:150px;" data-options="required:true,missingMessage:'该字段不能为空', buttonText:'',buttonIcon:'icon-search'"></input></td>
 	        </tr>
+			<tr>
+				<td>值班站长:</td>
+				<td>
+					<select class="easyui-combobox" style="height:auto;width:150px;" data-options="editable:true,required:true,valueField:'value',url:'includes/app/data/stationOwner.json'" data-index="stationOwner" data-field="supervisor" data-property="stationOwner" >
+					</select>
+				</td>
+			</tr>
 	        <tr>
 	            <td>操作人:</td>
 	            <td><input class="easyui-textbox"  data-index="operatorInfo" data-property="operatorInfo"  data-field="operatorInfo" type="text"  style="width:150px;" data-options="required:true,missingMessage:'该字段不能为空', buttonText:'',buttonIcon:'icon-search'"></input>
@@ -108,7 +115,7 @@
 	        <tr>
 	        	<td>出口站名:</td>
 	        	<td>
-	        		<input class="easyui-textbox"  data-index="exitGateway" data-property="exitGateway"  data-field="exitGateway" type="text"  style="width:150px;" data-options="disabled:false" ></input>
+	        		<input class="easyui-textbox"  data-index="exitGateway" data-property="exitGateway"  data-field="exitGateway" type="text" readonly="readonly" style="width:150px;"  data-options="disabled:false"></input>
 	        	</td>
 	        </tr>
 	        <tr>
