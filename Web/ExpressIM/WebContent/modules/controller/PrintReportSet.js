@@ -39,7 +39,7 @@ ExpressIM.PrintReportSetController.prototype = Class.extend({
 	                		   } else {
 	                			   this.find("page").combobox("setValue", Number(lastPage));
 	                		   }
-	                		   this.find("lastPrintLabel").html("(上次打印到第" + Number(lastPage) + "页)");
+	                		   this.find("lastPrintLabel").html("(上次打印到第" + Number(lastPage) + "部分，每部分包含10辆绿通车信息)");
 	                	   } else {
 	                		   this.find("page").combobox("setValue", 1);
 	                		   this.find("lastPrintLabel").html("(尚未打印过)");
@@ -54,10 +54,10 @@ ExpressIM.PrintReportSetController.prototype = Class.extend({
     	 this._btnRun.linkbutton({
              onClick: (function () {
             	 this.openNewTagWin('modules/reporting/rptReportSet.html');
-            	 $.messager.confirm('信息', '报告是否已经导出成功？是否保存本次打印记录到本机，以便于下次知道从第几页开始打印？', (function (r) {
+            	 $.messager.confirm('信息', '报告是否已经导出成功？是否保存本次打印记录到本机，以便于下次知道从第几部分开始打印？', (function (r) {
                      if (r) {
                     	 $.cookie('lastPrint_' + this._isAffectation, this._getFieldValue(this.find("page"))); 
-                    	 this.find("lastPrintLabel").html("(上次打印到第" + this._getFieldValue(this.find("page")) + ")页");
+                    	 this.find("lastPrintLabel").html("(上次打印到第" + this._getFieldValue(this.find("page")) + "部分，每部分包含10辆绿通车信息)");
                     	 var pageCount =  this.find("page").combobox("getData").length;
                     	 var lastPage = this._getFieldValue(this.find("page"));
                     	 if (Number(lastPage) < pageCount) {
